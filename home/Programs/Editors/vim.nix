@@ -18,6 +18,7 @@
       vim-nerdtree-tabs
       vim-nerdtree-syntax-highlight
       lightline-gruvbox-vim
+      vim-css-color
 		];
 
 		settings = {

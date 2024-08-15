@@ -53,32 +53,36 @@
 				};
 
 				battery = {
-					interval = "6 0";
-					align = 0;
-					rotate = 0;
-					full-at = "1 0 0";
-					design-capacity = false;
+					full-at = 80;
 					states = {
-						good = "9 5";
-						warning = "3 0";
-						critical = "1 5";
+						good = 95;
+						warning = 30;
+						critical = 15;
 					};
 					format = "{icon}  {capacity}%";
 					format-charging = " {capacity}%";
 					format-plugged = " {capacity}%";
-					format-full = "{icon} FULL";
+					format-full = "{icon}  ";
 					format-alt = "{icon}  {time}";
-					format-icons = ["" "" "" "" ""];
+					format-icons = [" " " " " " " " " "];
 					format-time = "{H}h {M}min";
 					tooltip = true;
 				};
 
+        idle_inhibitor = {
+          format = "{icon}";
+          format-icons = {
+            activated = " ";
+            deactivated = " ";
+          };
+        };
+
 				clock = {
-					interval = "6 0";
+					interval = 60;
 					align = 0;
 					rotate = 0;
 					tooltip-format = "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>";
-					format = "  {:%H:%M}";
+					format = "  {:%I:%M %p}";
 					format-alt = " {:%a %b %d, %G}";
 				};
 
@@ -88,13 +92,13 @@
 				};
 
 				memory = {
-					interval = "1 0";
+					interval = "10";
 					format = "  USED: {used:0.1f}G";
 				};
 
 				tray = {
-					icon-size = "1 6";
-					spacing = "1 0";
+					icon-size = 16;
+					spacing = 10;
 				};
 
 				network = {
@@ -104,65 +108,62 @@
 					tooltip-format = " {ifname} via {gwaddr}";
 					format-ethernet = " {ipaddr}/{cidr}";
         	format-linked = " {ifname} (No IP)";
-        	format-disconnected = "睊 Disconnected";
-        	format-disabled = "睊 Disabled";
+        	format-disconnected = "!! !!";
+        	format-disabled = " ";
 				};
 
         temperature = {
           critical-threshold = 80;
           format = "{temperatureC}°C {icon}";
-          format-icon = [  "" "" ];
+          format-icon = [  " " "" ];
         };
 
-        "custom/arrow1" = {
-          format = "";
-          tooltip = false;
+        # power-profiles-daemon was enabled as service in configuration.nix
+        power-profiles-daemon = {
+          format = "{icon}";
+          tooltip-format = "Power profile: {profile}\nDriver: {driver}";
+          format-icons = {
+            default = " ";
+            performance = " ";
+            balanced = " ";
+            power-saver = " ";
+          };
         };
 
-        "custom/arrow2" = {
-          format = "";
-          tooltip = false;
+        backlight = {
+          format = "{percent}% {icon}";
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+            ""
+            "" 
+            ""
+            ""
+          ];
         };
 
-        "custom/arrow3" = {
-          format = "";
-          tooltip = false;
-        };
-
-        "custom/arrow4" = {
-          format = "";
-          tooltip = false;
-        };
-
-        "custom/arrow5" = {
-          format = "";
-          tooltip = false;
-        };
-
-        "custom/arrow6" = {
-          format = "";
-          tooltip = false;
-        };
-
-        "custom/arrow7" = {
-          format = "";
-          tooltip = false;
-        };
-
-        "custom/arrow8" = {
-          format = "";
-          tooltip = false;
-        };
-
-        "custom/arrow9" = {
-          format = "";
-          tooltip = false;
-        };
-
-        "custom/arrow10" = {
-          format = "";
-          tooltip = false;
-        };
+        pulseaudio = 
+        {
+          format = "{volume}% {icon}  {format_source}";
+          format-bluetooth = "{volume}% {icon} {format_source}";
+          format-bluetooth-muted = " {icon} {format_source}";
+          format-muted = " {format_source}";
+          format-source = "{volume}% ";
+          format-source-muted = " ";
+          format-icons = {
+              headphone = " ";
+              hands-free = " ";
+              headset = " ";
+              phone = " ";
+              portable = " ";
+              car = " ";
+              default = ["" " " " "];
+          };
+          on-click = "pavucontrol";
+        }; 
 			};
 		};
 
@@ -196,7 +197,7 @@
 
 
 			* {
-			    font-family: "FontAwesome, Roboto, Helvetica, Arial, sans-serif, JetBrainsMono";
+			    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif, JetBrainsMono;
 			    font-size: 12px;
 			}
 			
@@ -215,18 +216,16 @@
 			
 			/** ********** Backlight ********** **/
 			#backlight {
-				background-color: #cba6f7;
+				color: #b16286;
 			}
 			
 			/** ********** Battery ********** **/
 			#battery {
-				background-color: #f9e2af;
+				color: #fabd2f;
 			}
 			
-			#battery.charging {
-			}
-			
-			#battery.plugged {
+      #battery.charging,#battery.plugged {
+        color: #b8bb26; 
 			}
 			
 			@keyframes blink {
@@ -236,8 +235,7 @@
 			}
 			
 			#battery.critical:not(.charging) {
-				background-color: #f38ba8;
-			    color: #f38ba8;
+			    color: #cc241d;
 			    animation-name: blink;
 			    animation-duration: 0.5s;
 			    animation-timing-function: linear;
@@ -249,7 +247,7 @@
       #workspaces button {
         padding: 0 5px;
         background-color: transparent;
-        color: #ffffff;
+        color: #fbf1c7;
       }
     
       #workspaces button:hover {
@@ -257,38 +255,38 @@
       }
     
       #workspaces button.focused {
-        background-color: #64727D;
+        background-color: #fe8019;
         box-shadow: inset 0 -3px #ffffff;
       }
     
       #workspaces button.urgent {
-        background-color: #eb4d4b;
+        background-color: #d65d0e;
       }
     
 			
 			/** ********** Clock ********** **/
 			#clock {
-				background-color: #a6e3a1;
+				color: #8ec07c;
 			}
 			
 			/** ********** CPU ********** **/
 			#cpu {
-				background-color: #89dceb;
+				color: #83a598;
 			}
 			
 			/** ********** Memory ********** **/
 			#memory {
-				background-color: #eba0ac;
+				color: #d3869b;
 			}
 			
 			/** ********** Disk ********** **/
 			#disk {
-				background-color: #b4befe;
+				color: #689d6a;
 			}
 			
 			/** ********** Tray ********** **/
 			#tray {
-				background-color: #cdd6f4;
+				color: #458588;
 			}
 			#tray > .passive {
 			    -gtk-icon-effect: dim;
@@ -297,7 +295,27 @@
 			    -gtk-icon-effect: highlight;
 			}
 			#tray > .active {
-			}
+      }
+
+      /************** Power-profiles-daemon ******/
+      #power-profiles-daemon.performance {
+        color: #cc241d;
+      }
+      #power-profiles-daemon.balanced {
+        color: #fabd2f;
+      }
+      #power-profiles-daemon.power-saver {
+        color: #b8bb26;
+      }
+
+      /************** Idle_inhibitor ************/
+      #idle_inhibitor {
+        color: #98971a;
+      }
+
+      #idle_inhibitor.activated {
+        color: #fb4934;
+      }
 			
 			/** ********** MPD ********** **/
 			#mpd {
@@ -321,7 +339,7 @@
 			
 			/** ********** Pulseaudio ********** **/
 			#pulseaudio {
-				background-color: #fab387;
+				color: #458588;
 			}
 			
 			#pulseaudio.bluetooth {
@@ -334,12 +352,11 @@
 			
 			/** ********** Network ********** **/
 			#network {
-				background-color: #89b4fa;
+				color: #ebdbb2;
 			}
 			
 			#network.disconnected,#network.disabled {
-				background-color: #313244;
-				color: #cdd6f4;
+				color: #d65d0e;
 			}
 			#network.linked {
 			}
@@ -348,9 +365,9 @@
 			#network.wifi {
 			}
 			
-			/** ********** Custom ********** **/
-			
 			/** Common style **/
+      #idle_inhibitor,
+      #power-profiles-daemon,
 			#backlight, 
 			#battery,
 			#clock,
@@ -371,11 +388,11 @@
         border-radius: 4px;
         margin: 6px 0px;
         padding: 2px 8px;
-        background-color: #f0932b;
+        color: #f0932b;
       }
 
       #temperature.critical {
-        background-color: #eb4d4b;
+        color: #eb4d4b;
       }
 		'';
 	};

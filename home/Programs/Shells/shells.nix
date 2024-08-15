@@ -9,6 +9,25 @@ let
   };
   extraRc = ''
     export WLR_NO_HARDWARE_CURSORS="1";
+
+    # Start the SSH agent if it's not already running
+    if [ -z "$SSH_AUTH_SOCK" ]; then
+        eval "$(ssh-agent -s)" > /dev/null
+    fi
+
+    # Add SSH key only if it's not already added
+    if ! ssh-add -l | grep -q "$(ssh-keygen -lf ~/.ssh/id_ed25519 | awk '{print $2}')"; then
+        ssh-add ~/.ssh/id_ed25519 > /dev/null
+    fi
+
+    function yy() {
+    	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    	yazi "$@" --cwd-file="$tmp"
+    	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    		builtin cd -- "$cwd"
+    	fi
+    	rm -f -- "$tmp"
+    }
   '';
 in
 {

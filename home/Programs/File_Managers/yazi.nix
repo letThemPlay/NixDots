@@ -29,21 +29,21 @@
         prepend_keymap = [
            # For mounting phone or mtp devices
           {
-            on = [ "<C-m>" ];
+            on = [ "b" "m" ];
             run = "shell --interactive \"aft-mtp-mount ~/myDevice/\"";
             desc = "Mount phone device";
           }
 
           # For unmounting phone devices
           {
-            on = [ "<C-u>" ];
+            on = [ "b" "u" ];
             run = "shell --interactive \"kitty -e sudo umount -R ~/myDevice\"";
             desc = "Unmount the phone";
           }
 
           # For going into the directory of usb media (see udiskie)
           {
-            on = [ "gm" ];
+            on = [ "g" "m" ];
             run = "cd /run/media";
             desc = "Go into mounted USB media";
           }

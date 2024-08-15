@@ -29,12 +29,12 @@
       @import "mocha.css"
       {
         font-family: "JetBrainsMono Nerd Font";
-        color: #c4d3da;
+        color: #d5c4a1;
       }
       
       window {
-        border: 3px solid #cba6f7;;
-        background: #1e1e2e;
+        border: 3px solid #b8bb26;
+        background: #3c3836;
         border-radius: 15px;
       }
       
@@ -45,13 +45,13 @@
         border: none;
         font-weight: bold;
         border: 1px solid transparent;
-        background: #1e2030;
-        color: #c4d3da;
+        background: #928374;
+        color: #fe8019;
         border-radius: 15px;
       }
       
       #input:focus {
-        border: 1px solid #90cdfa;
+        border: 1px solid #83a598;
       }
       
       #inner-box {
@@ -70,7 +70,7 @@
       
       #text {
         margin-left: 0.5em;
-        color: #c4d3da;
+        color: #fbf1c7;
       }
       
       #text:selected {
@@ -83,7 +83,7 @@
       }
       
       #entry:selected {
-        background: linear-gradient(90deg, #90cdfa 0%, #b69bf1 80%);
+        background: linear-gradient(90deg, #fabd2f 0%, #d3869b 80%);
       }
     '';
   };

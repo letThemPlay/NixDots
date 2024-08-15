@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -12,18 +12,17 @@
 
   # Use the systemd-boot EFI boot loader.
   boot = {
-	kernelParams = [ "i915.force_probe=a7a0" ];
-	loader = {
-		grub = {
-			enable = true;
-			efiSupport = true;
-			device = "nodev";
-		};
-			
-		efi = {
-			canTouchEfiVariables = true;
-		};
-	};
+    kernelParams = [ "i915.force_probe=a7a0" ];
+    loader = {
+      grub = {
+        enable = true;
+        efiSupport = true;
+        device = "nodev";
+      };
+      efi = {
+        canTouchEfiVariables = true;
+      };
+    };
   };
 
   networking.hostName = "mynixos"; # Define your hostname.
@@ -34,28 +33,8 @@
   # Set your time zone.
    time.timeZone = "Asia/Kolkata";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-
-  
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
-
 
   # Enable sound.
   services = {
@@ -79,6 +58,17 @@
 
     # Enable touchpad services 
 	  libinput.enable = true;
+
+    # Enable gvfs for virtual filesystem
+    gvfs.enable = true;
+
+    # Enable tumbler for thumbnailer service
+    tumbler.enable = true;
+
+    # Enable power-profiles-daemon for waybar
+    power-profiles-daemon = {
+      enable = true;
+    };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -86,8 +76,9 @@
      isNormalUser = true;
      extraGroups = [ "wheel" "input" "video" "networkmanager" ]; # Enable ‘sudo’ for the user.
      packages = with pkgs; [
-       #firefox
-       tree
+      #firefox
+      git
+      tree
      ];
      shell = pkgs.zsh;
    };
@@ -147,6 +138,7 @@
 	  graphics = {
       enable = true;
       extraPackages = with pkgs; [
+        intel-compute-runtime
         intel-media-driver
         intel-vaapi-driver
         libvdpau-va-gl
@@ -173,6 +165,15 @@
   programs = {
 	  dconf.enable = true;
 	  zsh.enable = true;
+
+    # Thunar file manager
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-volman
+        thunar-archive-plugin
+      ];
+    };
   };
 
   # Security and hyprlock
@@ -220,6 +221,7 @@
   environment.sessionVariables = {
 	  WLR_NO_HARDWARE_CURSORS="1";
 	  NIXOS_OZONE_WL="1";
+    MOZ_ENABLE_WAYLAND = "1";
   };
 
 
@@ -230,5 +232,14 @@
     wantedBy = [ "default.target" ];
     serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
   };
-}
 
+
+  # System autoupgarde settings
+  system = {
+    autoUpgrade = {
+      enable = true;
+      allowReboot = true;
+      channel = "https://channels.nixos.org/nixos-unstable";
+    };
+  };
+}

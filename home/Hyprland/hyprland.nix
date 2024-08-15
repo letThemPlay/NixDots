@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   home = {
@@ -31,8 +31,7 @@
         "hyprpaper"
 
         # Start clipboard
-        "wl-paste --type text --watch cliphist store" # Stores only text data
-        "wl-paste --type image --watch cliphist store" # Stores only image data
+        "wl-paste --watch cliphist store" # Stores only text data
 
         # for Gnome Polkit Agent
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &"
@@ -57,7 +56,7 @@
         border_size = 2;
         no_border_on_floating = true;
         layout = "dwindle";
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+        "col.active_border" = "rgba(b8bb26ee) rgba(98971aee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
         allow_tearing = false;
       };
@@ -100,7 +99,7 @@
           "gtk-layer-shell"
           "waybar"
           "lockscreen"
-          "wofi --show drun"
+          "wofi -S drun"
         ];
       };
 
@@ -306,6 +305,9 @@
       enable = true;
       font = "JetBrainsMono 10";
 
+      # Enable icons
+      icons = true;
+
       # Timeout settings
       defaultTimeout = 120;
 
@@ -348,9 +350,9 @@
 
         background = [
           {
-            path = "~/Pictures/Wallpapers/wallpaper5.jpg";
-            #blur_passes = 1;
-            #blur_size = 3;
+            path = "screenshot";
+            blur_passes = 1;
+            blur_size = 3;
             noise = 0.0117;
             contrast = 0.8916;
             brightness = 0.8172;
