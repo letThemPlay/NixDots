@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports =
@@ -68,6 +68,27 @@
     # Enable power-profiles-daemon for waybar
     power-profiles-daemon = {
       enable = true;
+    };
+
+    # Enable sddm login manager 
+    displayManager.sddm = {
+      enable = true;
+      wayland = {
+        enable = true;
+      };
+
+      # Theme settings 
+      sugarCandyNix = {
+        enable = true;
+        settings = {
+          Background = lib.cleanSource ../home/Wallpapers/houses.png;
+          ScreenWidth = 1920;
+          ScreenHeight = 1080;
+          FormPosition = "left";
+          HaveFormBackground = true;
+          PartialBlur = true;
+        };
+      };
     };
   };
 

@@ -17,8 +17,8 @@
   };
 
   home.file = {
-    "ssh/id_ed25519".source = ./ssh/id_ed25519;
-    "ssh/id_ed25519.pub".source = ./ssh/id_ed25519.pub;
+    ".ssh/id_ed25519".source = ./ssh/id_ed25519;
+    ".ssh/id_ed25519.pub".source = ./ssh/id_ed25519.pub;
   };
 
   services = {

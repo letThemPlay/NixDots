@@ -4,9 +4,12 @@
   home = {
     packages = with pkgs; [
       brightnessctl
-      polkit_gnome
-      xdg-desktop-portal-hyprland
-      hyprcursor
+
+      # The whole hyprland ecosystem
+      polkit_gnome # You know it
+      xdg-desktop-portal-hyprland # for screen sharing
+      hyprcursor # for amazing mouse cursors
+      hyprpicker # for color picking
 
       # For clipboard management
       wl-clipboard # Clip hist uses this
@@ -132,6 +135,20 @@
       # Windowrules
       windowrulev2 = "suppressevent maximize, class:.*";
 
+      # Before configuring this see the switch name using "hyprctl devices"
+      # Lid closing and opening 
+      bindl = [
+        " , switch:[Lid], exec, hyprlock"
+        " , switch:on:[Lid], exec, hyprctl keyword monitor"
+        " , switch:off:[Lid], exec, hyprctl keyword monitor"
+      ];
+
+      # Mouse bindings to move windows around
+      bindm = [
+        "$mod, mouse:272, movewindow"
+        "$mod, mouse:273, resizewindow"
+      ];
+
       # Keybindings
       bind = [
 
@@ -236,7 +253,15 @@
       };
     };
 
+
+    # Submaps need to be written in a specific way, that's why they go to the extraConfig section
+    # Before assigning any keybind here, check the above written ones first
+    extraConfig = ''
+      ${builtins.readFile(./hypr/submaps.conf)}
+    '';
+
     systemd = {
+      enable = true;
       variables = ["--all"];
     };
   };
@@ -258,11 +283,11 @@
         splash_offset = 2.0;
 
         preload = [
-          "/home/chris/Pictures/Wallpapers/houses.png"
+          "/home/chris/Pictures/Wallpapers/gruvbox_astro.jpg"
         ];
 
         wallpaper = [
-          "eDP-1, /home/chris/Pictures/Wallpapers/houses.png"
+          "eDP-1, /home/chris/Pictures/Wallpapers/gruvbox_astro.jpg"
         ];
       };
     };
@@ -273,20 +298,32 @@
       package = pkgs.hypridle;
       settings = {
         general = {
+          lock_cmd = "pidof hyprlock || hyprlock";
+          before_sleep_cmd = "loginctl lock-session";
           after_sleep_cmd = "hyprctl dispatch dpms on";
-          ignore_dbus_inhibit = false;
-          lock_cmd = "hyprlock";
         };
 
         listener = [
           {
-            timeout = 900;
-            on-timeout = "hyprlock";
+            timeout = 150;
+            on-timeout = "brightnessctl -s set 10";
+            on-resume = "brightnessctl -r";
           }
+
           {
-            timeout = 1200;
-            on-timeout = "hyprctl dispatch dpms off";
-            on-resume = "hyprctl dispatch dpms on";
+            timeout = 150;
+            on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
+            on-resume = "brightnessctl -rd rgb:kbd_backlight";
+          }
+
+          {
+            timeout = 300;
+            on-timeout = "loginctl lock-session";
+          }
+
+          {
+            timeout = 1800;
+            on-timeout = "systemctl suspend";
           }
         ];
       };

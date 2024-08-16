@@ -15,7 +15,7 @@
 				fixed-center = true;
 				ipc = true;
 
-				modules-left = [ "hyprland/workspaces" ];
+				modules-left = [ "hyprland/workspaces" "hyprland/submap" ];
 				moudules-center = [ "hyprland/window" "tray" ];
         modules-right = [ 
           "idle_inhibitor" 
@@ -37,15 +37,15 @@
 					format = "{icon}";
 					on-click = "activate";
 					format-icons = {
-						"1" = "";
-						"2" = "";
-						"3" = "";
+						"1" = " ";
+						"2" = " ";
+						"3" = " ";
 						"4" = "";
-						"5" = "ﭮ";
+						"5" = "5";
             "6" = "";
             "7" = "";
-            "8" = "";
-            "9" = "";
+            "8" = " ";
+            "9" = " ";
             "10" = "﮼";
 						focused = "";
 						default = "";
@@ -133,20 +133,19 @@
         backlight = {
           format = "{percent}% {icon}";
           format-icons = [
-            ""
-            ""
-            ""
-            ""
-            ""
-            ""
-            "" 
-            ""
-            ""
+            " "
+            " "
+            " "
+            " "
+            " "
+            " "
+            " " 
+            " "
+            " "
           ];
         };
 
-        pulseaudio = 
-        {
+        pulseaudio = {
           format = "{volume}% {icon}  {format_source}";
           format-bluetooth = "{volume}% {icon} {format_source}";
           format-bluetooth-muted = " {icon} {format_source}";
@@ -163,9 +162,14 @@
               default = ["" " " " "];
           };
           on-click = "pavucontrol";
-        }; 
-			};
-		};
+        };
+        
+        "hyprland/submap" = {
+          format = "{}";
+          tooltip = true;
+        };
+      };
+    };
 
     style = ''
       /*@keyframes blink-warning {
@@ -251,7 +255,7 @@
       }
     
       #workspaces button:hover {
-        background: rgba(0, 0, 0, 0.2);
+        color: #DBBC7F;
       }
     
       #workspaces button.focused {
@@ -367,6 +371,7 @@
 			
 			/** Common style **/
       #idle_inhibitor,
+      #submap,
       #power-profiles-daemon,
 			#backlight, 
 			#battery,
@@ -393,6 +398,10 @@
 
       #temperature.critical {
         color: #eb4d4b;
+      }
+
+      #submap {
+        color: #A7C080;
       }
 		'';
 	};
