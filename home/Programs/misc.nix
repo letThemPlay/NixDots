@@ -53,6 +53,12 @@
         recolor-keephue = true;
       };
     };
+
+    # Enable imv for image viewing
+    imv = {
+      enable = true;
+      package = pkgs.imv;
+    };
     
     # Enable btop for system monitor
     btop = {

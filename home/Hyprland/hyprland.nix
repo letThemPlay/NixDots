@@ -1,24 +1,6 @@
 { pkgs, ... }:
 
 {
-  home = {
-    packages = with pkgs; [
-      brightnessctl
-
-      # The whole hyprland ecosystem
-      polkit_gnome # You know it
-      xdg-desktop-portal-hyprland # for screen sharing
-      hyprcursor # for amazing mouse cursors
-      hyprpicker # for color picking
-
-      # For clipboard management
-      wl-clipboard # Clip hist uses this
-    ];
-    sessionVariables = {
-      WLR_NO_HARDWARE_CURSORS = "1";
-      EDITOR = "vim";
-    };
-  };
   wayland.windowManager.hyprland = {
     enable = true;
     # Settings 
@@ -31,7 +13,8 @@
         "waybar &"
 
         # Wallpaper daemon executes
-        "hyprpaper"
+        "swww-daemon"
+        "~/.config/hypr/scripts/swww-random ~/Pictures/Wallpapers"
 
         # Start clipboard
         "wl-paste --watch cliphist store" # Stores only text data
@@ -207,13 +190,13 @@
         "$mod, tab, changegroupactive"
 
         # Multimedia
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1" # for raising volume
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1" # for lowering volume
-        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" # for muting
+        ", XF86AudioRaiseVolume, exec, ~/.config/hypr/scripts/volume --inc" # for raising volume
+        ", XF86AudioLowerVolume, exec, ~/.config/hypr/scripts/volume --dec" # for lowering volume
+        ", XF86AudioMute, exec, ~/.config/hypr/scripts/volume --toggle" # for muting
 
         # For brightness level
-        ",XF86MonBrightnessDown, exec, brightnessctl s 2%-" # Lower the brightness
-        ",XF86MonBrightnessUp, exec, brightnessctl s +2%" # increase the brightness
+        ",XF86MonBrightnessDown, exec, ~/.config/hypr/scripts/backlight --dec" # Lower the brightness
+        ",XF86MonBrightnessUp, exec, ~/.config/hypr/scripts/backlight --inc" # increase the brightness
 
         # Media player hot-keys
         ",XF86AudioPlay, exec, playerctl play-pause"
@@ -278,8 +261,8 @@
       ];
 
       settings = {
-        ipc = "on";
-        splash = true;
+        ipc = "off";
+        splash = false;
         splash_offset = 2.0;
 
         preload = [
@@ -346,16 +329,19 @@
       icons = true;
 
       # Timeout settings
-      defaultTimeout = 120;
+      defaultTimeout = 500;
+
+      # Udiskie has very low timeout so set this
+      ignoreTimeout = true;
 
       # Configuring the look
-      backgroundColor = "#1e1e2e";
-      textColor = "#cdd6f4";
-      borderColor = "#89b4fa";
-      progressColor = "over #313244";
+      backgroundColor = "#d79921";
+      textColor = "#1d2021";
+      borderColor = "#ebdbb2";
+      progressColor = "over #ebdbb2";
       extraConfig = ''
         [urgency=high]
-        border-color=#fab387
+        border-color=#cc241d
       '';
     };
 
@@ -419,10 +405,54 @@
 
   # Hyprland mouse pointer
   home = {
-    file."Pictures/Wallpapers" = {
-      recursive = true;
-      source = ./../Wallpapers;
+    # Define packages to install here
+    packages = with pkgs; [
+      brightnessctl
+      libnotify
+
+      # The whole hyprland ecosystem
+      polkit_gnome # You know it
+      xdg-desktop-portal-hyprland # for screen sharing
+      hyprcursor # for amazing mouse cursors
+      hyprpicker # for color picking
+
+      # For clipboard management
+      wl-clipboard # Clip hist uses this
+
+      # Wallpaper daemon
+      swww
+
+      # For controlling volume in the scripts
+      pamixer
+    ];
+
+    # Declare session variables for Hyprland here
+    sessionVariables = {
+      WLR_NO_HARDWARE_CURSORS = "1";
+      EDITOR = "vim";
     };
+
+    # sourcce all the files here
+    file = {
+      "Pictures/Wallpapers" = {
+        recursive = true;
+        source = ./../Wallpapers;
+      };
+
+      # All the scripts in the hypr directory
+      ".config/hypr/scripts" = {
+        recursive = true;
+        source = ./hypr/scripts;
+      };
+
+      # Icon directory of mako
+      ".config/mako/icons" = {
+        recursive = true;
+        source = ./mako/icons;
+      };
+    };
+
+    # cursor settings
     pointerCursor = {
       gtk.enable = true;
       # x11.enable = true;
@@ -431,7 +461,6 @@
       size = 16;
     };
   };
-
 
   # GTK theming for apps
   gtk = {
