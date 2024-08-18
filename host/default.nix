@@ -10,7 +10,7 @@
       ./hardware-configuration.nix
 
       # Include other modules
-      ../modules
+      #../modules
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -146,10 +146,12 @@
       dates = [ "03:45" ];
     };
 
-    # Enable experimental features
-  	settings = {
-		  experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
+# Enable experimental features
+    settings = {
+	    experimental-features = [ "nix-command" "flakes" ];
+	    auto-optimise-store = true;
+	cores = 8;
+	max-jobs = 2;
     };
 
     # Enable space optimisation by setting automatic deletion of older generations
@@ -253,11 +255,22 @@
 
 
   # systemd services
-  systemd.user.services.mpris-proxy = {
-    description = "Mpris proxy";
-    after = [ "network.target" "sound.target" ];
-    wantedBy = [ "default.target" ];
-    serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
+  systemd = {
+    user.services.mpris-proxy = {
+      description = "Mpris proxy";
+      after = [ "network.target" "sound.target" ];
+      wantedBy = [ "default.target" ];
+      serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
+    };
+
+    services.nixos-upgrade.serviceConfig = {
+      MemoryHigh = [ "500M" ];
+      MemoryMax = [ "2048M" ];
+
+      CPUWeight = [ "20" ];
+      CPUQuota = [ "85%" ];
+      IOWeight = [ "20" ];
+    };
   };
 
 
@@ -267,6 +280,11 @@
       enable = true;
       allowReboot = true;
       channel = "https://channels.nixos.org/nixos-unstable";
+      flags = [
+        "--upgrade"
+        "--option fallback false"
+        "--update-input nixos-hardware --update-input home-manager --update-input nixpkgs"
+      ];
     };
   };
 }

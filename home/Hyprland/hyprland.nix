@@ -13,8 +13,7 @@
         "waybar &"
 
         # Wallpaper daemon executes
-        "swww-daemon"
-        "~/.config/hypr/scripts/swww-random ~/Pictures/Wallpapers"
+        "hyprpaper &"
 
         # Start clipboard
         "wl-paste --watch cliphist store" # Stores only text data
@@ -38,7 +37,7 @@
       # Decoration time
       general = {
         gaps_in = 5;
-        gaps_out = 4;
+        gaps_out = 20;
         border_size = 2;
         no_border_on_floating = true;
         layout = "dwindle";
@@ -419,9 +418,6 @@
       # For clipboard management
       wl-clipboard # Clip hist uses this
 
-      # Wallpaper daemon
-      swww
-
       # For controlling volume in the scripts
       pamixer
     ];
@@ -429,7 +425,7 @@
     # Declare session variables for Hyprland here
     sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = "1";
-      EDITOR = "vim";
+      EDITOR = "nvim";
     };
 
     # sourcce all the files here
