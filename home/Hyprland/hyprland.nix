@@ -13,7 +13,8 @@
         "waybar &"
 
         # Wallpaper daemon executes
-        "hyprpaper &"
+        "swww-daemon"
+	      "swww-random ~/Pictures/Wallpapers"
 
         # Start clipboard
         "wl-paste --watch cliphist store" # Stores only text data
@@ -189,13 +190,13 @@
         "$mod, tab, changegroupactive"
 
         # Multimedia
-        ", XF86AudioRaiseVolume, exec, ~/.config/hypr/scripts/volume --inc" # for raising volume
-        ", XF86AudioLowerVolume, exec, ~/.config/hypr/scripts/volume --dec" # for lowering volume
-        ", XF86AudioMute, exec, ~/.config/hypr/scripts/volume --toggle" # for muting
+        ", XF86AudioRaiseVolume, exec, volume --inc" # for raising volume
+        ", XF86AudioLowerVolume, exec, volume --dec" # for lowering volume
+        ", XF86AudioMute, exec, volume --toggle" # for muting
 
         # For brightness level
-        ",XF86MonBrightnessDown, exec, ~/.config/hypr/scripts/backlight --dec" # Lower the brightness
-        ",XF86MonBrightnessUp, exec, ~/.config/hypr/scripts/backlight --inc" # increase the brightness
+        ",XF86MonBrightnessDown, exec, backlight --dec" # Lower the brightness
+        ",XF86MonBrightnessUp, exec, backlight --inc" # increase the brightness
 
         # Media player hot-keys
         ",XF86AudioPlay, exec, playerctl play-pause"
@@ -226,7 +227,7 @@
       );
 
       env = [
-        "HYPRCURSOR_THEME,Bibata-Modern-Classic"
+        "HYPRCURSOR_THEME,Gruvbox"
         "HYPRCURSOR_SIZE,24"
       ];
 
@@ -251,28 +252,28 @@
   services = {
 
     # for wallpaper
-    hyprpaper = {
-    	enable = true;
-    	package = pkgs.hyprpaper;
+    #hyprpaper = {
+    #	enable = true;
+    #	package = pkgs.hyprpaper;
 
-      importantPrefixes = [
-        "$"
-      ];
+    #  importantPrefixes = [
+    #    "$"
+    #  ];
 
-      settings = {
-        ipc = "off";
-        splash = false;
-        splash_offset = 2.0;
+    #  settings = {
+    #    ipc = "off";
+    #    splash = false;
+    #    splash_offset = 2.0;
 
-        preload = [
-          "/home/chris/Pictures/Wallpapers/gruvbox_astro.jpg"
-        ];
+    #    preload = [
+    #      "/home/chris/Pictures/Wallpapers/gruvbox_astro.jpg"
+    #    ];
 
-        wallpaper = [
-          "eDP-1, /home/chris/Pictures/Wallpapers/gruvbox_astro.jpg"
-        ];
-      };
-    };
+    #    wallpaper = [
+    #      "eDP-1, /home/chris/Pictures/Wallpapers/gruvbox_astro.jpg"
+    #    ];
+    #  };
+    #};
 
     # Idle daemon
     hypridle = {
@@ -309,45 +310,6 @@
           }
         ];
       };
-    };
-
-
-    # setting up the wlsunset service
-    wlsunset = {
-      enable = true;
-      sunrise = "06:00";
-      sunset = "18:00";
-    };
-
-    # for notification
-    mako = {
-      enable = true;
-      font = "JetBrainsMono 10";
-
-      # Enable icons
-      icons = true;
-
-      # Timeout settings
-      defaultTimeout = 500;
-
-      # Udiskie has very low timeout so set this
-      ignoreTimeout = true;
-
-      # Configuring the look
-      backgroundColor = "#d79921";
-      textColor = "#1d2021";
-      borderColor = "#ebdbb2";
-      progressColor = "over #ebdbb2";
-      extraConfig = ''
-        [urgency=high]
-        border-color=#cc241d
-      '';
-    };
-
-    # Clipboard service
-    cliphist = {
-      enable = true;
-      allowImages = true;
     };
   };
 
@@ -420,6 +382,14 @@
 
       # For controlling volume in the scripts
       pamixer
+
+      # For wallpaper
+      swww
+      
+      # Scripts for all the things
+      (import ./hypr/scripts/swww-random.nix { inherit pkgs; })
+      (import ./hypr/scripts/volume.nix { inherit pkgs; })
+      (import ./hypr/scripts/backlight.nix { inherit pkgs; })
     ];
 
     # Declare session variables for Hyprland here
@@ -435,12 +405,6 @@
         source = ./../Wallpapers;
       };
 
-      # All the scripts in the hypr directory
-      ".config/hypr/scripts" = {
-        recursive = true;
-        source = ./hypr/scripts;
-      };
-
       # Icon directory of mako
       ".config/mako/icons" = {
         recursive = true;
@@ -452,8 +416,8 @@
     pointerCursor = {
       gtk.enable = true;
       # x11.enable = true;
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Classic";
+      package = pkgs.capitaine-cursors-themed;
+      name = "Capitaine Cursors (Gruvbox)";
       size = 16;
     };
   };
@@ -463,8 +427,8 @@
     enable = true;
 
     theme = {
-      package = pkgs.flat-remix-gtk;
-      name = "Flat-Remix-GTK-Grey-Darkest";
+      package = pkgs.gruvbox-gtk-theme;
+      name = "Gruvbox-Dark";
     };
 
     iconTheme = {
@@ -476,5 +440,11 @@
       name = "Sans";
       size = 11;
     };
+  };
+
+  # Enable qt theming and match it with gtk
+  qt = {
+    enable = true;
+    platformTheme.name = "gtk";
   };
 }

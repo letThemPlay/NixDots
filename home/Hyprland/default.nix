@@ -3,5 +3,6 @@
 		./hyprland.nix
 		./waybar.nix
 		./wofi.nix
+    ./miscServices.nix
 	];
 }

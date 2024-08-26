@@ -62,20 +62,20 @@
   };
 
   # Enable some programs for working with yazi
-  programs = {
-    fd.enable = true;
-    jq.enable = true;
-    ripgrep.enable = true;
-    fzf.enable = true;
-    zoxide.enable = true;
-  };
+  #programs = {
+  #  fd.enable = true;
+  #  jq.enable = true;
+  #  ripgrep.enable = true;
+  #  fzf.enable = true;
+  #  zoxide.enable = true;
+  #};
   
   home.packages = with pkgs;[ 
     android-file-transfer
 
-    ffmpegthumbnailer
-    unrar
-    poppler
+   # ffmpegthumbnailer
+   # unrar
+   # poppler
   ];
 
   # Enable udiskie and other services here to mount the usb pendrive

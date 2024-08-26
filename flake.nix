@@ -18,6 +18,12 @@
       url = "gitlab:Zhaith-Izaliel/sddm-sugar-candy-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Neovim toggleterm plugin by akinsho
+    plugin-terminal = {
+      url = "github:akinsho/toggleterm.nvim";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -45,7 +51,7 @@
 							home-manager = {
 								useGlobalPkgs = true;
 								useUserPackages = true;
-								extraSpecialArgs = inputs;
+								extraSpecialArgs = {inherit inputs;};
 								users."chris" = import ./home;
 							};
 						}

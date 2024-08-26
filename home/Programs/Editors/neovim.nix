@@ -1,11 +1,32 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
+let
+  own-terminal-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "toggleterm";
+    src = inputs.plugin-terminal;
+  };
+in 
 {
+
+  # For building the toggleterm plugin
+  # nixpkgs = {
+  #   overlays = [
+  #     (final: prev: {
+  #       vimPlugins = prev.vimPlugins // {
+  #         own-terminal-nvim = pkgs.vimUtils.buildVimPlugin {
+  #           name = "toggleterm";
+  #           src = inputs.plugin-terminal;
+  #         };
+  #       };
+  #     })
+  #   ];
+  # };
 
   programs.neovim = {
     enable = true;
 
     viAlias = true;
     vimAlias = true;
+
 
     extraPackages = with pkgs; [
       lua-language-server
@@ -93,6 +114,12 @@
         config = builtins.readFile(./nvim/plugin/lspkind.lua);
       }
       vim-nix
+      
+      {
+        plugin = own-terminal-nvim;
+        type = "lua";
+        config = "require(\"toggleterm\").setup()";
+      }
     ];
   };
 }
