@@ -6,3 +6,4 @@ After installing the system
 - There is an error in Thunar: "cannot find archive manager" when opening an Archive file.
 - Need to do a thorough reading of all the Nix
 - Need to set up a notification for low battery power
+- Can install nix-colors which will help to rice nix from just one configuration file
