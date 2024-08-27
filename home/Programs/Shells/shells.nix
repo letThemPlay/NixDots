@@ -3,7 +3,7 @@ let
   myShellAliases = {
     ll = "ls -l";
     ".." = "cd ..";
-    "svim" = "sudo vim";
+    svi = "sudo vim";
     syscon = "cd /etc/nixos/";
     update = "sudo nixos-rebuild switch";
   };
@@ -50,6 +50,12 @@ in
       oh-my-zsh = {
         enable = true;
         theme = "random";
+        plugins = [
+          "git"
+          "emotty"
+          "emoji"
+          "sudo"
+        ];
       };
 
       shellAliases = myShellAliases;

@@ -172,7 +172,7 @@
     };
 
     style = ''
-      /*@keyframes blink-warning {
+      @keyframes blink-warning {
           70% {
               color: @light;
           }
@@ -192,7 +192,7 @@
               color: @light;
               background-color: @critical;
           }
-      }*/
+      }
 
 
 
@@ -207,8 +207,7 @@
 			
 			/** ********** Waybar Window ********** **/
 			window#waybar {
-			    background-color: transparent;
-				  color: #1e1e2e;
+			    background-color: #1e1e2e;
 			    border-bottom: 2px solid #313244;
 			    transition-property: background-color;
 			    transition-duration: .5s;

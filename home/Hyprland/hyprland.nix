@@ -12,6 +12,9 @@
       exec-once = [
         "waybar &"
 
+        # OSD Server
+        "swayosd-server"
+
         # Wallpaper daemon executes
         "swww-daemon"
 	      "swww-random ~/Pictures/Wallpapers"
@@ -42,7 +45,7 @@
         border_size = 2;
         no_border_on_floating = true;
         layout = "dwindle";
-        "col.active_border" = "rgba(b8bb26ee) rgba(98971aee) 45deg";
+        "col.active_border" = "rgba(458588ee) rgba(98971aee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
         allow_tearing = false;
       };
@@ -190,13 +193,19 @@
         "$mod, tab, changegroupactive"
 
         # Multimedia
-        ", XF86AudioRaiseVolume, exec, volume --inc" # for raising volume
-        ", XF86AudioLowerVolume, exec, volume --dec" # for lowering volume
-        ", XF86AudioMute, exec, volume --toggle" # for muting
+        # ", XF86AudioRaiseVolume, exec, volume --inc" # for raising volume
+        # ", XF86AudioLowerVolume, exec, volume --dec" # for lowering volume
+        # ", XF86AudioMute, exec, volume --toggle" # for muting
+        ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume +10 --max-volume 100" # for raising volume
+        ", XF86AudioLowerVolume, exec, swayosd-client --output-volume -10 --max-volume 100" # for raising volume
+        ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle" # for raising volume
+        
 
         # For brightness level
-        ",XF86MonBrightnessDown, exec, backlight --dec" # Lower the brightness
-        ",XF86MonBrightnessUp, exec, backlight --inc" # increase the brightness
+        # ",XF86MonBrightnessDown, exec, backlight --dec" # Lower the brightness
+        # ",XF86MonBrightnessUp, exec, backlight --inc" # increase the brightness
+        ",XF86MonBrightnessDown, exec, swayosd-client --brightness -5" # Lower the brightness
+        ",XF86MonBrightnessUp, exec, swayosd-client --brightness +5" # Lower the brightness
 
         # Media player hot-keys
         ",XF86AudioPlay, exec, playerctl play-pause"
@@ -380,16 +389,9 @@
       # For clipboard management
       wl-clipboard # Clip hist uses this
 
-      # For controlling volume in the scripts
-      pamixer
-
       # For wallpaper
       swww
-      
-      # Scripts for all the things
       (import ./hypr/scripts/swww-random.nix { inherit pkgs; })
-      (import ./hypr/scripts/volume.nix { inherit pkgs; })
-      (import ./hypr/scripts/backlight.nix { inherit pkgs; })
     ];
 
     # Declare session variables for Hyprland here

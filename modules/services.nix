@@ -1,6 +1,6 @@
 {lib, ... }:
 {
-  # Enable sound.
+  # Enable sound and other services
   services = {
     # Enable GUI for bluetooth pairing
     blueman.enable = true;
@@ -54,5 +54,10 @@
         };
       };
     };
+
+    # Set journal size to 2g 
+    journald.extraConfig = ''
+      SystemMaxUse=2G
+    '';
   };
 }

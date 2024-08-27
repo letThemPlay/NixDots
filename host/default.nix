@@ -15,7 +15,10 @@
 
   # Use the systemd-boot EFI boot loader.
   boot = {
-    kernelParams = [ "i915.force_probe=a7a0" ];
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = [ 
+      "i915.force_probe=a7a0" 
+    ];
     loader = {
       grub = {
         enable = true;
@@ -37,7 +40,9 @@
   time.timeZone = "Asia/Kolkata";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

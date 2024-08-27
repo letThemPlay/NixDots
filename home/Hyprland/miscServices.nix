@@ -38,5 +38,11 @@
       enable = true;
       allowImages = true;
     };
+
+    # Swayosd for cool popups
+    swayosd = {
+      enable = true;
+      display = "eDP-1";
+    };
   };
 }

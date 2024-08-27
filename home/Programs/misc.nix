@@ -90,11 +90,6 @@
 
   # Service based programs
   services = {
-    # Activity watch for screen timer 
-    activitywatch = {
-      enable = true;
-    };
-
     # KDE Connect for mobile connection
     kdeconnect = {
       enable = true;

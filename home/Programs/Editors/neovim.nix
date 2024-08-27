@@ -1,4 +1,6 @@
 { pkgs, inputs, ... }:
+
+# see flake.nix in main directory
 let
   own-terminal-nvim = pkgs.vimUtils.buildVimPlugin {
     name = "toggleterm";
@@ -6,20 +8,6 @@ let
   };
 in 
 {
-
-  # For building the toggleterm plugin
-  # nixpkgs = {
-  #   overlays = [
-  #     (final: prev: {
-  #       vimPlugins = prev.vimPlugins // {
-  #         own-terminal-nvim = pkgs.vimUtils.buildVimPlugin {
-  #           name = "toggleterm";
-  #           src = inputs.plugin-terminal;
-  #         };
-  #       };
-  #     })
-  #   ];
-  # };
 
   programs.neovim = {
     enable = true;
@@ -114,6 +102,12 @@ in
         config = builtins.readFile(./nvim/plugin/lspkind.lua);
       }
       vim-nix
+
+      {
+        plugin = plenary-nvim;
+        type = "lua";
+        config = "local async = require \"plenary.async\"";
+      }
       
       {
         plugin = own-terminal-nvim;
