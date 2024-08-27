@@ -59,5 +59,10 @@
     journald.extraConfig = ''
       SystemMaxUse=2G
     '';
+
+    # start udev 
+    udev = {
+      enable = true;
+    };
   };
 }

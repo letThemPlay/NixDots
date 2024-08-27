@@ -1,3 +1,5 @@
+{pkgs, ... }:
+
 {
   # Services for wayland compositors in case I decide to move over to swayWM
   services = {
@@ -17,7 +19,7 @@
       icons = true;
 
       # Timeout settings
-      defaultTimeout = 500;
+      defaultTimeout = 1300;
 
       # Udiskie has very low timeout so set this
       ignoreTimeout = true;
@@ -42,6 +44,7 @@
     # Swayosd for cool popups
     swayosd = {
       enable = true;
+      package = pkgs.swayosd;
       display = "eDP-1";
     };
   };
