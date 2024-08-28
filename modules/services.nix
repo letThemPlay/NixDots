@@ -2,9 +2,6 @@
 {
   # Enable sound and other services
   services = {
-    # Enable GUI for bluetooth pairing
-    blueman.enable = true;
-
     # Enable CUPS to print documents
     printing.enable = true;
     

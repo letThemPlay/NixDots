@@ -15,7 +15,7 @@
 				fixed-center = true;
 				ipc = true;
 
-				modules-left = [ "hyprland/workspaces" "hyprland/submap" ];
+				modules-left = [ "custom/notification" "hyprland/workspaces" "hyprland/submap" ];
 				moudules-center = [ "hyprland/window" "tray" ];
         modules-right = [ 
           "idle_inhibitor" 
@@ -168,6 +168,27 @@
           format = "{}";
           tooltip = true;
         };
+
+        "custom/notification" = {
+          tooltip = false;
+          format = "{} {icon}";
+          format-icons = {
+            notification = " <span foreground='red'><sup></sup></span>";
+            none = " ";
+            dnd-notification = " <span foreground='red'><sup></sup></span>";
+            dnd-none = " ";
+            inhibited-notification = " <span foreground='red'><sup></sup></span>";
+            inhibited-none = " ";
+            dnd-inhibited-notification = " <span foreground='red'><sup></sup></span>";
+            dnd-inhibited-none = " ";
+          };
+          return-type = "json";
+          exec-if = "which swaync-client";
+          exec = "swaync-client -swb";
+          on-click = "swaync-client -t -sw";
+          on-click-right = "swaync-client -d -sw";
+          escape = true;
+        };
       };
     };
 
@@ -207,7 +228,7 @@
 			
 			/** ********** Waybar Window ********** **/
 			window#waybar {
-			    background-color: #1e1e2e;
+			    background-color: #262929;
 			    border-bottom: 2px solid #313244;
 			    transition-property: background-color;
 			    transition-duration: .5s;
@@ -369,6 +390,7 @@
 			}
 			
 			/** Common style **/
+      #custom-notification,
       #idle_inhibitor,
       #submap,
       #power-profiles-daemon,

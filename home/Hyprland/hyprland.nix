@@ -10,7 +10,10 @@
       "$term" = "kitty";
       "$menu" = "wofi --show drun";
       exec-once = [
-        "waybar &"
+        # Enable the swaync notification panel
+        "swaync"
+
+        "waybar"
 
         # OSD Server
         "swayosd-server"
@@ -217,6 +220,9 @@
 
         # For opening the clipboard
         "$mod, C, exec, cliphist list | wofi -S dmenu | cliphist decode | wl-copy"
+        
+        # Open the swaync panel
+        "$mod SHIFT, N, exec, swaync-client -t -sw" 
       ]
       ++ (
           # workspaces
@@ -392,6 +398,13 @@
       # For wallpaper
       swww
       (import ./hypr/scripts/swww-random.nix { inherit pkgs; })
+
+      # For Bluetooth gui and tui
+      bluetuith # TUI
+      overskride # GUI
+
+      # For wifi gui
+      iwgtk
     ];
 
     # Declare session variables for Hyprland here

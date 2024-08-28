@@ -19,7 +19,7 @@
       icons = true;
 
       # Timeout settings
-      defaultTimeout = 1300;
+      defaultTimeout = 2500;
 
       # Udiskie has very low timeout so set this
       ignoreTimeout = true;
@@ -46,6 +46,11 @@
       enable = true;
       package = pkgs.swayosd;
       display = "eDP-1";
+    };
+
+    # Enable the swaynotificationcenter
+    swaync = {
+      enable = true;
     };
   };
 }
