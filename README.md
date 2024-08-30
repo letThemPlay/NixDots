@@ -9,3 +9,4 @@ After installing the system
 - Can install nix-colors which will help to rice nix from just one configuration file
 - Mako notifications are very short-termed, and gives error with Blueman (so switched to Overskride) because there's no option for confirming the pairing codes.
 - Also installed bluetuith for terminal bluetooth control.
+- Swaync configuration has not worked for the wifi button
