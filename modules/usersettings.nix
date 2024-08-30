@@ -9,6 +9,7 @@
       "input"
       "video"
       "networkmanager"
+      "adbusers" # To use the andorid debugging tools
     ];
     shell = pkgs.zsh;
   };

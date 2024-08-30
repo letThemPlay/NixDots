@@ -77,6 +77,10 @@
     packages = with pkgs;[
       qbittorrent
       libreoffice-fresh
+
+      # For screensharing with android
+      scrcpy # But adb must be enabled in configuration.nix. See mynixos.com
+
     ];
 
     # Source some files here

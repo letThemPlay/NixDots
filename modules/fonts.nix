@@ -10,6 +10,7 @@
 		  # Normal Fonts
 		  noto-fonts
 		  noto-fonts-emoji
+      noto-fonts-cjk
 		
 		  # Awesome-fonts
 	    font-awesome	
