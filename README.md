@@ -10,3 +10,4 @@ After installing the system
 - Mako notifications are very short-termed, and gives error with Blueman (so switched to Overskride) because there's no option for confirming the pairing codes.
 - Also installed bluetuith for terminal bluetooth control.
 - Swaync configuration has not worked for the wifi button
+- Enable wlogout
