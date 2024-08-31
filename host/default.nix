@@ -15,6 +15,7 @@
 
   # Use the systemd-boot EFI boot loader.
   boot = {
+    plymouth.enable = true;
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ 
       "i915.force_probe=a7a0" 

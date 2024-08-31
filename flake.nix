@@ -7,6 +7,12 @@
 		# Hyprland setup
 		hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
+    # Install the hyprland-contrib for screenshot utils
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
 		# Home-manager setup
 		home-manager = {
 			url = "github:nix-community/home-manager";

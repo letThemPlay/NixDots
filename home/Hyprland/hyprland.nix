@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   wayland.windowManager.hyprland = {
@@ -402,9 +402,9 @@
       # For Bluetooth gui and tui
       bluetuith # TUI
       overskride # GUI
-
-      # For wifi gui
-      iwgtk
+      
+      # For screenshot utils i.e. grimblast
+      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     ];
 
     # Declare session variables for Hyprland here
@@ -447,8 +447,8 @@
     };
 
     iconTheme = {
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
+      package = pkgs.gruvbox-plus-icons;
+      name = "Gruvbox-Plus-Dark";
     };
 
     font = {

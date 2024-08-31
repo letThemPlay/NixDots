@@ -81,6 +81,9 @@
       # For screensharing with android
       scrcpy # But adb must be enabled in configuration.nix. See mynixos.com
 
+      # For development purpose
+      gcc14
+
     ];
 
     # Source some files here
