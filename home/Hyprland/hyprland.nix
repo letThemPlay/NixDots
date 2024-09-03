@@ -3,6 +3,15 @@
 {
   wayland.windowManager.hyprland = {
     enable = true;
+
+    # Define the package from the inputs
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+
+    # Here are some plugins!!
+    #plugins = with pkgs.hyprlandPlugins; [
+    #  hy3
+    #];
+
     # Settings 
     settings = {
       monitor = ",highrr, auto, 1";
@@ -29,7 +38,7 @@
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &"
 
         # For Screen Sharing 
-        "${pkgs.xdg-desktop-portal-hyprland}/libexec/xdg-desktop-portal-hyprland &"
+        "${inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland}/libexec/xdg-desktop-portal-hyprland &"
       ];
 
       # Input settings
@@ -395,7 +404,7 @@
 
       # The whole hyprland ecosystem
       polkit_gnome # You know it
-      xdg-desktop-portal-hyprland # for screen sharing
+      #xdg-desktop-portal-hyprland # for screen sharing
       hyprcursor # for amazing mouse cursors
       hyprpicker # for color picking
 
@@ -409,9 +418,9 @@
       # For Bluetooth gui and tui
       bluetuith # TUI
       overskride # GUI
-      
-      # For screenshot utils i.e. grimblast
-      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+
+      # For screenshot utility
+      grimblast
     ];
 
     # Declare session variables for Hyprland here

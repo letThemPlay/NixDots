@@ -7,11 +7,11 @@
 		# Hyprland setup
 		hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
-    # Install the hyprland-contrib for screenshot utils
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # Hy3 plugin for sway like tiling in hyprland
+    #hy3 = {
+    #  url = "github:outfoxxed/hy3";
+    #  inputs.hyprland.follows = "hyprland";
+    #};
 
 		# Home-manager setup
 		home-manager = {
@@ -25,6 +25,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nix colors for a good and easy rice
+    # nix-colors.url = "github:misterio77/nix-colors";
+
     # Neovim toggleterm plugin by akinsho
     plugin-terminal = {
       url = "github:akinsho/toggleterm.nvim";
@@ -36,7 +39,6 @@
     self,
     nixpkgs,
     home-manager,
-    hyprland,
     sddm-sugar-candy-nix,
     ...}@inputs: {
       nixosConfigurations = {
@@ -46,11 +48,6 @@
 
 					modules = [
             ./host
-
-            hyprland.nixosModules.default
-					  {
-					  	programs.hyprland.enable = true;
-					  }
 
 						home-manager.nixosModules.home-manager
 						{
