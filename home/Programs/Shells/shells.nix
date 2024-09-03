@@ -6,6 +6,7 @@ let
     svi = "sudo vim";
     syscon = "cd /etc/nixos/";
     update = "sudo nixos-rebuild switch";
+    backit = "cp -r /etc/nixos/* /home/chris/.dotfiles/NixDots/";
   };
   extraRc = ''
     export WLR_NO_HARDWARE_CURSORS="1";

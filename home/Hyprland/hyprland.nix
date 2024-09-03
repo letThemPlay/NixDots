@@ -41,6 +41,12 @@
         };
       };
 
+      # Enable three-finger workspace swipe gestures
+      gestures = {
+        workspace_swipe = true;
+        workspace_swipe_fingers = 3;
+      };
+
       # Decoration time
       general = {
         gaps_in = 5;
@@ -187,6 +193,7 @@
         "$mod, V, togglefloating"
         # Toggle fullscreen
         "$mod, F, fullscreen, 0"
+        "$mod SHIFT, F, fullscreen, 1" # This will maximize a window
 
         # Toggle split
         "$mod, S, togglesplit"
@@ -452,7 +459,7 @@
     };
 
     font = {
-      name = "Sans";
+      name = "JetBrainsMono Nerd Font";
       size = 11;
     };
   };
