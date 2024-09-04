@@ -8,10 +8,10 @@
 		hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     # Hy3 plugin for sway like tiling in hyprland
-    #hy3 = {
-    #  url = "github:outfoxxed/hy3";
-    #  inputs.hyprland.follows = "hyprland";
-    #};
+    # hy3 = {
+    #   url = "github:outfoxxed/hy3";
+    #   inputs.hyprland.follows = "hyprland";
+    # };
 
 		# Home-manager setup
 		home-manager = {

@@ -8,9 +8,10 @@
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
 
     # Here are some plugins!!
-    #plugins = with pkgs.hyprlandPlugins; [
-    #  hy3
-    #];
+    plugins = [
+      #hy3
+      inputs.hy3.packages.${pkgs.system}.hy3
+    ];
 
     # Settings 
     settings = {
