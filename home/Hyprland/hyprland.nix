@@ -1,5 +1,44 @@
 { pkgs, inputs, ... }:
 
+let
+  swwwScript = pkgs.pkgs.writeShellScriptBin "swww-random" ''
+    #!/bin/bash
+    
+    # This script will randomly go through the files of a directory, setting it
+    # up as the wallpaper at regular intervals
+    #
+    # NOTE: this script uses bash (not POSIX shell) for the RANDOM variable
+    
+    if [[ $# -lt 1 ]] || [[ ! -d $1   ]]; then
+    	echo "Usage:
+    	$0 <dir containing images>"
+    	exit 1
+    fi
+    
+    # Edit below to control the images transition
+    export SWWW_TRANSITION_FPS=144
+    export SWWW_TRANSITION_STEP=2
+    export SWWW_TRANSITION_TYPE=random
+    
+    # This controls (in seconds) when to switch to the next image
+    INTERVAL=300
+    
+    while true; do
+    find "$1" \
+    | while read -r img; do
+    echo "$((RANDOM % 1000)):$img"
+    done \
+    | sort -n | cut -d':' -f2- \
+    | while read -r img; do
+    if [[ "$img" != "$1" ]]; then
+    ${pkgs.swww}/bin/swww img "$img"
+    sleep $INTERVAL
+    fi 
+    done
+    done
+    '';
+in 
+
 {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -10,7 +49,6 @@
     # Here are some plugins!!
     plugins = [
       #hy3
-      inputs.hy3.packages.${pkgs.system}.hy3
     ];
 
     # Settings 
@@ -29,8 +67,9 @@
         "swayosd-server"
 
         # Wallpaper daemon executes
-        "swww-daemon"
-	      "swww-random ~/Pictures/Wallpapers"
+        #"swww-daemon"
+        #"swww-random ~/Pictures/Wallpapers"
+        "${swwwScript}/bin/swww-random ${./../Wallpapers}"
 
         # Start clipboard
         "wl-paste --watch cliphist store" # Stores only text data
@@ -380,15 +419,33 @@
         input-field = [
           {
             size = "200, 50";
-            position = "0, -80";
-            monitor = "";
-            dots_center = true;
-            fade_on_empty = false;
-            font_color = "rgb( 202, 211, 245)";
-            inner_color = "rgb(91, 96, 120)";
-            outer_color = "rgb(24, 25, 38)";
-            outline_thickness = 5;
-            shadow_passes = 2;
+            outline_thickness = 3;
+            dots_size = 0.33;
+            dots_center = false;
+            dots_spacing = 0.15;
+            dots_rounding = -1;
+            font_color = "rgb( 10, 10, 10)";
+            outer_color = "rgb(15, 15, 15)";
+            inner_color = "rgb(200, 200, 200)";
+            fade_on_empty = true;
+            fade_timeout = 1000; # Milliseconds before fade_on_empty is triggered
+            placeholder_text = "<i>Input Password...</i>";
+            hide_input = false;
+            rounding = -1;
+            check_color = "rgb(204, 136, 34)";
+            fail_color = "rgb(204, 34, 34)";
+            fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
+            fail_timeout = 2000;
+            fail_transition = 300;
+            capslock_color = -1;
+            numlock_color = -1;
+            bothlock_color = -1;
+            invert_numlock = false;
+            swap_font_color = false;
+
+            position = "0, -20";
+            halign = "center";
+            valign = "center";
           }
         ];
       };
@@ -413,8 +470,8 @@
       wl-clipboard # Clip hist uses this
 
       # For wallpaper
-      swww
-      (import ./hypr/scripts/swww-random.nix { inherit pkgs; })
+      #swww
+      #(import ./hypr/scripts/swww-random.nix { inherit pkgs; })
 
       # For Bluetooth gui and tui
       bluetuith # TUI
@@ -422,6 +479,10 @@
 
       # For screenshot utility
       grimblast
+
+      # For Pipewire volume control
+      # See services in /etc/nixos/modules
+      pwvucontrol
     ];
 
     # Declare session variables for Hyprland here
