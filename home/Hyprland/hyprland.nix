@@ -67,7 +67,7 @@ in
         "swayosd-server"
 
         # Wallpaper daemon executes
-        #"swww-daemon"
+        "${pkgs.swww}/bin/swww-daemon"
         #"swww-random ~/Pictures/Wallpapers"
         "${swwwScript}/bin/swww-random ${./../Wallpapers}"
 
@@ -128,8 +128,8 @@ in
         # Blur effects
         blur = {
           enabled = true;
-          size = 3;
-          passes = 1;
+          size = 2;
+          passes = 3;
           new_optimizations = true;
           ignore_opacity = true;
           vibrancy = 0.1696;
@@ -469,10 +469,6 @@ in
       # For clipboard management
       wl-clipboard # Clip hist uses this
 
-      # For wallpaper
-      #swww
-      #(import ./hypr/scripts/swww-random.nix { inherit pkgs; })
-
       # For Bluetooth gui and tui
       bluetuith # TUI
       overskride # GUI
@@ -493,11 +489,6 @@ in
 
     # sourcce all the files here
     file = {
-      "Pictures/Wallpapers" = {
-        recursive = true;
-        source = ./../Wallpapers;
-      };
-
       # Icon directory of mako
       ".config/mako/icons" = {
         recursive = true;
@@ -525,8 +516,8 @@ in
     };
 
     iconTheme = {
-      package = pkgs.gruvbox-plus-icons;
-      name = "Gruvbox-Plus-Dark";
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus-Dark";
     };
 
     font = {

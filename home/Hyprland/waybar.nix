@@ -29,6 +29,7 @@
           "memory" 
           "battery" 
           "clock" 
+          "custom/power"
         ];
 
 				"hyprland/workspaces" = {
@@ -153,6 +154,12 @@
         "hyprland/submap" = {
           format = "{}";
           tooltip = true;
+        };
+
+        "custom/power" = { # See wlogout.nix
+          tooltip = false;
+          format = " ";
+          on-click = "wlogout";
         };
 
         "custom/notification" = {

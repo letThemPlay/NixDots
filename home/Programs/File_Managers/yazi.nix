@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   programs.yazi = {
@@ -21,9 +21,25 @@
             for = "unix";
           }
         ];
+
+        zathura-open = [
+          {
+            run = "zathura \"$@\"";
+            orphan = true;
+          }
+        ];
+      };
+
+      open = {
+        prepend_rules = [
+          {
+            name = "*.pdf";
+            use = "zathura-open";
+          }
+        ];
       };
     };
-    
+
     keymap = {
       manager = {
         prepend_keymap = [
