@@ -13,12 +13,14 @@ in
       enableZshIntegration = true;
 		};
 
+    # Uncomment background_opacity and background_blur to
+    # Enable blur and transparency.
     extraConfig = '' 
       confirm_os_window_close 0
-      background_opacity 0.8
-      background_blur 3
+      #background_opacity 0.8
+      #background_blur 3
     '';
 
-		theme = "Gruvbox Dark Hard";
+		theme = "Gruvbox Material Dark Hard";
 	};
 }

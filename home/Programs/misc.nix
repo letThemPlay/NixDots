@@ -66,7 +66,7 @@
       package = pkgs.btop;
 
       settings = {
-        color_theme = "gruvbox_dark_v2";
+        color_theme = "gruvbox_material_dark";
         theme_background = false;
       };
     };

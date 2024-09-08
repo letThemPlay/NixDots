@@ -221,10 +221,10 @@
 			
 			/** ********** Waybar Window ********** **/
 			window#waybar {
-			    background-color: #262929;
-			    border-bottom: 2px solid #313244;
-			    transition-property: background-color;
-			    transition-duration: .5s;
+			    background-color: transparent;
+          border-radius: 10px;
+          padding-top: 0px;
+          margin-top: 0;
 			}
 			
 			window#waybar.hidden {

@@ -46,11 +46,6 @@ in
     # Define the package from the inputs
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
 
-    # Here are some plugins!!
-    plugins = with pkgs.hyprlandPlugins; [
-      hy3
-    ];
-
     # Settings 
     settings = {
       monitor = ",highrr, auto, 1";
@@ -58,13 +53,6 @@ in
       "$term" = "kitty";
       "$menu" = "wofi --show drun";
 
-      plugin = {
-        hy3 = {
-          tabs = {
-            height = 2;
-          };
-        };
-      };
       exec-once = [
         # Enable the swaync notification panel
         "swaync"
@@ -109,7 +97,7 @@ in
         gaps_in = 5;
         gaps_out = 20;
         border_size = 2;
-        no_border_on_floating = true;
+        no_border_on_floating = false;
         layout = "dwindle";
         "col.active_border" = "rgba(458588ee) rgba(98971aee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
@@ -152,9 +140,8 @@ in
 
         blurls = [
           "gtk-layer-shell"
-          "waybar"
           "lockscreen"
-          "wofi -S drun"
+          "wofi --show drun"
         ];
       };
 
