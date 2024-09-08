@@ -12,3 +12,4 @@ After installing the system
 - Also installed bluetuith for terminal bluetooth control.
 - Swaync configuration has not worked for the wifi button
 - Enable wlogout
+- Learn CSS for ricing waybar
