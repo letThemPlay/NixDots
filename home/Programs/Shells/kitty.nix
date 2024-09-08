@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 let
 	font = "JetBrainsMono Nerd Font";
 in
@@ -16,8 +15,8 @@ in
 
     extraConfig = '' 
       confirm_os_window_close 0
-      background_opacity 0.89
-      background_blur 1
+      background_opacity 0.8
+      background_blur 3
     '';
 
 		theme = "Gruvbox Dark Hard";

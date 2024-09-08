@@ -47,8 +47,8 @@ in
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
 
     # Here are some plugins!!
-    plugins = [
-      #hy3
+    plugins = with pkgs.hyprlandPlugins; [
+      hy3
     ];
 
     # Settings 
@@ -57,6 +57,14 @@ in
       "$mod" = "SUPER";
       "$term" = "kitty";
       "$menu" = "wofi --show drun";
+
+      plugin = {
+        hy3 = {
+          tabs = {
+            height = 2;
+          };
+        };
+      };
       exec-once = [
         # Enable the swaync notification panel
         "swaync"
@@ -406,8 +414,8 @@ in
         background = [
           {
             path = "screenshot";
-            blur_passes = 1;
-            blur_size = 3;
+            blur_passes = 3;
+            blur_size = 2;
             noise = 0.0117;
             contrast = 0.8916;
             brightness = 0.8172;
@@ -461,8 +469,6 @@ in
       libnotify
 
       # The whole hyprland ecosystem
-      polkit_gnome # You know it
-      #xdg-desktop-portal-hyprland # for screen sharing
       hyprcursor # for amazing mouse cursors
       hyprpicker # for color picking
 
