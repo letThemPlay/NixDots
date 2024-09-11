@@ -1,0 +1,6 @@
+- When home manager fails to build run
+```
+  $journalctl --unit home-manager-chris.service
+```
+and check for any file coming in between the creation of a new home-manager generation
+
