@@ -1,51 +1,118 @@
-{
-	programs.waybar = {
-		enable = true;
-		
+{ config, ... }:
+let
+  themix = config.colorScheme.palette;
+in 
+  {
+  programs.waybar = {
+    enable = true;
+
 		# settings of the main bar
 		settings = {
-			mainbar = {
+			mainBar = {
 				layer = "top";
 				position = "bottom";
-				height = 39;
-				mode = "dock";
-				exclusive = true;
-				passthrough = false;
-				spacing = 6;
-				fixed-center = true;
-				ipc = true;
 
         modules-left = [ 
-          "keyboard-state" 
-          "custom/notification" 
-          "hyprland/submap" 
-          "hyprland/window" 
+          "custom/notifications"
+          "clock"
+          "idle_inhibitor"
+          "keyboard-state"
         ];
 
-        moudules-center = [ 
-          "idle_inhibitor" 
-          "hyprland/workspaces" 
-          "clock" 
+        modules-center = [ 
+          "tray"
+          "sway/workspaces"
+          "sway/window"
         ];
 
         modules-right = [ 
-          "battery" 
+          "group/hardware"
+          #"battery" 
           "power-profiles-daemon" 
           "backlight" 
           "network" 
-          "pulseaudio"
-          "cpu" 
-          "memory" 
-          "tray" 
+          "wireplumber"
+          #"cpu" 
+          #"memory" 
           "custom/power"
         ];
 
-				"hyprland/workspaces" = {
+        "group/hardware" = {
+          orientation = "inherit";
+          drawer = {
+            transition-duration = 500;
+            children-class = "not-battery";
+            transition-left-to-right = false;
+          };
+          modules = [
+            "battery"
+            "cpu"
+            "memory"
+          ];
+        };
+
+				"sway/workspaces" = {
+          window-rewrite = "{}";
 					disable-scroll = true;
-					all-outputs = true;
-					format = "{}";
+          format = "{icon}";
+          persistent-workspaces = {
+            "1" = "[]";
+            "2" = "[]";
+            "3" = "[]";
+            "4" = "[]";
+            "5" = "[]";
+            # "6" = "[]";
+            # "7" = "[]";
+            # "8" = "[]";
+            # "9" = "[]";
+            # "10" = "[]";
+          };
+          format-icons = {
+            default = " ";
+            empty = " ";
+            focused = " ";
+          };
 					on-click = "activate";
 				};
+
+        "sway/window" = {
+          format = "{title}";
+          max-length = 1;
+          icon = true;
+          icon-size = 20;
+        };
+
+        "sway/modes" = {
+          format = "{}";
+        };
+
+        wireplumber = {
+          format = "{icon}{volume}%";
+          tooltip = false;
+          format-icons = { 
+            default = [
+              "<span foreground='#${themix.base0A}'></span>" 
+              "<span foreground='#${themix.base0B}'> </span>" 
+              "<span foreground='#${themix.base08}'> </span>"
+            ];
+            headphone = " ";
+          };
+          on-click = "pwvucontrol";
+          on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        };
+
+        keyboard-state = {
+          format = {
+            numlock = "N{icon}";
+            capslock = "C{icon}";
+          };
+          format-icons = {
+            locked = "<span foreground='#89dceb'> </span>";
+            unlocked = "<span foreground='#${themix.base0E}'> </span>";
+          };
+          numlock = true;
+          capslock = true;
+        };
 
 				battery = {
 					full-at = 80;
@@ -54,12 +121,18 @@
 						warning = 30;
 						critical = 25;
 					};
-					format = "{icon}  {capacity}%";
+					format = "{icon}{capacity}%";
 					format-charging = " {capacity}%";
 					format-plugged = " {capacity}%";
-					format-full = "{icon}  ";
-					format-alt = "{icon}  {time}";
-					format-icons = [" " " " " " " " " "];
+					format-full = "{icon} <span foreground='#${themix.base0F}'> </span>";
+					format-alt = "{icon} {time}";
+          format-icons = [
+            "<span foreground='#${themix.base07}'> </span>" 
+            "<span foreground='#${themix.base08}'> </span>" 
+            "<span foreground='#${themix.base0A}'> </span>" 
+            "<span foreground='#${themix.base0B}'> </span>" 
+            "<span foreground='#${themix.base0B}'> </span>" 
+          ];
 					format-time = "{H}h {M}min";
 					tooltip = true;
 				};
@@ -77,19 +150,34 @@
 					align = 0;
 					rotate = 0;
 					tooltip-format = "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>";
-					format = "  {:%I:%M %p}";
-					format-alt = " {:%a %b %d, %G}";
+					format = "<span foreground='#${themix.base06}'> </span>{:%I:%M%p}";
+					format-alt = "<span foreground='#${themix.base06}'> </span>{:%a %b %d, %G}";
 				};
 
-				cpu = {
-					interval = 5;
-					format = "  LOAD: {usage}%";
-				};
-
-				memory = {
-					interval = "10";
-					format = "  USED: {used:0.1f}G";
-				};
+        cpu = {
+          interval = 1;
+          format = " {usage}%{icon}";
+          states = {
+            good = 20;
+            warning = 40;
+            critical = 50;
+          };
+          on-click = "kitty -e btop";
+          format-icons = [
+            "<span color='#69ff94'>▁</span>" #green
+            "<span color='#2aa9ff'>▂</span>" #blue
+            "<span color='#f8f8f2'>▃</span>" #white
+            "<span color='#f8f8f2'>▄</span>" #white
+            "<span color='#ffffa5'>▅</span>" #yellow
+            "<span color='#ffffa5'>▆</span>" #yellow
+            "<span color='#ff9977'>▇</span>" #orange
+            "<span color='#dd532e'>█</span>" #red
+          ];
+        };
+        memory = {
+          interval = "10";
+          format = "<span foreground='#${themix.base0F}'> </span>{used:0.1f}G";
+        };
 
 				tray = {
 					icon-size = 16;
@@ -98,20 +186,15 @@
 
 				network = {
 					interval = 5;
-					format-wifi = "   {essid}";
+          format-wifi = "<span foreground='#${themix.base0B}'> </span><span foreground='#${themix.base05}'>{essid}</span>({signalStrength}%)";
+          tooltip-format-wifi = "<span foreground='#${themix.base05}'>{essid}</span>: {signalStrength}%";
 					format-alt = " {bandwidthUpBits} |  {bandwidthDownBits}";
-					tooltip-format = " {ifname} via {gwaddr}";
+					tooltip-format-ethernet = "<span foreground='#${themix.base0D}'> </span>{ifname} via {gwaddr}";
 					format-ethernet = " {ipaddr}/{cidr}";
         	format-linked = " {ifname} (No IP)";
-        	format-disconnected = "!! !!";
+        	format-disconnected = "<span foreground='#${themix.base08}'>󰤭 </span>";
         	format-disabled = " ";
 				};
-
-        temperature = {
-          critical-threshold = 80;
-          format = "{temperatureC}°C {icon}";
-          format-icon = [  " " "" ];
-        };
 
         # power-profiles-daemon was enabled as service in configuration.nix
         power-profiles-daemon = {
@@ -126,62 +209,31 @@
         };
 
         backlight = {
-          format = "{percent}% {icon}";
+          format = "{icon}{percent}%";
           format-icons = [
-            " "
-            " "
-            " "
-            " "
-            " "
-            " "
-            " " 
-            " "
-            " "
+            "<span color='#${themix.base0B}'> </span>" #green
+            "<span color='#${themix.base0D}'> </span>" #blue
+            "<span color='#${themix.base06}'> </span>" #white
+            "<span color='#${themix.base0F}'> </span>" #white
+            "<span color='#f4b8e4'> </span>" #yellow
+            "<span color='#${themix.base0A}'> </span>" #yellow
+            "<span color='#ea999c'> </span>" #orange
+            "<span color='#${themix.base08}'> </span>" #red
           ];
         };
 
-        pulseaudio = {
-          format = "{volume}% {icon}";
-          format-bluetooth = "{volume}% {icon} {format_source}";
-          format-bluetooth-muted = " {icon} {format_source}";
-          format-muted = " {format_source}";
-          format-source = "{volume}% ";
-          format-source-muted = " ";
-          format-icons = {
-              headphone = " ";
-              hands-free = " ";
-              headset = " ";
-              phone = " ";
-              portable = " ";
-              car = " ";
-              default = ["" " " " "];
-          };
-          on-click = "pavucontrol";
-        };
-        
-        "hyprland/submap" = {
-          format = "{}";
-          tooltip = true;
-        };
-
-        "custom/power" = { # See wlogout.nix
+        "custom/notifications" = {
           tooltip = false;
-          format = " ";
-          on-click = "wlogout";
-        };
-
-        "custom/notification" = {
-          tooltip = false;
-          format = "{} {icon}";
+          format = "{icon}";
           format-icons = {
-            notification = " <span foreground='red'><sup></sup></span>";
-            none = " ";
-            dnd-notification = " <span foreground='red'><sup></sup></span>";
-            dnd-none = " ";
-            inhibited-notification = " <span foreground='red'><sup></sup></span>";
-            inhibited-none = " ";
-            dnd-inhibited-notification = " <span foreground='red'><sup></sup></span>";
-            dnd-inhibited-none = " ";
+            notification= " <span foreground='#${themix.base08}'><sup></sup></span>";
+            none= " ";
+            dnd-notification= " <span foreground='#${themix.base08}'><sup></sup></span>";
+            dnd-none= " ";
+            inhibited-notification= " <span foreground='#${themix.base08}'><sup></sup></span>";
+            inhibited-none= " ";
+            dnd-inhibited-notification= " <span foreground='#${themix.base08}'><sup></sup></span>";
+            dnd-inhibited-none= " ";
           };
           return-type = "json";
           exec-if = "which swaync-client";
@@ -190,235 +242,141 @@
           on-click-right = "swaync-client -d -sw";
           escape = true;
         };
+
+        "custom/power" = {
+          format = " ";
+          tooltip = false;
+          on-click = "wlogout";
+        };
       };
     };
 
     style = /*css*/''
-      @keyframes blink-warning {
-      70% {
-        color: @light;
+      *{
+        font-family: 'JetBrainsMono Nerd Font';
+        font-size: 12pt;
+        min-height: 0;
+        border-radius: 0;
       }
-
-      to {
-        color: @light;
-        background-color: @warning;
+      
+      tooltip {
+        background: #${themix.base00};
+        border-radius: 15px;
+        border: 2px solid #${themix.base0C};
       }
+      
+      #window {
+        border-radius: 20px;
+        color: #${themix.base05};
+        margin-left: 10px;
+        margin-right: 10px;
       }
-
-      @keyframes blink-critical {
-      70% {
-        color: @light;
-      }
-
-      to {
-        color: @light;
-        background-color: @critical;
-      }
-      }
-      * {
-        font-family: "JetBrainsMono Nerd Font";
-        font-size: 12px;
-      }
-
-      /** ********** Waybar Window ********** **/
       window#waybar {
         background-color: transparent;
-        border-radius: 10px;
-        padding-top: 0px;
-        margin-top: 0;
+        color: #${themix.base05};
+        border-radius: 20px;
       }
+      
+      /*#workspaces {
+        padding: 1px 1px 1px 1px;
+        border-radius: 25px;
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+      }*/
 
-      window#waybar.hidden {
-        opacity: 0.5;
-      }
-
-      /** ********** Backlight ********** **/
-      #backlight {
-        color: #b16286;
-      }
-
-      /** ********** Battery ********** **/
-      #battery {
-        color: #fabd2f;
-      }
-
-      #battery.charging,#battery.plugged {
-        color: #b8bb26; 
-      }
-
-      @keyframes blink {
-      to {
-        color: #000000;
-      }
-      }
-
-      #battery.critical:not(.charging) {
-        color: #cc241d;
-        animation-name: blink;
-        animation-duration: 0.5s;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-      }
-
-
+      
       #workspaces button {
-        padding: 0 5px;
-        background-color: transparent;
-        color: #fbf1c7;
-      }
-
-      #workspaces button:hover {
-        color: #DBBC7F;
+        padding: 1px;
+        background:none;
+        color: #${themix.base0C};
+        border: none;
       }
 
       #workspaces button.focused {
-        background-color: #fe8019;
-        box-shadow: inset 0 -3px #ffffff;
+        color: #${themix.base09};
       }
 
       #workspaces button.urgent {
-        background-color: #d65d0e;
-      }
-
-
-      /** ********** Clock ********** **/
-      #clock {
-        color: #8ec07c;
-      }
-
-      /** ********** CPU ********** **/
-      #cpu {
-        color: #83a598;
-      }
-
-      /** ********** Memory ********** **/
-      #memory {
-        color: #d3869b;
-      }
-
-      /** ********** Disk ********** **/
-      #disk {
-        color: #689d6a;
-      }
-
-      /** ********** Tray ********** **/
-      #tray {
-        color: #458588;
-      }
-      #tray > .passive {
-        -gtk-icon-effect: dim;
-      }
-      #tray > .needs-attention {
-        -gtk-icon-effect: highlight;
-      }
-      #tray > .active {
-      }
-
-      /************** Power-profiles-daemon ******/
-      #power-profiles-daemon.performance {
-        color: #cc241d;
-      }
-      #power-profiles-daemon.balanced {
-        color: #fabd2f;
-      }
-      #power-profiles-daemon.power-saver {
-        color: #b8bb26;
-      }
-
-      /************** Idle_inhibitor ************/
-      #idle_inhibitor {
-        color: #98971a;
-      }
-
-      #idle_inhibitor.activated {
-        color: #fb4934;
-      }
-
-      /** ********** MPD ********** **/
-      #mpd {
-        background-color: #94e2d5;
-      }
-
-      #mpd.disconnected {
-        background-color: #f38ba8;
-      }
-
-      #mpd.stopped {
-        background-color: #f5c2e7;
-      }
-
-      #mpd.playing {
-        background-color: #74c7ec;
-      }
-
-      #mpd.paused {
-      }
-
-      /** ********** Pulseaudio ********** **/
-      #pulseaudio {
-        color: #458588;
-      }
-
-      #pulseaudio.bluetooth {
-        background-color: #f5c2e7;
-      }
-      #pulseaudio.muted {
-        background-color: #313244;
-        color: #cdd6f4;
-      }
-
-      /** ********** Network ********** **/
-      #network {
-        color: #ebdbb2;
-      }
-
-      #network.disconnected,#network.disabled {
-        color: #d65d0e;
-      }
-      #network.linked {
-      }
-      #network.ethernet {
-      }
-      #network.wifi {
-      }
-
-      /** Common style **/
-      #custom-notification,
-      #idle_inhibitor,
-      #submap,
-      #power-profiles-daemon,
-      #backlight, 
-      #battery,
-      #clock,
-      #cpu,
-      #disk,
-      #mode,
-      #memory,
-      #mpd,
-      #tray,
-      #pulseaudio,
-      #network {
-        border-radius: 4px;
-        margin: 6px 0px;
-        padding: 2px 8px;
-      }
-
-      #temperature {
-        border-radius: 4px;
-        margin: 6px 0px;
-        padding: 2px 8px;
-        color: #f0932b;
-      }
-
-      #temperature.critical {
-        color: #eb4d4b;
-      }
-
-      #submap {
-        color: #A7C080;
+        color: #${themix.base08};
       }
       
-		'';
-	};
+      #workspaces button:hover{
+        border-radius: 50px;
+        background: #${themix.base04};
+        color: #${themix.base07};
+      }
+      
+      .modules-left {
+        background: #${themix.base00};
+        border: 2px solid #${themix.base0F};
+        border-radius: 25px;
+        color: #${themix.base05};
+        margin: 10px 0 10px 5px;
+        padding: 5px;
+      }
+      
+      .modules-center {
+        background: #${themix.base00};
+        border: 2px solid #${themix.base0F};
+        border-radius: 25px;
+        color: inherit;
+        margin: 10px 0 10px 0;
+        padding: 5px;
+      }
+      
+      .modules-right {
+        background: #${themix.base00};
+        border: 2px solid #${themix.base0F}; 
+        border-radius: 25px;
+        color: inherit;
+        margin: 10px 5px 10px 0;
+        padding: 5px;
+      }
+
+      #custom-notifications,
+      #clock,
+      #idle_inhibitor,
+      #keyboard-state,
+      #battery,
+      #power-profiles-daemon,
+      #backlight,
+      #network,
+      #wireplumber,
+      #cpu,
+      #memory,
+      #custom-power {
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+      
+      #power-profiles-daemon.power-saver {
+        color: #${themix.base0B};
+      }
+      #power-profiles.balanced {
+        color: #${themix.base0A};
+      }
+      #power-profiles-daemon.performance {
+        color: #${themix.base08};
+      }
+      
+      #idle_inhibitor.activated {
+        color: #${themix.base06};
+      }
+      #idle_inhibitor.deactivated {
+        color: #${themix.base07};
+      }
+
+      #custom-notifications {
+        font-family: "JetBrainsMono Nerd Font";
+      }
+      #custom-power {
+        color: #${themix.base08};
+        border-radius: 25px;
+        background: #${themix.base03};
+        padding: 1px;
+      }
+      '';
+  };
 }

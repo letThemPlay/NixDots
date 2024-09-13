@@ -3,7 +3,6 @@
 	imports = [
     inputs.nix-colors.homeManagerModules.default
 		./Programs
-    #./Hyprland
     ./Sway
 	];
 

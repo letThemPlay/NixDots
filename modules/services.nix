@@ -42,7 +42,7 @@
       sugarCandyNix = {
         enable = true;
         settings = {
-          Background = lib.cleanSource ../home/Wallpapers/dark/nix-black-4k.png;
+          Background = lib.cleanSource ../home/Wallpapers/nix-black-4k.png;
           ScreenWidth = 1920;
           ScreenHeight = 1080;
           FormPosition = "left";

@@ -90,6 +90,7 @@ in
           p.json
           p.jsonc
           p.css
+          p.scss
         ]));
         type = "lua";
         config = builtins.readFile(./nvim/plugin/treesitter.lua);

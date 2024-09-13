@@ -12,7 +12,7 @@ let
 
   partialScreenshot = pkgs.pkgs.writeShellScriptBin "partialScreenshot" ''
     filename="grim-$(date '+%Y-%m-%d-%H-%M-%S')"
-    ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -d -b "#302d4180" -c "#96cdfb" -s "#57526840" -w 2)" - | tee /home/loki/pictures/screenshots/$(echo $filename).png | wl-copy
+    ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -d -b "#302d4180" -c "#96cdfb" -s "#57526840" -w 2)" - | tee /home/chris/Pictures/Screenshots/$(echo $filename).png | wl-copy
     ${pkgs.imagemagick}/bin/magick convert /home/chris/Pictures/Screenshots/$(echo $filename).png -bordercolor '#96cdfb' -border 15 /tmp/notification-screenshot.png
     notify-send -i /tmp/notification-screenshot.png "  grim" "screenshot of selected area saved"
     rm -f /tmp/notification-screenshot.png
@@ -29,11 +29,11 @@ in
     package = pkgs.sway;
 
     config = {
-      output = {
-        eDP-1 = {
-          bg = "${./../Wallpapers/dark/nix-black-4k.png} fill";
-        };
-      };
+      # output = {
+      #   eDP-1 = {
+      #     bg = "${./../Wallpapers/dark/evening-sky.png} fill";
+      #   };
+      # };
       defaultWorkspace = "workspace number 1"; # Define the default workspace as 1
       terminal = "kitty";
       menu = "wofi -S drun";
@@ -51,8 +51,10 @@ in
       left = "h";
 
       startup = [
-        {command = "wl-paste --watch cliphist store";}
-        {command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &";}    
+        { command = "wpaperd -d"; }
+        { command = "swaync"; }
+        { command = "wl-paste --watch cliphist store"; }
+        { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &"; }    
       ];
 
       bars = [
@@ -84,49 +86,54 @@ in
       # The keybinds. The NixOS manual recommends using lib.mkOptionDefault
       # to avoid starting from scratch and rather use the keybinds here with the default ones
       keybindings = 
-        let modifier = config.wayland.windowManager.sway.config.modifier;
+        let mod = config.wayland.windowManager.sway.config.modifier;
         in lib.mkOptionDefault {
-            "${modifier}+i" = "exec firefox";
-            "${modifier}+q" = "kill";
+            "${mod}+i" = "exec firefox";
+            "${mod}+q" = "kill";
 
             # For changing the workspace left and right
-            "${modifier}+p" = "workspace next";
-            "${modifier}+o" = "workspace prev";
+            "${mod}+p" = "workspace next";
+            "${mod}+o" = "workspace prev";
+
+            # For opening the clipboard
+            "${mod}+c" = "exec cliphist list | wofi -S dmenu | cliphist decode | wl-copy";
+
+            # For opening the swaync panel
+            "${mod}+Shift+n" = "exec swaync-client -t -sw";
+            "${mod}+m" = "exec ${config.wayland.windowManager.sway.config.menu}";
+            # "${mod}+d" = "exec sh -c \"notify-send -i ${./makoIcons/dnd.png} '  Do Not Disturb' 'Turning on Do not Distrub Mode' && sleep 2 && makoctl set-mode do-not-disturb\"";
+            # "${mod}+Shift+d" = "exec sh -c \"makoctl set-mode default && notify-send -i ${./makoIcons/dnd.png} '  Do Not Disturb' 'Do Not Disturb Mode disabled'\"";
+            "${mod}+x" = "exec sh -c \"systemctl suspend && swaylock\"";
+
+            # Change thru wallpapers with wpaperd
+            "${mod}+Right" = "exec wpaperctl next";
+            "${mod}+Left" = "exec wpaperctl previous";
 
             # Volume control keys
-            "--locked XF86AudioRaiseVolume" = "exec swayosd-client --output-volume +10 --max-volume 100";
-            "--locked XF86AudioLowerVolume" = "exec swayosd-client --output-volume -10 --max-volume 100";
-            #"--locked XF86AudioMute" = "exec swayosd-client --ouput-volume mute-toggle";
+            "--locked XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1";
+            "--locked XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
             "--locked XF86AudioMute" = "exec wpctl set-mute @DEFAULT_SINK@ toggle";
 
             # Brightness conntrols
-            "--locked XF86MonBrightnessUp" = "exec swayosd-client --brightness +5";
-            "--locked XF86MonBrightnessDown" = "exec swayosd-client --brightness -5";
+            "--locked XF86MonBrightnessUp" = "exec brightnessctl set 10%+";
+            "--locked XF86MonBrightnessDown" = "exec brightnessctl set 10%-"; 
 
             # Player buttons
             "--locked XF86AudioPlay" = "exec playerctl play-pause";
             "--locked XF86AudioNext" = "exec playerctl next";
             "--locked XF86AudioPrev" = "exec playerctl previous";
 
-            # Caps-lock and Num lock swayosd settings
-            "--release Caps_Lock" = "exec swayosd-client --caps-lock-led input0::capslock";
-
-            # For opening the clipboard
-            "${modifier}+c" = "exec cliphist list | wofi -S dmenu | cliphist decode | wl-copy";
-
-            # For opening the swaync panel
-            "${modifier}+Shift+n" = "exec swaync-client -t -sw";
-
-            "Control+space" = "makoctl dismiss";
+            #"Control+space" = "exec makoctl dismiss";
 
             # For screenshots
-            "print" = "${screenshot}/bin/screenshot";
-            "Shift+print" = "${partialScreenshot}/bin/partialScreenshot";
+            "print" = "exec ${screenshot}/bin/screenshot";
+            "Shift+print" = "exec ${partialScreenshot}/bin/partialScreenshot";
         };
 
       # Decoration stuff goes here:
       gaps = {
         smartBorders = "off";
+        smartGaps = true;
         inner = 8;
         outer = 8;
       };
@@ -146,7 +153,7 @@ in
             criteria = {
               app_id = "vlc";
             };
-            command = "idle_inhibit";
+            command = "inhibit_idle";
           }
         ];
       };
@@ -191,10 +198,21 @@ in
         };
       };
     };
+
+    extraConfig = /*jsonc*/''
+      bindswitch lid:off exec swaylock
+      bindswitch lid:on exec swaymsg 'output * dpms on'
+    '';
     swaynag = {
       enable = true;
     };
     wrapperFeatures.gtk = true;
+
+    # Enable systemd variables for sway 
+    systemd = {
+      enable = true;
+      variables = [ "--all" ];
+    };
   };
 
   programs = {
@@ -202,67 +220,94 @@ in
       enable = true;
       package = pkgs.swaylock-effects;
       settings = {
-        color = "1e1e2e";
-        bs-hl-color = "f5e0dc";
-        caps-lock-bs-hl-color = "f5e0dc";
-        caps-lock-lock-key-hl-color = "a6e3a1";
+        image = "${./../Wallpapers/lonely-fish.png}";
+        font = "JetBrainsMono Nerd Font";
+        font-size = 30;
+        scaling = "fill";
+        indicator = true;
+        clock = true;
+        timestr = "%I:%M %p";
+        datestr = "%A, %d %B";
+        indicator-radius = 150;
+        ignore-empty-password = true;
+        daemonize = true;
+
+        bs-hl-color = "${themix.base06}";
+        caps-lock-bs-hl-color = "${themix.base06}";
+        caps-lock-key-hl-color = "${themix.base0B}";
         inside-color = "00000000";
         inside-clear-color = "00000000";
         inside-caps-lock-color = "00000000";
         inside-ver-color = "00000000";
         inside-wrong-color = "00000000";
-        key-hl-colors = "a6e3a1";
+        key-hl-color = "${themix.base0B}";
         layout-bg-color = "00000000";
         layout-border-color = "00000000";
-        layout-text-color = "cdd6f4";
+        layout-text-color = "${themix.base05}";
         line-color = "00000000";
         line-clear-color = "00000000";
-        line-caps-lock-color="00000000";
-        line-ver-color="00000000";
-        line-wrong-color="00000000";
-        ring-color="b4befe";
-        ring-clear-color="f5e0dc";
-        ring-caps-lock-color="fab387";
-        ring-ver-color="89b4fa";
-        ring-wrong-color="eba0ac";
-        separator-color="00000000";
-        text-color="cdd6f4";
-        text-clear-color="f5e0dc";
-        text-caps-lock-color="fab387";
-        text-ver-color="89b4fa";
-        text-wrong-color="eba0ac";
+        line-caps-lock-color = "00000000";
+        line-ver-color = "00000000";
+        line-wrong-color = "00000000";
+        ring-color = "${themix.base07}";
+        ring-clear-color = "${themix.base06}";
+        ring-caps-lock-color = "${themix.base09}";
+        ring-ver-color = "${themix.base0D}";
+        ring-wrong-color = "eba0ac";
+        separator-color = "00000000";
+        text-color = "${themix.base05}";
+        text-clear-color = "${themix.base06}";
+        text-caps-lock-color = "${themix.base09}";
+        text-ver-color = "${themix.base0D}";
+        text-wrong-color = "eba0ac";
+      };
+    };
 
-        font-size = 24;
-        indicator-idle-visible = false;
-        indicator-radius = 100;
-        show-failed-attempts = true;
+    # The wallpaper daemon
+    wpaperd = {
+      enable = true;
+      package = pkgs.wpaperd;
+
+      settings = {
+        default = {
+          path = "${./../Wallpapers}";
+          apply-shadow = true;
+          sorting = "ascending";
+        };
       };
     };
   };
 
   # services related to sway
+  # Note that for the commands, etc, the absolute bin paths are to be provided
   services = {
     swayidle = {
       enable = true;
       package = pkgs.swayidle;
       timeouts = [
         { 
-          timeout = 60;
-          command = "swaylock";
+          timeout = 180;
+          command = "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
         }
 
         {
-          timeout = 80;
-          command = "swaymsg \"output * power off\"";
-          resumeCommand = "swaymsg \"output * power on\"";
+          timeout = 185;
+          command = "${pkgs.swaylock-effects}/bin/swaylock";
         }
 
         {
-          timeout = 90;
-          command = "systemctl suspend";
+          timeout = 190;
+          command = "${pkgs.sway}/bin/swaymsg 'output * dpms off'";
+          resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * dpms on'";
         }
       ];
+      events = [
+        {
+          event = "before-sleep";
+          command = "${pkgs.swaylock-effects}/bin/swaylock";
+        }
+      ];
+      systemdTarget = "sway-session.target";
     };
   };      
 }
-

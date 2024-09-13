@@ -3,9 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    
-		# Hyprland setup
-    #hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
 		# Home-manager setup
 		home-manager = {

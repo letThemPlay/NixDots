@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
+let
+  themix = config.colorScheme.palette;
+in 
 {
   programs = {
     # A beautiful (if you make it) calendar
@@ -26,6 +29,82 @@
     fastfetch = {
       enable = true;
       package = pkgs.fastfetch;
+
+      settings = {
+        logo = {
+          type = "kitty";
+          source = "${./nixos_fastfetch.png}";
+          width = 30;
+          height = 15;
+        };
+        display = {
+          separator = "->";
+          constants = [
+            "──────────────────────────────"
+          ];
+        };
+        modules = [
+          {
+            type = "os";
+            key = " ";
+            keyColor = "yellow";
+          }
+          {
+            type = "kernel";
+            key = " ";
+            keyColor = "red";
+          }
+          "host"
+          "bios"
+          "board"
+          "chassis"
+          "uptime"
+          "processes"
+          "packages"
+          {
+            type = "shell";
+            key = " ";
+            keyColor = "blue";
+          }
+          "display"
+          {
+            type = "wm";
+            key = " ";
+            keyColor = "violet";
+          }
+          {
+            type = "theme";
+            key = " ";
+            keyColor = "purple";
+          }
+          "icons"
+          {
+            theme = "font";
+            key = " ";
+            keyColor = "lavender";
+          }
+          "cursor"
+          {
+            type = "terminal";
+            key = " ";
+            keyColor = "yellow";
+          }
+          {
+            type = "cpu";
+            key = " ";
+            keyColor = "green";
+          }
+          "gpu"
+          "disk"
+          "wifi"
+          "locale"
+          "vulkan"
+          "opengl"
+          "opencl"
+          "users"
+          "sound"
+        ];
+      };
     };
 
     # Enable Zathura pdf reader

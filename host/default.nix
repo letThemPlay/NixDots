@@ -53,16 +53,30 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    git
-    gparted
-    mtools
-    dosfstools
-    xorg.xhost
-    sof-firmware
-  ];
+  environment = {
+    pathsToLink = [
+      "/share/xdg-desktop-portal"
+      "/share/applications"
+    ];
+    
+    sessionVariables = {
+      WLR_NO_HARDWARE_CURSORS="1";
+      NIXOS_OZONE_WL="1";
+      MOZ_ENABLE_WAYLAND = "1";
+      XDG_SCREENSHOTS_DIR = "/home/chris/Pictures/Screenshots/";
+    };
+
+    systemPackages = with pkgs; [
+      neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+      wget
+      git
+      gparted
+      mtools
+      dosfstools
+      xorg.xhost
+      sof-firmware
+    ];
+  };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
@@ -92,15 +106,6 @@
       swaylock = {};
     };
   };
-  
-  # For hyprland functioning
-  environment.sessionVariables = {
-	  WLR_NO_HARDWARE_CURSORS="1";
-	  NIXOS_OZONE_WL="1";
-    MOZ_ENABLE_WAYLAND = "1";
-    XDG_SCREENSHOTS_DIR = "/home/chris/Pictures/Screenshots/";
-  };
-
 
   # systemd services
   systemd = {

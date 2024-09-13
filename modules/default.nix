@@ -5,7 +5,7 @@
     ./fonts.nix
     ./hardware.nix
     ./nixsystem.nix
-    ./programs.nix
+    ./sway.nix
     ./services.nix
     ./usersettings.nix
   ];

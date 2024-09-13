@@ -6,5 +6,6 @@
     ./miscServices.nix
     ./wlogout.nix
     ./waybar.nix 
+    ./xdgSettings.nix
 	];
 }
