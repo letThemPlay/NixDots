@@ -15,13 +15,6 @@
 
   # Use the systemd-boot EFI boot loader.
   boot = {
-    plymouth = {
-      enable = true;
-      theme = "bgrt";
-      themePackages = [
-        pkgs.nixos-bgrt-plymouth
-      ];
-    };
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ 
       "i915.force_probe=a7a0" 
@@ -31,6 +24,7 @@
         enable = true;
         efiSupport = true;
         device = "nodev";
+        theme = pkgs.catppuccin-grub;
       };
       efi = {
         canTouchEfiVariables = true;

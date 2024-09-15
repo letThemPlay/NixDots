@@ -61,5 +61,10 @@
     udev = {
       enable = true;
     };
+
+    # Enable thermald for intel cpus 
+    thermald = {
+      enable = true;
+    };
   };
 }

@@ -1,14 +1,9 @@
-{ pkgs, config, ... }:
+{ config, pkgs, ... }:
 let
   themix = config.colorScheme.palette;
 in 
 {
   programs = {
-    # A beautiful (if you make it) calendar
-    khal = {
-      enable = true;
-    };
-
     # For effective neovim
     ripgrep = {
       enable = true;
@@ -180,6 +175,33 @@ in
         theme_background = false;
       };
     };
+
+    # Cava audio bars
+    cava = {
+      enable = true;
+      package = pkgs.cava;
+      settings = {
+        general = {
+          framerate = 60;
+        };
+        input = {
+          method = "pipewire";
+          source = "auto";
+        };
+        color = {
+          background = "'#${themix.base00}'";
+          gradient = 1;
+          gradient_color_1 = "'#${themix.base0C}'";
+          gradient_color_2 = "'#89dceb'";
+          gradient_color_3 = "'#74c7ec'";
+          gradient_color_4 = "'#${themix.base0D}'";
+          gradient_color_5 = "'#${themix.base07}'";
+          gradient_color_6 = "'#f5c2e7'";
+          gradient_color_7 = "'#eba0ac'";
+          gradient_color_8 = "'#${themix.base08}'";
+        };
+      };
+    };
   };
 
   # Other packages
@@ -194,6 +216,7 @@ in
       # For development purpose
       gcc14
       sl # You know it
+      tree # you know if you know
     ];
 
     # Source some files here

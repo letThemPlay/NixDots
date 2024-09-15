@@ -93,10 +93,11 @@ in
             default = [
               "<span foreground='#${themix.base0A}'></span>" 
               "<span foreground='#${themix.base0B}'> </span>" 
-              "<span foreground='#${themix.base08}'> </span>"
+              "<span foreground='#${themix.base0E}'> </span>"
             ];
             headphone = " ";
           };
+          format-muted = "<span foreground='#${themix.base08}'> </span>";
           on-click = "pwvucontrol";
           on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
         };
@@ -162,7 +163,7 @@ in
             warning = 40;
             critical = 50;
           };
-          on-click = "kitty -e btop";
+          on-click = "foot -e btop";
           format-icons = [
             "<span color='#69ff94'>▁</span>" #green
             "<span color='#2aa9ff'>▂</span>" #blue
@@ -184,17 +185,18 @@ in
 					spacing = 10;
 				};
 
-				network = {
-					interval = 5;
+        network = {
+          interval = 5;
           format-wifi = "<span foreground='#${themix.base0B}'> </span><span foreground='#${themix.base05}'>{essid}</span>({signalStrength}%)";
           tooltip-format-wifi = "<span foreground='#${themix.base05}'>{essid}</span>: {signalStrength}%";
-					format-alt = " {bandwidthUpBits} |  {bandwidthDownBits}";
-					tooltip-format-ethernet = "<span foreground='#${themix.base0D}'> </span>{ifname} via {gwaddr}";
-					format-ethernet = " {ipaddr}/{cidr}";
-        	format-linked = " {ifname} (No IP)";
-        	format-disconnected = "<span foreground='#${themix.base08}'>󰤭 </span>";
-        	format-disabled = " ";
-				};
+          format-alt = " {bandwidthUpBits} |  {bandwidthDownBits}";
+          tooltip-format-ethernet = "<span foreground='#${themix.base0D}'> </span>{ifname} via {gwaddr}";
+          format-ethernet = " {ipaddr}/{cidr}";
+          format-linked = " {ifname} (No IP)";
+          format-disconnected = "<span foreground='#${themix.base08}'>󰤭 </span>";
+          format-disabled = "<span foreground='#${themix.base08}'> </span>";
+          on-click = "foot -e nmtui";
+        };
 
         # power-profiles-daemon was enabled as service in configuration.nix
         power-profiles-daemon = {
@@ -209,6 +211,7 @@ in
         };
 
         backlight = {
+          tooltip = false;
           format = "{icon}{percent}%";
           format-icons = [
             "<span color='#${themix.base0B}'> </span>" #green
@@ -226,8 +229,8 @@ in
           tooltip = false;
           format = "{icon}";
           format-icons = {
-            notification= " <span foreground='#${themix.base08}'><sup></sup></span>";
-            none= " ";
+            notification= "<span foreground='#${themix.base08}'> <sup></sup></span>";
+            none= "<span foreground='#${themix.base0F}'> </span>";
             dnd-notification= " <span foreground='#${themix.base08}'><sup></sup></span>";
             dnd-none= " ";
             inhibited-notification= " <span foreground='#${themix.base08}'><sup></sup></span>";
@@ -309,8 +312,8 @@ in
       }
       
       .modules-left {
-        background: #${themix.base00};
-        border: 2px solid #${themix.base0F};
+        background: linear-gradient(45deg, #${themix.base00}, #${themix.base00}) padding-box, linear-gradient(45deg, #${themix.base0E}, #${themix.base0D}) border-box;
+        border: 2px solid transparent;
         border-radius: 25px;
         color: #${themix.base05};
         margin: 10px 0 10px 5px;
@@ -318,8 +321,8 @@ in
       }
       
       .modules-center {
-        background: #${themix.base00};
-        border: 2px solid #${themix.base0F};
+        background: linear-gradient(180deg, #${themix.base00}, #${themix.base00}) padding-box, linear-gradient(180deg, #${themix.base0D}, #${themix.base0E}) border-box;
+        border: 2px solid transparent;
         border-radius: 25px;
         color: inherit;
         margin: 10px 0 10px 0;
@@ -327,8 +330,8 @@ in
       }
       
       .modules-right {
-        background: #${themix.base00};
-        border: 2px solid #${themix.base0F}; 
+        background: linear-gradient(135deg, #${themix.base00}, #${themix.base00}) padding-box, linear-gradient(135deg, #${themix.base0D}, #${themix.base0E}) border-box;
+        border: 2px solid transparent; 
         border-radius: 25px;
         color: inherit;
         margin: 10px 5px 10px 0;
@@ -362,7 +365,7 @@ in
       }
       
       #idle_inhibitor.activated {
-        color: #${themix.base06};
+        color: #${themix.base08};
       }
       #idle_inhibitor.deactivated {
         color: #${themix.base07};

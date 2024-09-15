@@ -35,7 +35,7 @@ in
       #   };
       # };
       defaultWorkspace = "workspace number 1"; # Define the default workspace as 1
-      terminal = "kitty";
+      terminal = "foot";
       menu = "wofi -S drun";
       modifier = "Mod4";
 
@@ -100,7 +100,6 @@ in
 
             # For opening the swaync panel
             "${mod}+Shift+n" = "exec swaync-client -t -sw";
-            "${mod}+m" = "exec ${config.wayland.windowManager.sway.config.menu}";
             # "${mod}+d" = "exec sh -c \"notify-send -i ${./makoIcons/dnd.png} '  Do Not Disturb' 'Turning on Do not Distrub Mode' && sleep 2 && makoctl set-mode do-not-disturb\"";
             # "${mod}+Shift+d" = "exec sh -c \"makoctl set-mode default && notify-send -i ${./makoIcons/dnd.png} '  Do Not Disturb' 'Do Not Disturb Mode disabled'\"";
             "${mod}+x" = "exec sh -c \"systemctl suspend && swaylock\"";
@@ -115,8 +114,8 @@ in
             "--locked XF86AudioMute" = "exec wpctl set-mute @DEFAULT_SINK@ toggle";
 
             # Brightness conntrols
-            "--locked XF86MonBrightnessUp" = "exec brightnessctl set 10%+";
-            "--locked XF86MonBrightnessDown" = "exec brightnessctl set 10%-"; 
+            "--locked XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
+            "--locked XF86MonBrightnessDown" = "exec brightnessctl set 5%-"; 
 
             # Player buttons
             "--locked XF86AudioPlay" = "exec playerctl play-pause";
@@ -299,6 +298,12 @@ in
           timeout = 190;
           command = "${pkgs.sway}/bin/swaymsg 'output * dpms off'";
           resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * dpms on'";
+        }
+
+        {
+          timeout = 183;
+          command = "${pkgs.brightnessctl}/bin/brightnessctl --save set 10%";
+          resumeCommand = "${pkgs.brightnessctl}/bin/brightnessctl --restore";
         }
       ];
       events = [
