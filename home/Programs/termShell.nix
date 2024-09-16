@@ -1,6 +1,5 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
-  themix = config.colorScheme.palette;
   myShellAliases = {
     ll = "ls -l";
     ".." = "cd ..";
@@ -73,53 +72,71 @@ in
     };
 
     # The lightweight wayland terminal
-    foot = {
+    # foot = {
+    #   enable = true;
+    #   package = pkgs.foot;
+    #   settings = {
+    #     main = {
+    #       term = "xterm-256color";
+    #       font = "JetBrainsMono Nerd Font:size=9";
+    #       dpi-aware = "yes";
+    #     };
+    #     mouse = {
+    #       hide-when-typing = "yes";
+    #     };
+    #
+    #     cursor = {
+    #       style = "beam";
+    #       blink = "yes";
+    #       blink-rate = 500;
+    #       beam-thickness = 1.0;
+    #     };
+    #
+    #     colors = {
+    #       foreground = "${themix.base05}";
+    #       background = "${themix.base00}";
+    #       regular0 = "${themix.base03}";
+    #       regular1 = "${themix.base08}";
+    #       regular2 = "${themix.base0B}";
+    #       regular3 = "${themix.base0A}";
+    #       regular4 = "${themix.base0D}";
+    #       regular5 = "f5c2e7";
+    #       regular6 = "${themix.base0C}";
+    #       regular7 = "bac2de";
+    #       bright0 = "${themix.base04}";
+    #       bright1 = "${themix.base08}";
+    #       bright2 = "${themix.base0B}";
+    #       bright3 = "${themix.base0A}";
+    #       bright4 = "${themix.base0D}";
+    #       bright5 = "f5c2e7";
+    #       bright6 = "${themix.base0C}";
+    #       bright7 = "a6adc8";
+    #       selection-foreground = "${themix.base05}";
+    #       selection-background = "414356";
+    #       search-box-no-match = "11111b ${themix.base08}";
+    #       search-box-match = "${themix.base05} ${themix.base02}";
+    #       jump-labels = "11111b ${themix.base09}";
+    #       urls = "${themix.base0D}";
+    #     };
+    #   };
+    # Foot does not support png output (try fastfetch in foot and kitty both)
+
+    kitty = {
       enable = true;
-      package = pkgs.foot;
-      settings = {
-        main = {
-          term = "xterm-256color";
-          font = "JetBrainsMono Nerd Font:size=9";
-          dpi-aware = "yes";
-        };
-        mouse = {
-          hide-when-typing = "yes";
-        };
-
-        cursor = {
-          style = "beam";
-          blink = "yes";
-          blink-rate = 500;
-          beam-thickness = 1.0;
-        };
-
-        colors = {
-          foreground = "${themix.base05}";
-          background = "${themix.base00}";
-          regular0 = "${themix.base03}";
-          regular1 = "${themix.base08}";
-          regular2 = "${themix.base0B}";
-          regular3 = "${themix.base0A}";
-          regular4 = "${themix.base0D}";
-          regular5 = "f5c2e7";
-          regular6 = "${themix.base0C}";
-          regular7 = "bac2de";
-          bright0 = "${themix.base04}";
-          bright1 = "${themix.base08}";
-          bright2 = "${themix.base0B}";
-          bright3 = "${themix.base0A}";
-          bright4 = "${themix.base0D}";
-          bright5 = "f5c2e7";
-          bright6 = "${themix.base0C}";
-          bright7 = "a6adc8";
-          selection-foreground = "${themix.base05}";
-          selection-background = "414356";
-          search-box-no-match = "11111b ${themix.base08}";
-          search-box-match = "${themix.base05} ${themix.base02}";
-          jump-labels = "11111b ${themix.base09}";
-          urls = "${themix.base0D}";
-        };
+      font = {
+        name = "Iosevka Nerd Font";
+        size = 14;
       };
+      theme = "Catppuccin-Mocha";
+      package = pkgs.kitty;
+      shellIntegration = {
+        enableBashIntegration = true;
+        enableZshIntegration = true;
+      };
+      extraConfig = /*jsonc*/ ''
+          confirm_os_window_close 0
+      '';
     };
   };
 }
+

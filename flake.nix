@@ -19,6 +19,9 @@
     # Nix colors for a good and easy rice
     nix-colors.url = "github:misterio77/nix-colors";
 
+    # AGS for awesome widgets
+    ags.url = "github:Aylur/ags";
+
     # Neovim toggleterm plugin by akinsho
     plugin-terminal = {
       url = "github:akinsho/toggleterm.nvim";

@@ -1,4 +1,4 @@
-{ config, ... }:
+{config, ... }:
 let
   themix = config.colorScheme.palette;
 in 
@@ -163,7 +163,7 @@ in
             warning = 40;
             critical = 50;
           };
-          on-click = "foot -e btop";
+          on-click = "kitty -e btop";
           format-icons = [
             "<span color='#69ff94'>▁</span>" #green
             "<span color='#2aa9ff'>▂</span>" #blue
@@ -188,14 +188,13 @@ in
         network = {
           interval = 5;
           format-wifi = "<span foreground='#${themix.base0B}'> </span><span foreground='#${themix.base05}'>{essid}</span>({signalStrength}%)";
-          tooltip-format-wifi = "<span foreground='#${themix.base05}'>{essid}</span>: {signalStrength}%";
-          format-alt = " {bandwidthUpBits} |  {bandwidthDownBits}";
+          tooltip-format-wifi = " {bandwidthUpBits} |  {bandwidthDownBits}";
           tooltip-format-ethernet = "<span foreground='#${themix.base0D}'> </span>{ifname} via {gwaddr}";
           format-ethernet = " {ipaddr}/{cidr}";
           format-linked = " {ifname} (No IP)";
           format-disconnected = "<span foreground='#${themix.base08}'>󰤭 </span>";
           format-disabled = "<span foreground='#${themix.base08}'> </span>";
-          on-click = "foot -e nmtui";
+          on-click = "kitty -e nmtui";
         };
 
         # power-profiles-daemon was enabled as service in configuration.nix
@@ -256,7 +255,7 @@ in
 
     style = /*css*/''
       *{
-        font-family: 'JetBrainsMono Nerd Font';
+        font-family: 'Iosevka Nerd Font Propo';
         font-size: 12pt;
         min-height: 0;
         border-radius: 0;
@@ -372,7 +371,7 @@ in
       }
 
       #custom-notifications {
-        font-family: "JetBrainsMono Nerd Font";
+        font-family: "Iosevka Nerd Font Propo";
       }
       #custom-power {
         color: #${themix.base08};

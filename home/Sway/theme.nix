@@ -58,8 +58,8 @@
     };
 
     font = {
-      name = "JetBrainsMono Nerd Font";
-      size = 11;
+      name = "FantasqueSansMono Nerd Font Mono";
+      size = 13;
     };
   };
 

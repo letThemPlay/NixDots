@@ -20,6 +20,7 @@ in
       lua-language-server
       nil
       luajitPackages.lua-lsp
+      typescript-language-server
     ];
 
     # Lua configuration can be sourced like so
@@ -91,6 +92,7 @@ in
           p.jsonc
           p.css
           p.scss
+          p.typescript
         ]));
         type = "lua";
         config = builtins.readFile(./nvim/plugin/treesitter.lua);

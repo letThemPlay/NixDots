@@ -15,22 +15,21 @@
 		  # Awesome-fonts
 	    font-awesome	
 		  # nerdfonts
-		  (nerdfonts.override {fonts = [ "FiraCode" "JetBrainsMono" ]; })
-
-      roboto
-      helvetica-neue-lt-std
-
+		  (nerdfonts.override {fonts = [ "FantasqueSansM" ]; })
 	  ];
 
     # To disable the system from using default packages
 	  enableDefaultPackages = false;
-	
-	  # Settings default user fonts
-	  fontconfig.defaultFonts = {
-		  serif = [ "Noto Serif" "Noto Color Emoji" ];
-		  sansSerif = [ "Noto Sans" "Noto Color Emoji" ];
-		  monospace = [ "JetBrainsMono" "Noto Color Emoji" ];
-		  emoji = [ "Noto Color Emoji" ];
-	  };
+
+    # Settings default user fonts
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        serif = [ "Noto Serif" ];
+        sansSerif = [ "FantasqueSansM" ];
+        monospace = [ "FantasqueSansM" ];
+        emoji = [ "Noto Color Emoji" ];
+      };
+    };
   };
 }

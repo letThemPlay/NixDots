@@ -25,7 +25,7 @@
     };
 
 
-    style = ''
+    style = /*scss*/''
       @define-color	rosewater  #f5e0dc;
       @define-color	rosewater-rgb  rgb(245, 224, 220);
       @define-color	flamingo  #f2cdcd;
@@ -80,7 +80,7 @@
       @define-color	crust-rgb  rgb(17, 17, 27);
 
       * {
-          font-family: 'Inconsolata Nerd Font', monospace;
+          font-family: 'Iosevka Nerd Font';
           font-size: 14px;
         }
         

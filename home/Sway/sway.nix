@@ -35,7 +35,7 @@ in
       #   };
       # };
       defaultWorkspace = "workspace number 1"; # Define the default workspace as 1
-      terminal = "foot";
+      terminal = "kitty";
       menu = "wofi -S drun";
       modifier = "Mod4";
 
