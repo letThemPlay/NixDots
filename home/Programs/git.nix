@@ -22,6 +22,7 @@
       extraConfig = {
         init.defaultBranch = "main";
         safe.directory = "/etc/nixos";
+        push.autoSetupRemote = true;
       };
     };
 

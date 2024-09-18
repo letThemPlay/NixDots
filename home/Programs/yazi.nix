@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  theme = "catppuccin-mocha";
+  theme = "gruvbox-dark";
 in 
 {
   programs.yazi = {

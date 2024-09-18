@@ -4,9 +4,12 @@
     inputs.nix-colors.homeManagerModules.default
 		./Programs
     ./Sway
+
+    # Import the xdg settings here (makes file managers know which folder is meant for what )
+    ./xdgSettings.nix
 	];
 
-  colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
+  colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-hard;
 	
 	home = {
 		username = "chris";

@@ -49,7 +49,7 @@ in
 
       oh-my-zsh = {
         enable = true;
-        theme = "junkfood";
+        theme = "smt";
         plugins = [
           "git"
           "emotty"
@@ -127,7 +127,7 @@ in
         name = "Iosevka Nerd Font";
         size = 14;
       };
-      theme = "Catppuccin-Mocha";
+      theme = "Gruvbox Dark Hard";
       package = pkgs.kitty;
       shellIntegration = {
         enableBashIntegration = true;

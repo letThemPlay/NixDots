@@ -6,8 +6,8 @@
       enable = true;
       package = pkgs.qutebrowser;
       searchEngines = {
-        nw = "https://mynixos.com/";
-        g = "https://www.google.com/";
+        nw = "https://mynixos.com/search?q={}";
+        g = "https://www.google.com/search?q={}";
       };
       quickmarks = {
         manageHome = "https://nix-community.github.io/home-manager/options.xhtml";

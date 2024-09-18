@@ -5,15 +5,15 @@ let
   screenshot = pkgs.pkgs.writeShellScriptBin "screenshot" ''
     filename="grim-$(date '+%d-%m-%Y-%H-%M-%S')"
     ${pkgs.grim}/bin/grim - | tee /home/chris/Pictures/Screenshots/$(echo $filename).png | wl-copy
-    ${pkgs.imagemagick}/bin/magick convert /home/chris/Pictures/Screenshots/$(echo $filename).png -bordercolor '#96cdfb' -border 30 /tmp/screenshot-notification.png
+    ${pkgs.imagemagick}/bin/magick convert /home/chris/Pictures/Screenshots/$(echo $filename).png -bordercolor '#${themix.base06}' -border 30 /tmp/screenshot-notification.png
     notify-send -i /tmp/screenshot-notification.png "  grim" "desktop screenshot saved"
     rm -f /tmp/screenshot-notification.png
   '';
 
   partialScreenshot = pkgs.pkgs.writeShellScriptBin "partialScreenshot" ''
     filename="grim-$(date '+%Y-%m-%d-%H-%M-%S')"
-    ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -d -b "#302d4180" -c "#96cdfb" -s "#57526840" -w 2)" - | tee /home/chris/Pictures/Screenshots/$(echo $filename).png | wl-copy
-    ${pkgs.imagemagick}/bin/magick convert /home/chris/Pictures/Screenshots/$(echo $filename).png -bordercolor '#96cdfb' -border 15 /tmp/notification-screenshot.png
+    ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -d -b "#${themix.base00}" -c "#${themix.base0C}" -s "#${themix.base03}" -w 2)" - | tee /home/chris/Pictures/Screenshots/$(echo $filename).png | wl-copy
+    ${pkgs.imagemagick}/bin/magick convert /home/chris/Pictures/Screenshots/$(echo $filename).png -bordercolor '#${themix.base0C}' -border 15 /tmp/notification-screenshot.png
     notify-send -i /tmp/notification-screenshot.png "  grim" "screenshot of selected area saved"
     rm -f /tmp/notification-screenshot.png
   '';
@@ -41,7 +41,7 @@ in
 
       # Here are the fonts
       fonts = { 
-        names = [ "JetBrainsMono Nerd Font" ];
+        names = [ "Iosevka Nerd Font" ];
         size = 11.0;
       };
 
@@ -61,7 +61,7 @@ in
         {
           command = "waybar";
           fonts = {
-            names = [ "JetBrainsMono Nerd Font" ];
+            names = [ "Iosevka Nerd Font" ];
           };
         }
       ];
@@ -89,6 +89,7 @@ in
         let mod = config.wayland.windowManager.sway.config.modifier;
         in lib.mkOptionDefault {
             "${mod}+i" = "exec firefox";
+            "${mod}+Shift+i" = "exec qutebrowser";
             "${mod}+q" = "kill";
 
             # For changing the workspace left and right
@@ -161,38 +162,38 @@ in
       colors = {
         background = "#${themix.base00}";
         focused = {
-          border = "#${themix.base07}";
+          border = "#${themix.base0D}";
           background = "#${themix.base00}";
           text = "#${themix.base05}";
-          indicator = "#${themix.base06}";
-          childBorder = "#${themix.base07}";
+          indicator = "#${themix.base0E}";
+          childBorder = "#${themix.base0D}";
         };
         focusedInactive = {
-          border = "#6c7086";
+          border = "#${themix.base02}";
           background = "#${themix.base00}";
           text = "#${themix.base05}";
           indicator = "#${themix.base06}";
-          childBorder = "#6c7086";
+          childBorder = "#${themix.base02}";
         };
         unfocused = {
-          border = "#6c7086";
+          border = "#${themix.base02}";
           background = "#${themix.base00}";
           text = "#${themix.base05}";
           indicator = "#${themix.base06}";
-          childBorder = "#6c7086";
+          childBorder = "#${themix.base02}";
         };
         placeholder = {
-          border = "#6c7086";
+          border = "#${themix.base02}";
           background = "#${themix.base00}";
           text = "#${themix.base05}";
-          indicator = "#6c7086";
-          childBorder = "#6c7086";
+          indicator = "#${themix.base02}";
+          childBorder = "#${themix.base02}";
         };
         urgent = {
           border = "#${themix.base09}";
           background = "#${themix.base00}";
           text = "#${themix.base09}";
-          indicator = "#6c7086";
+          indicator = "#${themix.base02}";
           childBorder = "#${themix.base09}";
         };
       };
@@ -200,7 +201,7 @@ in
 
     extraConfig = /*jsonc*/''
       bindswitch lid:off exec swaylock
-      bindswitch lid:on exec swaymsg 'output * dpms on'
+      bindswitch --locked lid:on exec swaymsg 'output * dpms on'
     '';
     swaynag = {
       enable = true;
@@ -219,8 +220,8 @@ in
       enable = true;
       package = pkgs.swaylock-effects;
       settings = {
-        image = "${./../Wallpapers/lonely-fish.png}";
-        font = "JetBrainsMono Nerd Font";
+        image = "${./../Wallpapers/gruvbox_minimal_space.png}";
+        font = "Iosevka Nerd Font";
         font-size = 30;
         scaling = "fill";
         indicator = true;

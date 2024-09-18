@@ -4,18 +4,13 @@
   # fonts
   fonts = {
 	  packages = with pkgs; [
-		  # icon fonts
-		  material-design-icons
-		
 		  # Normal Fonts
 		  noto-fonts
 		  noto-fonts-emoji
       noto-fonts-cjk
-		
-		  # Awesome-fonts
-	    font-awesome	
+
 		  # nerdfonts
-		  (nerdfonts.override {fonts = [ "FantasqueSansM" ]; })
+		  (nerdfonts.override {fonts = [ "Iosevka" "FantasqueSansMono" ]; })
 	  ];
 
     # To disable the system from using default packages

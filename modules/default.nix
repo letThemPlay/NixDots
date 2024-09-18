@@ -1,11 +1,11 @@
 {
   imports = [
     ./autoupgrade.nix
-    # ./fonts.nix
+    ./fonts.nix
     ./hardware.nix
     ./nixsystem.nix
-    ./sway.nix
     ./services.nix
+    ./sway.nix
     ./thunar.nix
     ./usersettings.nix
   ];

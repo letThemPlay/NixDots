@@ -179,7 +179,7 @@ in
         }
         
         .floating-notifications.background .notification-row .notification-background .notification .notification-content .time {
-          color: #a6adc8;
+          color: #${themix.base04};
         }
         
         .floating-notifications.background .notification-row .notification-background .notification .notification-content .body {
@@ -206,7 +206,7 @@ in
         
         .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
           box-shadow: inset 0 0 0 1px #${themix.base03};
-          background-color: #74c7ec;
+          background-color: #${themix.base0D};
           color: #${themix.base05};
         }
         
@@ -219,7 +219,7 @@ in
         }
         
         .floating-notifications.background .notification-row .notification-background .close-button:hover {
-          background-color: #eba0ac;
+          background-color: #${themix.base0F};
           color: #${themix.base00};
         }
         
@@ -258,7 +258,7 @@ in
         
         .control-center .widget-title button:active {
           box-shadow: inset 0 0 0 1px #${themix.base03};
-          background-color: #74c7ec;
+          background-color: #${themix.base0D};
           color: #${themix.base00};
         }
         
@@ -288,7 +288,7 @@ in
         }
         
         .control-center .notification-row .notification-background .notification .notification-content .time {
-          color: #a6adc8;
+          color: #${themix.base04};
         }
         
         .control-center .notification-row .notification-background .notification .notification-content .body {
@@ -315,7 +315,7 @@ in
         
         .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
           box-shadow: inset 0 0 0 1px #${themix.base03};
-          background-color: #74c7ec;
+          background-color: #${themix.base0D};
           color: #${themix.base05};
         }
         
@@ -324,7 +324,7 @@ in
           padding: 2px;
           border-radius: 6.3px;
           color: #${themix.base00};
-          background-color: #eba0ac;
+          background-color: #${themix.base0E};
         }
         
         .close-button {
@@ -343,13 +343,13 @@ in
         
         .control-center .notification-row .notification-background:hover {
           box-shadow: inset 0 0 0 1px #${themix.base03};
-          background-color: #7f849c;
+          background-color: #${themix.base03};
           color: #${themix.base05};
         }
         
         .control-center .notification-row .notification-background:active {
           box-shadow: inset 0 0 0 1px #${themix.base03};
-          background-color: #74c7ec;
+          background-color: #${themix.base0D};
           color: #${themix.base05};
         }
         
@@ -399,7 +399,7 @@ in
         .widget-dnd > switch slider {
           background: #${themix.base03};
           border-radius: 8px;
-          border: 1px solid #6c7086;
+          border: 1px solid #${themix.base02};
         }
         
         .widget-mpris .widget-mpris-player {
@@ -449,11 +449,11 @@ in
         
         .widget-volume label {
           font-size: 1.5rem;
-          color: #74c7ec;
+          color: #${themix.base0D};
         }
         
         .widget-volume trough highlight {
-          background: #74c7ec;
+          background: #${themix.base0D};
         }
         
         .widget-backlight trough highlight {

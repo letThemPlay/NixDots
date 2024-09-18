@@ -97,7 +97,7 @@ in
             ];
             headphone = " ";
           };
-          format-muted = "<span foreground='#${themix.base08}'> </span>";
+          format-muted = "<span foreground='#${themix.base08}'> </span>";
           on-click = "pwvucontrol";
           on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
         };
@@ -108,7 +108,7 @@ in
             capslock = "C{icon}";
           };
           format-icons = {
-            locked = "<span foreground='#89dceb'> </span>";
+            locked = "<span foreground='#${themix.base0C}'> </span>";
             unlocked = "<span foreground='#${themix.base0E}'> </span>";
           };
           numlock = true;
@@ -187,11 +187,11 @@ in
 
         network = {
           interval = 5;
-          format-wifi = "<span foreground='#${themix.base0B}'> </span><span foreground='#${themix.base05}'>{essid}</span>({signalStrength}%)";
+          format-wifi = "<span foreground='#${themix.base0B}'> </span><span foreground='#${themix.base05}' font_style='italic' font_weight='heavy'>{essid}</span>({signalStrength}%)";
           tooltip-format-wifi = " {bandwidthUpBits} |  {bandwidthDownBits}";
           tooltip-format-ethernet = "<span foreground='#${themix.base0D}'> </span>{ifname} via {gwaddr}";
-          format-ethernet = " {ipaddr}/{cidr}";
-          format-linked = " {ifname} (No IP)";
+          format-ethernet = " {ipaddr}/{cidr}";
+          format-linked = "󰈁{ifname} (No IP)";
           format-disconnected = "<span foreground='#${themix.base08}'>󰤭 </span>";
           format-disabled = "<span foreground='#${themix.base08}'> </span>";
           on-click = "kitty -e nmtui";
@@ -217,9 +217,9 @@ in
             "<span color='#${themix.base0D}'> </span>" #blue
             "<span color='#${themix.base06}'> </span>" #white
             "<span color='#${themix.base0F}'> </span>" #white
-            "<span color='#f4b8e4'> </span>" #yellow
+            "<span color='#${themix.base0E}'> </span>" #yellow
             "<span color='#${themix.base0A}'> </span>" #yellow
-            "<span color='#ea999c'> </span>" #orange
+            "<span color='#${themix.base09}'> </span>" #orange
             "<span color='#${themix.base08}'> </span>" #red
           ];
         };
@@ -229,7 +229,7 @@ in
           format = "{icon}";
           format-icons = {
             notification= "<span foreground='#${themix.base08}'> <sup></sup></span>";
-            none= "<span foreground='#${themix.base0F}'> </span>";
+            none= "<span foreground='#${themix.base0A}'> </span>";
             dnd-notification= " <span foreground='#${themix.base08}'><sup></sup></span>";
             dnd-none= " ";
             inhibited-notification= " <span foreground='#${themix.base08}'><sup></sup></span>";
@@ -311,7 +311,7 @@ in
       }
       
       .modules-left {
-        background: linear-gradient(45deg, #${themix.base00}, #${themix.base00}) padding-box, linear-gradient(45deg, #${themix.base0E}, #${themix.base0D}) border-box;
+        background: linear-gradient(45deg, #${themix.base00}, #${themix.base00}) padding-box, linear-gradient(45deg, #${themix.base0D}, #${themix.base0E}) border-box;
         border: 2px solid transparent;
         border-radius: 25px;
         color: #${themix.base05};
@@ -329,7 +329,7 @@ in
       }
       
       .modules-right {
-        background: linear-gradient(135deg, #${themix.base00}, #${themix.base00}) padding-box, linear-gradient(135deg, #${themix.base0D}, #${themix.base0E}) border-box;
+        background: linear-gradient(135deg, #${themix.base00}, #${themix.base00}) padding-box, linear-gradient(135deg, #${themix.base0E}, #${themix.base0D}) border-box;
         border: 2px solid transparent; 
         border-radius: 25px;
         color: inherit;

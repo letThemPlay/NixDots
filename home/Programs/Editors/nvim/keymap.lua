@@ -3,7 +3,7 @@ local set = vim.keymap.set
 vim.g.mapleader = " "
 
 --for naviagting in split windows
-set('i', 'jj', '<Esc><CR>')
+set('i', 'jj', '<Esc>')
 set('n', '<c-h>', '<c-w>h')
 set('n', '<c-j>', '<c-w>j')
 set('n', '<c-k>', '<c-w>k')
