@@ -8,10 +8,6 @@
       brightnessctl
       libnotify
 
-      # The whole hyprland ecosystem
-      #hyprcursor # for amazing mouse cursors
-      #hyprpicker # for color picking
-
       # For clipboard management
       wl-clipboard # Clip hist uses this
 

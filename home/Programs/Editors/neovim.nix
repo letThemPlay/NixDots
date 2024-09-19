@@ -35,7 +35,7 @@ in
       {
         plugin = nvim-surround;
         type = "lua";
-        config = "require(\"nvim-surround\").setup({})";
+        config = /*lua*/ "require(\"nvim-surround\").setup({})";
       }
 
       {
@@ -47,7 +47,7 @@ in
       {
         plugin = comment-nvim;
         type = "lua";
-        config = "require(\"Comment\").setup()";
+        config = /*lua*/ "require(\"Comment\").setup()";
       }
 
       {
@@ -56,7 +56,6 @@ in
         config = builtins.readFile(./nvim/plugin/gruvbox.lua);
       }
 
-      neodev-nvim
 
       {
         plugin = nvim-cmp;
@@ -70,15 +69,20 @@ in
         config = builtins.readFile(./nvim/plugin/telescope.lua);
       }
 
-      telescope-fzf-native-nvim
+      {
+        plugin = indent-blankline-nvim-lua;
+        type = "lua";
+        config = /*lua*/ "require(\"ibl\").setup()";
+      }
 
+
+
+      neodev-nvim
+      telescope-fzf-native-nvim
       cmp_luasnip
       cmp-nvim-lsp
-
       luasnip
       friendly-snippets
-
-
       lualine-nvim
       nvim-web-devicons
 
@@ -114,13 +118,13 @@ in
       {
         plugin = plenary-nvim;
         type = "lua";
-        config = "local async = require \"plenary.async\"";
+        config = /*lua*/ "local async = require (\"plenary.async\")";
       }
       
       {
         plugin = own-terminal-nvim;
         type = "lua";
-        config = "require(\"toggleterm\").setup()";
+        config = /*lua*/ "require(\"toggleterm\").setup()";
       }
     ];
   };

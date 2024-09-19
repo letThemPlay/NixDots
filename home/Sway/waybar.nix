@@ -125,7 +125,7 @@ in
 					format = "{icon}{capacity}%";
 					format-charging = " {capacity}%";
 					format-plugged = " {capacity}%";
-					format-full = "{icon} <span foreground='#${themix.base0F}'> </span>";
+					format-full = "{icon} <span foreground='#${themix.base0A}'> </span>";
 					format-alt = "{icon} {time}";
           format-icons = [
             "<span foreground='#${themix.base07}'> </span>" 

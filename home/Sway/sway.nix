@@ -133,7 +133,7 @@ in
       # Decoration stuff goes here:
       gaps = {
         smartBorders = "off";
-        smartGaps = true;
+        smartGaps = false;
         inner = 8;
         outer = 8;
       };
@@ -273,6 +273,7 @@ in
           path = "${./../Wallpapers}";
           apply-shadow = true;
           sorting = "ascending";
+          duration = "30s";
         };
       };
     };

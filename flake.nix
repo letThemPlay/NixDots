@@ -10,6 +10,12 @@
 			inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Gruvbox GRUB theme
+    tartarus-grub = {
+      url = "github:AllJavi/tartarus-grub";
+      flake = false;
+    };
+
     # Sddm sugar candy
     sddm-sugar-candy-nix = {
       url = "gitlab:Zhaith-Izaliel/sddm-sugar-candy-nix";

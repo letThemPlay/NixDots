@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports =
@@ -24,7 +24,13 @@
         enable = true;
         efiSupport = true;
         device = "nodev";
-        theme = pkgs.catppuccin-grub;
+        theme = pkgs.stdenv.mkDerivation {
+          name = "tartarus-grub-theme";
+          src = inputs.tartarus-grub;
+          installPhase = ''
+            cp tartarus -r $out
+          '';
+        };
       };
       efi = {
         canTouchEfiVariables = true;

@@ -5,15 +5,15 @@ in
 {
   programs = {
     # For note taking
-    joplin-desktop = {
-      enable = true;
-      package = pkgs.joplin-desktop;
-      sync = {
-        target = "file-system";
-        interval = "1d";
-      };
-      general.editor = "nvim";
-    };
+    # joplin-desktop = {
+    #   enable = true;
+    #   package = pkgs.joplin-desktop;
+    #   sync = {
+    #     target = "file-system";
+    #     interval = "1d";
+    #   };
+    #   general.editor = "nvim";
+    # };
 
     # For effective neovim
     ripgrep = {
