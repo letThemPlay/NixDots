@@ -1,3 +1,4 @@
+# Many programs related to wlr based stuff will be in ../Programs/misc.nix
 { pkgs, lib, config, ... }:
 let
   themix = config.colorScheme.palette;

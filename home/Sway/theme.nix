@@ -1,28 +1,7 @@
 { pkgs, ... }:
 
 {
-
   home = {
-    # Define packages to install here
-    packages = with pkgs; [
-      brightnessctl
-      libnotify
-
-      # For clipboard management
-      wl-clipboard # Clip hist uses this
-
-      # For Bluetooth gui and tui
-      bluetuith # TUI
-      overskride # GUI
-
-      # For screenshot utility
-      grimblast
-
-      # For Pipewire volume control
-      # See services in /etc/nixos/modules
-      pwvucontrol
-    ];
-
     # Declare session variables for Hyprland here
     sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = "1";

@@ -228,6 +228,20 @@ in
       gcc14
       sl # You know it
       tree # you know if you know
+
+      brightnessctl
+      libnotify
+
+      # For clipboard management
+      wl-clipboard # Clip hist uses this
+
+      bluetuith # TUI for bluetooth
+
+      # For Pipewire volume control
+      # See services in /etc/nixos/modules
+      pwvucontrol
+
+      nix-tree # to identify the paths of unwanted (and wanted) stuff thanks to Whovian9369 on reddit
     ];
   };
 
