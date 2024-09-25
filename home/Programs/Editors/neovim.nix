@@ -75,8 +75,6 @@ in
         config = /*lua*/ "require(\"ibl\").setup()";
       }
 
-
-
       neodev-nvim
       telescope-fzf-native-nvim
       cmp_luasnip
@@ -86,9 +84,10 @@ in
       lualine-nvim
       nvim-web-devicons
 
-      {
+        {
         plugin = (nvim-treesitter.withPlugins (p: [
           p.c 
+          p.cpp
           p.nix
           p.lua 
           p.bash

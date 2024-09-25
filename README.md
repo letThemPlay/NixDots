@@ -7,10 +7,18 @@ After installing the system
 - There is an error in Thunar: "cannot find archive manager" when opening an Archive file.
 - Need to do a thorough reading of all the Nix
 - Need to set up a notification for low battery power
-- Can install nix-colors which will help to rice nix from just one configuration file
-- Mako notifications are very short-termed, and gives error with Blueman (so switched to Overskride) because there's no option for confirming the pairing codes.
-- Also installed bluetuith for terminal bluetooth control.
+- Can install nix-colors which will help to rice nix from just one configuration file (Done)
 - Swaync configuration has not worked for the wifi button
-- Enable wlogout
-- Learn CSS for ricing waybar
+- Enable wlogout (Done) 
+- Learn CSS for ricing waybar (Almost done)
 - Waybar bluetooth module should show bluetooth symbol and battery of the bluetooth device (not set up yet)
+- Configure AGS (learn javascript & typescript for that)
+- Learn Bashscript in Nix syntax
+- Configure QuteBrowser keymaps and keybinds 
+- Configure mpv and mpv-mpris
+
+***In case home manager fails***
+```
+$journalctl --unit home-manager.service
+```
+*will show what actually is happening*

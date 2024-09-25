@@ -1,9 +1,0 @@
-- When home manager fails to build run
-```
-  $journalctl --unit home-manager-chris.service
-```
-and check for any file coming in between the creation of a new home-manager generation
-
-* Mako wasn't starting because I had messed up somewhere in the format section in the home manager module.
-The error won't be printed out since the config file messed up was the symlinked config file in config 
-directory. Gotta be careful when editting the home-manager stuff.
