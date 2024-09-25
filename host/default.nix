@@ -101,6 +101,13 @@
   security = {
   	rtkit.enable = true;
 	  polkit.enable = true;
+    sudo = {
+      enable = true;
+      package = pkgs.sudo.override{ withInsults = true; };
+      extraConfig = ''
+        Defaults insults
+      '';
+    };
     pam.services = {
       hyprlock = {};
     };

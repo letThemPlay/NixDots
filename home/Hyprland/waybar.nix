@@ -387,6 +387,10 @@ in
         background: #${themix.base03};
         padding: 1px;
       }
+
+      #battery.Charging {
+        color: #${themix.base0C};
+      }
       '';
   };
 }
