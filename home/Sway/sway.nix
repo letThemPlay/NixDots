@@ -106,9 +106,10 @@ in
             # "${mod}+Shift+d" = "exec sh -c \"makoctl set-mode default && notify-send -i ${./makoIcons/dnd.png} '  Do Not Disturb' 'Do Not Disturb Mode disabled'\"";
             "${mod}+x" = "exec sh -c \"systemctl suspend && swaylock\"";
 
-            # Change thru wallpapers with wpaperd
+            # Change thru wallpapers with wpaperd, pause and resume cycling of wallpapers
             "${mod}+Right" = "exec wpaperctl next";
             "${mod}+Left" = "exec wpaperctl previous";
+            "${mod}+Up" = "exec wpaperctl toggle-pause";
 
             # Volume control keys
             "--locked XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1";

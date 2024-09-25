@@ -49,7 +49,7 @@ in
 
       oh-my-zsh = {
         enable = true;
-        theme = "smt";
+        theme = "jonathan";
         plugins = [
           "git"
           "emotty"
@@ -127,15 +127,20 @@ in
         name = "Iosevka Nerd Font";
         size = 14;
       };
-      theme = "Gruvbox Dark Hard";
+      themeFile = "GruvboxMaterialDarkHard";
       package = pkgs.kitty;
       shellIntegration = {
         enableBashIntegration = true;
         enableZshIntegration = true;
       };
-      extraConfig = /*jsonc*/ ''
-          confirm_os_window_close 0
-      '';
+      settings = {
+        confirm_os_window_close = 0;
+        background_blur = 1;
+        background_opacity = "0.8";
+      };
+      # extraConfig = /*jsonc*/ ''
+      #     confirm_os_window_close 0
+      # '';
     };
   };
 }

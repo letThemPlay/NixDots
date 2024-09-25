@@ -63,7 +63,6 @@
       WLR_NO_HARDWARE_CURSORS="1";
       NIXOS_OZONE_WL="1";
       MOZ_ENABLE_WAYLAND = "1";
-      XDG_SCREENSHOTS_DIR = "/home/chris/Pictures/Screenshots/";
     };
 
     systemPackages = with pkgs; [
@@ -75,6 +74,7 @@
       dosfstools
       xorg.xhost
       sof-firmware
+      pciutils
     ];
   };
 
@@ -102,8 +102,7 @@
   	rtkit.enable = true;
 	  polkit.enable = true;
     pam.services = {
-      #hyprlock = {};
-      swaylock = {};
+      hyprlock = {};
     };
   };
 

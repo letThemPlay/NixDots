@@ -13,5 +13,17 @@
     ];
     shell = pkgs.zsh;
   };
+
+  # The xdg settings are in ./home/Sway/xdgSettings.nix
+  # xdg = {
+  #   portal = {
+  #     enable = true;
+  #     wlr = {
+  #       enable = true;
+  #     };
+  #   };
+  # };
+
+  # enable user level programs here
+  programs.zsh.enable = true;
 }
-  

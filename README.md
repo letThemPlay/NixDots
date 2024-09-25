@@ -13,3 +13,4 @@ After installing the system
 - Swaync configuration has not worked for the wifi button
 - Enable wlogout
 - Learn CSS for ricing waybar
+- Waybar bluetooth module should show bluetooth symbol and battery of the bluetooth device (not set up yet)

@@ -182,7 +182,7 @@ in
       package = pkgs.btop;
 
       settings = {
-        color_theme = "gruvbox_dark_v2";
+        color_theme = "gruvbox_material_dark";
         theme_background = false;
       };
     };
@@ -200,7 +200,6 @@ in
           source = "auto";
         };
         color = {
-          background = "'#${themix.base00}'";
           gradient = 1;
           gradient_color_1 = "'#${themix.base0B}'";
           gradient_color_2 = "'#${themix.base0C}'";
@@ -228,12 +227,6 @@ in
       gcc14
       sl # You know it
       tree # you know if you know
-
-      brightnessctl
-      libnotify
-
-      # For clipboard management
-      wl-clipboard # Clip hist uses this
 
       bluetuith # TUI for bluetooth
 

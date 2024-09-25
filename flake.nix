@@ -10,6 +10,9 @@
 			inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Hyprland url flake 
+     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+
     # Gruvbox GRUB theme
     tartarus-grub = {
       url = "github:AllJavi/tartarus-grub";
