@@ -247,7 +247,6 @@ in {
           path = "${./../Wallpapers}";
           apply-shadow = true;
           sorting = "ascending";
-          duration = "10m";
         };
       };
     };
@@ -319,7 +318,7 @@ in {
         background = [
           {
             monitor = "" ;
-            path = "${../Wallpapers/comfy-room.jpg}";
+            path = "${../Wallpapers/forest-3.jpg}";
             blur_passes = 2;
             contrast = 1;
             brightness = 0.5;

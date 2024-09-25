@@ -116,6 +116,7 @@ in
         };
 
 				battery = {
+          interval = 1;
 					full-at = 80;
 					states = {
 						good = 75;
@@ -147,7 +148,7 @@ in
         };
 
 				clock = {
-					interval = 60;
+					interval = 10;
 					align = 0;
 					rotate = 0;
 					tooltip-format = "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>";
@@ -156,7 +157,7 @@ in
 				};
 
         cpu = {
-          interval = 1;
+          interval = 10;
           format = " {usage}%{icon}";
           states = {
             good = 20;
@@ -176,7 +177,7 @@ in
           ];
         };
         memory = {
-          interval = "10";
+          interval = 10;
           format = "<span foreground='#${themix.base0F}'> </span>{used:0.1f}G";
         };
 
@@ -186,7 +187,7 @@ in
 				};
 
         network = {
-          interval = 5;
+          interval = 3;
           format-wifi = "<span foreground='#${themix.base0B}'> </span><span foreground='#${themix.base05}' font_style='italic' font_weight='heavy'>{essid}</span>({signalStrength}%)";
           tooltip-format-wifi = " {bandwidthUpBits} |  {bandwidthDownBits}";
           tooltip-format-ethernet = "<span foreground='#${themix.base0D}'> </span>{ifname} via {gwaddr}";

@@ -33,6 +33,12 @@ in
     # Adding plugins
     plugins = with pkgs.vimPlugins; [
       {
+        plugin = nvim-tree-lua;
+        type = "lua";
+        config = builtins.readFile(./nvim/plugin/nvim-tree.lua);
+      }
+
+      {
         plugin = nvim-surround;
         type = "lua";
         config = /*lua*/ "require(\"nvim-surround\").setup({})";
@@ -75,6 +81,8 @@ in
         config = /*lua*/ "require(\"ibl\").setup()";
       }
 
+
+
       neodev-nvim
       telescope-fzf-native-nvim
       cmp_luasnip
@@ -84,10 +92,9 @@ in
       lualine-nvim
       nvim-web-devicons
 
-        {
+      {
         plugin = (nvim-treesitter.withPlugins (p: [
           p.c 
-          p.cpp
           p.nix
           p.lua 
           p.bash

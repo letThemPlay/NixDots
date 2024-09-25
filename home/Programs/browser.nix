@@ -18,6 +18,16 @@ in
       loadAutoconfig = true;
       enableDefaultBindings = true;
 
+      # Keybindings and keymappings are different refer www.mynixos.com
+      keyBindings = {
+        normal = {
+          "<Ctrl-v>" = "spawn mpv {url}";
+        };
+        prompt = {
+          "<Ctrl-y>" = "prompt-yes";
+        };
+      };
+
       # Settings go here
       settings = {
         colors = {
