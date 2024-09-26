@@ -8,5 +8,6 @@
     ./services.nix
     ./thunar.nix
     ./usersettings.nix
+    ./virtualbox.nix
   ];
 }

@@ -15,6 +15,9 @@
 
   # Use the systemd-boot EFI boot loader.
   boot = {
+    kernel = {
+      enable = true;
+    };
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ 
       "i915.force_probe=a7a0" 
@@ -38,10 +41,30 @@
     };
   };
 
-  networking.hostName = "mynixos"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking = {
+    hostName = "mynixos"; # Define your hostname.
+
+    # Pick only one of the below networking options.
+    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    networkmanager.enable = true; # Easiest to use and most distros use this by default. 
+
+    # Enable firewall with allowed TCP ports
+    firewall = {
+      enable = true;
+      package = pkgs.nftables;
+      allowedTCPPortRanges = [ 
+        # the dynamic ports used by KDEConnect
+        {from = 1714; to = 1764;}
+      ];
+      allowedUDPPortRanges = [
+        # the dynamic ports used by KDEConnect
+        {from = 1714; to = 1764;}
+      ];
+    };
+
+    # Enable nftables, the newer stuff
+    nftables.enable = true;
+  };
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
@@ -75,6 +98,7 @@
       xorg.xhost
       sof-firmware
       pciutils
+      alsa-tools
     ];
   };
 

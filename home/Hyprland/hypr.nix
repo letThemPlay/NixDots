@@ -244,7 +244,7 @@ in {
 
       settings = {
         default = {
-          path = "${./../Wallpapers}";
+          path = "${./../Wallpapers/berries.jpg}";
           apply-shadow = true;
           sorting = "ascending";
         };

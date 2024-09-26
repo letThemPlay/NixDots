@@ -20,7 +20,10 @@
 	  pipewire = {
       enable = true;
       pulse.enable = true;
-      wireplumber.enable = true;
+      wireplumber = {
+        enable = true;
+        package = pkgs.wireplumber;
+      };
      	alsa = {
 			  enable = true;
 			  support32Bit = true;

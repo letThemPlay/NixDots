@@ -1,16 +1,18 @@
-{config, ... }:
+{config, pkgs, ... }:
 let
   themix = config.colorScheme.palette;
 in 
   {
   programs.waybar = {
     enable = true;
+    package = pkgs.waybar;
 
 		# settings of the main bar
 		settings = {
 			mainBar = {
 				layer = "top";
 				position = "bottom";
+        height = 59;
 
         modules-left = [ 
           "custom/notifications"
@@ -117,9 +119,9 @@ in
 
 				battery = {
           interval = 1;
-					full-at = 80;
+					full-at = 100;
 					states = {
-						good = 75;
+						good = 85;
 						warning = 30;
 						critical = 25;
 					};
@@ -392,5 +394,11 @@ in
         color: #${themix.base0C};
       }
       '';
+
+    # Enabling waybar systemd target
+    # systemd = {
+    #   enable = true;
+    #   target = "graphical-session.target";
+    # };
   };
 }
