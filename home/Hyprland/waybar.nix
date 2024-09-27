@@ -396,9 +396,9 @@ in
       '';
 
     # Enabling waybar systemd target
-    # systemd = {
-    #   enable = true;
-    #   target = "graphical-session.target";
-    # };
+    systemd = {
+      enable = true;
+      target = "hyprland-session.target";
+    };
   };
 }

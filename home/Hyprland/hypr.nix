@@ -35,7 +35,7 @@ in {
         "swaync"
         "wpaperd -d"
         "wl-copy --watch cliphist store"
-        "waybar"
+        # "waybar" # waybar now starts as a systemd service
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &"
         "${inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland}/libexec/xdg-desktop-portal-hyprland"
       ];
@@ -56,6 +56,19 @@ in {
 
       windowrulev2 = [
         "suppressevent maximize, class:.*"
+
+        # Dim around when polkit authenticator starts 
+        "dimaround, class:^(polkit-gnome-authentication-agent-1)$"
+
+        # Stop idle_inhibit while watching videos
+        "idleinhibit focus, class:^(vlc)$"
+        "idleinhibit fullscreen, class:^(vlc)$"
+        "idleinhibit focus, class:^(mpv)$"
+        "idleinhibit fullscreen, class:^(mpv)$"
+
+        # Make picture-in-picture floating in FireFox
+        "float, title:^(Picture-in-Picture)$"
+        "pin, title:^(Picture-in-Picture)$"
       ];
 
       # Keybindings 
@@ -162,7 +175,9 @@ in {
       input = {
         touchpad = {
           natural_scroll = true;
+          scroll_factor = 0.1;
         };
+        accel_profile = "flat";
       };
 
       # Disable some stuff
@@ -211,7 +226,11 @@ in {
           enabled = true;
           size = 3;
           passes = 1;
-          vibrancy = 0.1696;
+          vibrancy = 0.2;
+          vibrancy_darkness = 0.5;
+          brightness = 1.0;
+          contrast = 1.0;
+          noise = 0.01;
         };
       };
 

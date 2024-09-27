@@ -1,4 +1,5 @@
 {lib, pkgs, ... }:
+
 {
   # Enable sound and other services
   services = {
@@ -19,6 +20,8 @@
     # Enable pipewire audio services
 	  pipewire = {
       enable = true;
+      package = pkgs.pipewire;
+      audio.enable = true;
       pulse.enable = true;
       wireplumber = {
         enable = true;
@@ -29,7 +32,7 @@
 			  support32Bit = true;
 		  };
 		  jack.enable = true;
-   	};
+    };
 
     # Enable touchpad services 
 	  libinput.enable = true;
