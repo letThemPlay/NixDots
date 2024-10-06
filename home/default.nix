@@ -3,8 +3,8 @@
 	imports = [
     inputs.nix-colors.homeManagerModules.default
 		./Programs
-    # ./Sway
-    ./Hyprland
+     ./Sway
+    #./Hyprland
 
     # Import the xdg settings here (makes file managers know which folder is meant for what )
     ./xdgSettings.nix

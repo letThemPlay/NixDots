@@ -11,18 +11,12 @@
     };
 
     # Hyprland url flake 
-     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     # Gruvbox GRUB theme
     tartarus-grub = {
       url = "github:AllJavi/tartarus-grub";
       flake = false;
-    };
-
-    # Sddm sugar candy
-    sddm-sugar-candy-nix = {
-      url = "gitlab:Zhaith-Izaliel/sddm-sugar-candy-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Nix colors for a good and easy rice
@@ -42,7 +36,6 @@
     self,
     nixpkgs,
     home-manager,
-    sddm-sugar-candy-nix,
     ...}@inputs: {
       nixosConfigurations = {
         mynixos = nixpkgs.lib.nixosSystem {
@@ -61,16 +54,6 @@
 								users."chris" = import ./home;
 							};
 						}
-
-            # for sddm
-            sddm-sugar-candy-nix.nixosModules.default
-            {
-              nixpkgs = {
-                overlays = [
-                  sddm-sugar-candy-nix.overlays.default
-                ];
-              };
-            }
           ];
         };
       };

@@ -209,7 +209,12 @@ in
               };
             };
           };
-          webpage.bg = "#${themix.base00}";
+          webpage = {
+            bg = "#${themix.base00}";
+            darkmode = {
+              enabled = true;
+            };
+          };
         };
       };
     };

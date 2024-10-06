@@ -28,7 +28,6 @@ in
         modules-right = [ 
           "group/hardware"
           #"battery" 
-          "power-profiles-daemon" 
           "backlight" 
           "network" 
           "wireplumber"
@@ -197,18 +196,6 @@ in
           on-click = "kitty -e nmtui";
         };
 
-        # power-profiles-daemon was enabled as service in configuration.nix
-        power-profiles-daemon = {
-          format = "{icon}";
-          tooltip-format = "Power profile: {profile}\nDriver: {driver}";
-          format-icons = {
-            default = " ";
-            performance = " ";
-            balanced = " ";
-            power-saver = " ";
-          };
-        };
-
         backlight = {
           tooltip = false;
           format = "{icon}{percent}%";
@@ -342,7 +329,6 @@ in
       #idle_inhibitor,
       #keyboard-state,
       #battery,
-      #power-profiles-daemon,
       #backlight,
       #network,
       #wireplumber,
@@ -351,16 +337,6 @@ in
       #custom-power {
         margin-right: 10px;
         margin-left: 10px;
-      }
-      
-      #power-profiles-daemon.power-saver {
-        color: #${themix.base0B};
-      }
-      #power-profiles.balanced {
-        color: #${themix.base0A};
-      }
-      #power-profiles-daemon.performance {
-        color: #${themix.base08};
       }
       
       #idle_inhibitor.activated {

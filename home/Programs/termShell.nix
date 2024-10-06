@@ -135,8 +135,8 @@ in
       };
       settings = {
         confirm_os_window_close = 0;
-        background_blur = 1;
-        background_opacity = "0.8";
+        background_blur = 0;
+        background_opacity = "1";
       };
       # extraConfig = /*jsonc*/ ''
       #     confirm_os_window_close 0

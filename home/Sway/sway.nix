@@ -23,6 +23,8 @@ in
   home = {
     packages = with pkgs; [
       wev # wayland event viewer
+      brightnessctl
+      wl-clipboard
     ];
   };
   wayland.windowManager.sway = {
@@ -30,11 +32,11 @@ in
     package = pkgs.sway;
 
     config = {
-      # output = {
-      #   eDP-1 = {
-      #     bg = "${./../Wallpapers/dark/evening-sky.png} fill";
-      #   };
-      # };
+      output = {
+        eDP-1 = {
+          bg = "${./../Wallpapers/board.png} fill";
+        };
+      };
       defaultWorkspace = "workspace number 1"; # Define the default workspace as 1
       terminal = "kitty";
       menu = "wofi -S drun";
@@ -52,7 +54,6 @@ in
       left = "h";
 
       startup = [
-        { command = "wpaperd -d"; }
         { command = "swaync"; }
         { command = "wl-paste --watch cliphist store"; }
         { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &"; }    
@@ -81,7 +82,7 @@ in
       };
 
       focus = {
-        followMouse = "always";
+        followMouse = "no";
       };
 
       # The keybinds. The NixOS manual recommends using lib.mkOptionDefault
@@ -105,11 +106,6 @@ in
             # "${mod}+d" = "exec sh -c \"notify-send -i ${./makoIcons/dnd.png} '  Do Not Disturb' 'Turning on Do not Distrub Mode' && sleep 2 && makoctl set-mode do-not-disturb\"";
             # "${mod}+Shift+d" = "exec sh -c \"makoctl set-mode default && notify-send -i ${./makoIcons/dnd.png} '  Do Not Disturb' 'Do Not Disturb Mode disabled'\"";
             "${mod}+x" = "exec sh -c \"systemctl suspend && swaylock\"";
-
-            # Change thru wallpapers with wpaperd, pause and resume cycling of wallpapers
-            "${mod}+Right" = "exec wpaperctl next";
-            "${mod}+Left" = "exec wpaperctl previous";
-            "${mod}+Up" = "exec wpaperctl toggle-pause";
 
             # Volume control keys
             "--locked XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1";
@@ -204,6 +200,9 @@ in
     extraConfig = /*jsonc*/''
       bindswitch lid:off exec swaylock
       bindswitch --locked lid:on exec swaymsg 'output * dpms on'
+
+      bindgesture swipe:right workspace prev
+      bindgesture swipe:left workspace next
     '';
     swaynag = {
       enable = true;
@@ -262,21 +261,6 @@ in
         text-caps-lock-color = "${themix.base09}";
         text-ver-color = "${themix.base0D}";
         text-wrong-color = "eba0ac";
-      };
-    };
-
-    # The wallpaper daemon
-    wpaperd = {
-      enable = true;
-      package = pkgs.wpaperd;
-
-      settings = {
-        default = {
-          path = "${./../Wallpapers}";
-          apply-shadow = true;
-          sorting = "ascending";
-          duration = "30s";
-        };
       };
     };
   };

@@ -1,4 +1,4 @@
-{lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Enable sound and other services
@@ -43,34 +43,6 @@
     # Enable tumbler for thumbnailer service
     tumbler.enable = true;
 
-    # Enable power-profiles-daemon for waybar
-    power-profiles-daemon = {
-      enable = true;
-    };
-
-    # Enable sddm login manager 
-    displayManager.sddm = {
-      enable = true;
-      wayland = {
-        enable = true;
-      };
-
-      # Theme settings 
-      sugarCandyNix = {
-        enable = true;
-        settings = {
-          Background = lib.cleanSource ../home/Wallpapers/village.jpg;
-          ScreenWidth = 1920;
-          ScreenHeight = 1080;
-          FormPosition = "left";
-          HaveFormBackground = true;
-          PartialBlur = true;
-          FullBlur = false;
-          Font = "Iosevka Nerd Font";
-        };
-      };
-    };
-
     # Set journal size to 2g 
     journald.extraConfig = ''
       SystemMaxUse=2G
@@ -84,6 +56,17 @@
     # Enable thermald for intel cpus 
     thermald = {
       enable = true;
+    };
+
+    # For greetd tuigreet greeter
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+          user = "greeter";
+        };
+      };
     };
   };
 }
