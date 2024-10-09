@@ -27,12 +27,15 @@
         enable = true;
         efiSupport = true;
         device = "nodev";
-        theme = pkgs.stdenv.mkDerivation {
-          name = "tartarus-grub-theme";
-          src = inputs.tartarus-grub;
-          installPhase = ''
-            cp tartarus -r $out
-          '';
+        # theme = pkgs.stdenv.mkDerivation {
+        #   name = "tartarus-grub-theme";
+        #   src = inputs.tartarus-grub;
+        #   installPhase = ''
+        #     cp tartarus -r $out
+        #   '';
+        # };
+        theme = pkgs.catppuccin-grub.override {
+          flavor = "mocha";
         };
       };
       efi = {
