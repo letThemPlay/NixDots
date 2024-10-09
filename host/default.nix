@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, lib, ... }:
 
 {
   imports =
@@ -46,7 +46,10 @@
 
     # Pick only one of the below networking options.
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-    networkmanager.enable = true; # Easiest to use and most distros use this by default. 
+    networkmanager = {
+      enable = true; # Easiest to use and most distros use this by default. 
+      plugins = lib.mkForce [];
+    };
 
     # Enable firewall with allowed TCP ports
     firewall = {
@@ -121,7 +124,7 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.05"; # Did you read the comment?
 
-  # Security and hyprlock
+  # Security
   security = {
   	rtkit.enable = true;
 	  polkit.enable = true;
@@ -133,7 +136,7 @@
       '';
     };
     pam.services = {
-      hyprlock = {};
+      swaylock = {};
     };
   };
 

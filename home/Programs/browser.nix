@@ -14,6 +14,7 @@ in
       };
       quickmarks = {
         manageHome = "https://nix-community.github.io/home-manager/options.xhtml";
+        spty = "https://open.spotify.com/search/";
       };
       loadAutoconfig = true;
       enableDefaultBindings = true;

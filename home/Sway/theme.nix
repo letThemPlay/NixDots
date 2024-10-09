@@ -23,13 +23,21 @@
     enable = true;
 
     theme = {
-      package = pkgs.gruvbox-gtk-theme;
-      name = "Gruvbox-Dark";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ "blue" ];
+        size = "standard";
+        tweaks = [ "black" "rimless" ];
+        variant = "mocha";
+      };
+      name = "catppuccin-mocha-blue-standard+black,rimless";
     };
 
     iconTheme = {
-      package = pkgs.papirus-icon-theme;
-      name = "Papirus-Dark";
+      package = pkgs.tela-circle-icon-theme.override {
+        circularFolder = true;
+        colorVariants = [ "ubuntu" ];
+      };
+      name = "Tela-circle-ubuntu-dark";
     };
 
     font = {

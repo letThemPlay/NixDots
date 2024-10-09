@@ -40,8 +40,8 @@ in
         logo = {
           type = "kitty";
           source = "${./nixos_fastfetch.png}";
-          width = 30;
-          height = 15;
+          width = 35; # Width should be greater than the height
+          height = 15; # Height should be 20 less that the width
         };
         display = {
           separator = "->";
@@ -60,7 +60,11 @@ in
             key = " ";
             keyColor = "red";
           }
-          "host"
+          {
+            type = "host";
+            key = " ";
+            keyColor = "white";
+          }
           "bios"
           "board"
           "chassis"
@@ -76,18 +80,28 @@ in
           {
             type = "wm";
             key = " ";
-            keyColor = "violet";
+            keyColor = "magenta";
           }
+          {
+            type = "wmtheme";
+            key = "THEME ^|";
+            keyColor = "blue";
+          }
+            
           {
             type = "theme";
             key = " ";
-            keyColor = "purple";
+            keyColor = "magenta";
           }
-          "icons"
           {
-            theme = "font";
+            type = "icons";
+            key = " ";
+            keyColor = "cyan";
+          }
+          {
+            type = "font";
             key = " ";
-            keyColor = "lavender";
+            keyColor = "cyan";
           }
           "cursor"
           {
@@ -116,50 +130,44 @@ in
     # Enable Zathura pdf reader
     zathura = {
       enable = true;
-      package = pkgs.zathura;
+      package = pkgs.zathura.override {
+        useMupdf = true;
+      };
       options = {
-        notification-error-bg = "rgba(29,32,33,1)";
-        notification-error-fg = "rgba(251,73,52,1)";
-        notification-warning-bg = "rgba(29,32,33,1)" ;
-        notification-warning-fg = "rgba(250,189,47,1)"   ;
-        notification-bg = "rgba(29,32,33,1)" ;
-        notification-fg = "rgba(184,187,38,1)"   ;
-
-        completion-bg = "rgba(80,73,69,1)" ;
-        completion-fg = "rgba(235,219,178,1)"  ;
-        completion-group-bg = "rgba(60,56,54,1)" ;
-        completion-group-fg = "rgba(146,131,116,1)"  ;
-        completion-highlight-bg = "rgba(131,165,152,1)"  ;
-        completion-highlight-fg = "rgba(80,73,69,1)" ;
-
-        index-bg = "rgba(80,73,69,1)" ;
-        index-fg = "rgba(235,219,178,1)"  ;
-        index-active-bg = "rgba(131,165,152,1)"  ;
-        index-active-fg = "rgba(80,73,69,1)" ;
-
-        inputbar-bg = "rgba(29,32,33,1)" ;
-        inputbar-fg = "rgba(235,219,178,1)"  ;
-
-        statusbar-bg = "rgba(80,73,69,1)" ;
-        statusbar-fg = "rgba(235,219,178,1)"  ;
-
-        highlight-color = "rgba(250,189,47,0.5)" ;
-        highlight-active-color  = "rgba(254,128,25,0.5)" ;
-
-        default-bg = "rgba(29,32,33,1)" ;
-        default-fg = "rgba(235,219,178,1)"  ;
-        render-loading = true;
-        render-loading-bg = "rgba(29,32,33,1)" ;
-        render-loading-fg = "rgba(235,219,178,1)"  ;
-
-        recolor-lightcolor = "rgba(29,32,33,1)" ;
-        recolor-darkcolor = "rgba(235,219,178,1)"  ;
-        recolor = true;
-        recolor-keephue = true ;
+         default-fg               = "rgba(205,214,244,1)";
+         default-bg 			        =  "rgba(30,30,46,1)";
+         completion-bg		        =  "rgba(49,50,68,1)";
+         completion-fg		        =  "rgba(205,214,244,1)";
+         completion-highlight-bg	=  "rgba(87,82,104,1)";
+         completion-highlight-fg	=  "rgba(205,214,244,1)";
+         completion-group-bg		  =  "rgba(49,50,68,1)";
+         completion-group-fg		  =  "rgba(137,180,250,1)";
+         statusbar-fg		          ="rgba(205,214,244,1)";
+         statusbar-bg		          ="rgba(49,50,68,1)";
+         notification-bg		      =  "rgba(49,50,68,1)";
+         notification-fg		      =  "rgba(205,214,244,1)";
+         notification-error-bg	  =  "rgba(49,50,68,1)";
+         notification-error-fg	  =  "rgba(243,139,168,1)";
+         notification-warning-bg	=  "rgba(49,50,68,1)";
+        notification-arning-fg	=  "rgba(250,227,176,1)";
+        inputbar-fg			        =  "rgba(205,214,244,1)";
+        inputbar-bg 		          = "rgba(49,50,68,1)";
+        recolor                  = true;
+        recolor-lightcolor		    ="rgba(30,30,46,1)";
+        recolor-darkcolor		    =  "rgba(205,214,244,1)";
+        index-fg			            ="rgba(205,214,244,1)";
+        index-bg			            ="rgba(30,30,46,1)";
+        index-active-fg		      =  "rgba(205,214,244,1)";
+        index-active-bg		      =  "rgba(49,50,68,1)";
+        render-loading-bg		    =  "rgba(30,30,46,1)";
+        render-loading-fg		    =  "rgba(205,214,244,1)";
+        highlight-color		      =  "rgba(87,82,104,0.5)";
+        highlight-fg             = "rgba(245,194,231,0.5)";
+        highlight-active-color	  ="rgba(245,194,231,0.5)";
       };
     };
 
-    # Enable imv for image viewing
+    # Enable imv for image vieing
     imv = {
       enable = true;
       package = pkgs.imv;
@@ -182,8 +190,9 @@ in
       package = pkgs.btop;
 
       settings = {
-        color_theme = "gruvbox_material_dark";
-        theme_background = false;
+        color_theme = "catppuccin_mocha"; # See below for xdg.configFile
+        theme_background = true;
+        vim_keys = true;
       };
     };
 
@@ -212,6 +221,12 @@ in
         };
       };
     };
+  };
+
+  # Calling btop config file from here
+  xdg.configFile."btop/themes" = {
+    recursive = true;
+    source = ./Themes/Btop;
   };
 
   # Other packages

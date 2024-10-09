@@ -34,7 +34,7 @@ in
     config = {
       output = {
         eDP-1 = {
-          bg = "${./../Wallpapers/board.png} fill";
+          bg = "${./../Wallpapers/forrest.png} fill";
         };
       };
       defaultWorkspace = "workspace number 1"; # Define the default workspace as 1
@@ -82,7 +82,7 @@ in
       };
 
       focus = {
-        followMouse = "no";
+        followMouse = "yes";
       };
 
       # The keybinds. The NixOS manual recommends using lib.mkOptionDefault
@@ -160,11 +160,11 @@ in
       colors = {
         background = "#${themix.base00}";
         focused = {
-          border = "#${themix.base0D}";
+          border = "#${themix.base0E}";
           background = "#${themix.base00}";
           text = "#${themix.base05}";
-          indicator = "#${themix.base0E}";
-          childBorder = "#${themix.base0D}";
+          indicator = "#${themix.base0D}";
+          childBorder = "#${themix.base0E}";
         };
         focusedInactive = {
           border = "#${themix.base02}";
@@ -221,7 +221,7 @@ in
       enable = true;
       package = pkgs.swaylock-effects;
       settings = {
-        image = "${./../Wallpapers/gruvbox_minimal_space.png}";
+        image = "${./../Wallpapers/mandelbrot_full_blue.png}";
         font = "Iosevka Nerd Font";
         font-size = 30;
         scaling = "fill";

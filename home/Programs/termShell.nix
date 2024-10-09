@@ -1,5 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
+  themix = config.colorScheme.palette;
   myShellAliases = {
     ll = "ls -l";
     ".." = "cd ..";
@@ -10,16 +11,6 @@ let
   };
   extraRc = /*bash*/''
     export WLR_NO_HARDWARE_CURSORS="1";
-
-    # # Start the SSH agent if it's not already running
-    # if [ -z "$SSH_AUTH_SOCK" ]; then
-    #     eval "$(ssh-agent -s)" > /dev/null
-    # fi
-    #
-    # # Add SSH key only if it's not already added
-    # if ! ssh-add -l | grep -q "$(ssh-keygen -lf ~/.ssh/id_ed25519 | awk '{print $2}')"; then
-    #     ssh-add ~/.ssh/id_ed25519 > /dev/null
-    # fi
 
     function yy() {
     	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
@@ -46,10 +37,16 @@ in
         "/home/chris"
       ];
       history.size = 100;
+      dotDir = ".config/zsh";
+      dirHashes = {
+        docs = "$HOME/Documents";
+        vids = "$HOME/Videos";
+        dl = "$HOME/Downloads";
+      };
 
       oh-my-zsh = {
         enable = true;
-        theme = "jonathan";
+        theme = "random";
         plugins = [
           "git"
           "emotty"
@@ -127,7 +124,7 @@ in
         name = "Iosevka Nerd Font";
         size = 14;
       };
-      themeFile = "GruvboxMaterialDarkHard";
+      # themeFile = "GruvboxMaterialDarkHard";
       package = pkgs.kitty;
       shellIntegration = {
         enableBashIntegration = true;
@@ -137,10 +134,49 @@ in
         confirm_os_window_close = 0;
         background_blur = 0;
         background_opacity = "1";
+
+        # Set the theme here by matching any theme file and then using nix-colors to style it up
+        background = "#${themix.base00}";
+        foreground = "#${themix.base05}";
+
+        selection_background = "#${themix.base05}";
+        selection_foreground = "#${themix.base00}";
+
+        cursor = "#${themix.base05}";
+        cursor_text_color = "background";
+
+        # black
+        color0 = "#${themix.base02}";
+        color8 = "#${themix.base03}";
+
+        # Red 
+        color1 = "#${themix.base08}";
+        color9 = "#${themix.base08}";
+
+        # Green
+        color2 = "#${themix.base0B}";
+        color10 = "#${themix.base0B}";
+
+        # Yellow
+        color3 = "#${themix.base09}";
+        color11 = "#${themix.base0A}";
+
+        # Blue
+        color4 = "#${themix.base0D}";
+        color12 = "#${themix.base0D}";
+
+        # Magenta
+        color5 = "#${themix.base0E}";
+        color13 = "#${themix.base0E}";
+
+        # Cyan
+        color6 = "#${themix.base0C}";
+        color14 = "#${themix.base0C}";
+
+        # White
+        color7 = "#${themix.base07}";
+        color15 = "#${themix.base07}";
       };
-      # extraConfig = /*jsonc*/ ''
-      #     confirm_os_window_close 0
-      # '';
     };
   };
 }

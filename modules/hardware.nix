@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  # for Hyprland graphics rendering
+  # for wayland graphics rendering
   hardware = {
 	  graphics = {
       enable = true;

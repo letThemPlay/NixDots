@@ -115,11 +115,12 @@ in
         };
 
 				battery = {
-					full-at = 80;
+          interval = 1;
+					full-at = 100;
 					states = {
-						good = 75;
+						good = 80;
 						warning = 30;
-						critical = 25;
+						critical = 20;
 					};
 					format = "{icon}{capacity}%";
 					format-charging = " {capacity}%";

@@ -1,11 +1,9 @@
 { pkgs, ... }:
-let
-  theme = "gruvbox-dark";
-in 
 {
   programs.yazi = {
     enable = true;
     enableBashIntegration = true;
+    enableZshIntegration = true;
 
     shellWrapperName = "yy";
     settings = {
@@ -70,21 +68,19 @@ in
     };
     theme = {
       flavor = {
-        use = "${theme}";
+        use = "catppuccin-mocha";
       };
     };
   };
-  home.file.".config/yazi/flavors/${theme}.yazi" = {
-    recursive = true;
-    source = ./../Themes/yazi/${theme}.yazi;
+  xdg.configFile = {
+    "yazi/flavors/catppuccin-mocha.yazi/" = {
+      source = ./Themes/Yazi;
+      recursive = true;
+    };
   };
-  
+
   home.packages = with pkgs;[ 
     android-file-transfer
-
-   # ffmpegthumbnailer
-   # unrar
-   # poppler
   ];
 
   # Enable udiskie and other services here to mount the usb pendrive
