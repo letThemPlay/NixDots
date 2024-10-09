@@ -8,7 +8,7 @@
     ./git.nix
     ./termShell.nix
     ./media.nix
-    # ./calendar.nix # calendar is disabled now because of not being able to set it up
+    # ./calAndMail.nix # calendar is disabled now because of not being able to set it up
     ./yazi.nix
 	];
 }

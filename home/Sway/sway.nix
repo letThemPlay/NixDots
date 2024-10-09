@@ -144,7 +144,7 @@ in
 
       window = {
         titlebar = false;
-        border = 2;
+        border = 3;
 
         commands = [
           {

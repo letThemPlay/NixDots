@@ -38,6 +38,27 @@
           }
         ];
       };
+
+      plugin = { # See plugins below
+        prepend_previewers = [
+          {
+            mime = "video/*";
+            run = "video-ffmpeg";
+          }
+
+          # Epub preview settings 
+          {
+            mime = "application/epub+zip";
+            run = "epub-preview";
+          }
+        ];
+        prepend_preloaders = [
+          {
+            mime = "video/*";
+            run = "video-ffmpeg";
+          }
+        ];
+      };
     };
 
     keymap = {
@@ -66,21 +87,27 @@
         ];
       };
     };
-    theme = {
+
+    flavors = {
+      catppuccin-mocha = ./Themes/Yazi/catppuccin-mocha.yazi;
+    };
+
+    theme = { # It goes with the flavors section above
       flavor = {
         use = "catppuccin-mocha";
       };
     };
-  };
-  xdg.configFile = {
-    "yazi/flavors/catppuccin-mocha.yazi/" = {
-      source = ./Themes/Yazi;
-      recursive = true;
+
+    plugins = {
+      video-ffmpeg = ./Themes/Yazi/video-ffmpeg.yazi;
+      epub-preview = ./Themes/Yazi/epub-preview.yazi;
     };
   };
 
   home.packages = with pkgs;[ 
     android-file-transfer
+    ffmpeg # For use with the video-ffmpeg.yazi plugin
+    epub-thumbnailer # for viewing epub format files
   ];
 
   # Enable udiskie and other services here to mount the usb pendrive
