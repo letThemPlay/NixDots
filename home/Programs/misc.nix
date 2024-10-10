@@ -133,6 +133,10 @@ in
       package = pkgs.zathura.override {
         useMupdf = true;
       };
+      mappings = {
+        "[normal] j" = "feedkeys <C-Down>";
+        "[normal] k" = "feedkeys <C-Up>";
+      };
       options = {
          default-fg               = "rgba(205,214,244,1)";
          default-bg 			        =  "rgba(30,30,46,1)";

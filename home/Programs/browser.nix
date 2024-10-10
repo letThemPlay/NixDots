@@ -31,6 +31,34 @@ in
 
       # Settings go here
       settings = {
+        qt.force_platformtheme = "gtk3";
+        content = {
+          cookies.accept = "no-3rdparty";
+          # javascript.clipboard = true;
+          blocking = {
+            enabled = true;
+            method = "both";
+          };
+          autoplay = false;
+        };
+        window.hide_decoration = true;
+        spellcheck.languages = [ "en-US" ];
+        scrolling.smooth = true;
+        prompt.radius = 5;
+        keyhint.radius = 5;
+        hints = {
+          radius = 5;
+          # padding = "{ 'top': 5, 'bottom': 5, 'left': 5, 'right': 5 }"; # See the extraconfig section for this
+          border = "1px solid #${themix.base04}";
+        };
+        
+        downloads = {
+          remove_finished = 5000;
+          location = {
+            prompt = false; # Don't prompt for where to download the file
+            directory = "${config.home.homeDirectory}/Downloads/qutebrowser/";
+          };
+        };
         colors = {
           completion = {
             fg = "#${themix.base05}";
@@ -212,12 +240,22 @@ in
           };
           webpage = {
             bg = "#${themix.base00}";
+            preferred_color_scheme = "dark";
             darkmode = {
-              enabled = true;
+              enabled = false;
+              algorithm = "lightness-cielab";
+              policy.images = "smart";
+              threshold = {
+                foreground = 150;
+                background = 205;
+              };
             };
           };
         };
       };
+      extraConfig = /*python*/ ''
+        c.hints.padding = { 'top': 5, 'bottom': 5, 'left': 5, 'right': 5}
+      '';
     };
 
     firefox = {
@@ -252,5 +290,8 @@ in
       };
     };
   };
-  home.packages = with pkgs; [ uget ];
+  home.packages = with pkgs; [ 
+    uget # A gtk-based download manager
+    amfora # A purely terminal browser
+  ];
 }
