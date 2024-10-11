@@ -7,7 +7,7 @@ let
     svi = "sudo vim";
     syscon = "cd /etc/nixos/";
     update = "sudo nixos-rebuild switch";
-    backit = "cp -r /etc/nixos/* /home/chris/.dotfiles/NixDots/";
+    cleanall = "sudo nix-collect-garbage --delete-old && nix-collect-garbage --delete-old";
   };
   extraRc = /*bash*/''
     export WLR_NO_HARDWARE_CURSORS="1";

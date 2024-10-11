@@ -34,7 +34,7 @@ in
     config = {
       output = {
         eDP-1 = {
-          bg = "${./../Wallpapers/forrest.png} fill";
+          bg = "${./../Wallpapers/Cloudsnight.jpg} fill";
         };
       };
       defaultWorkspace = "workspace number 1"; # Define the default workspace as 1
@@ -93,6 +93,10 @@ in
             "${mod}+i" = "exec firefox";
             "${mod}+Shift+i" = "exec qutebrowser";
             "${mod}+q" = "kill";
+            "${mod}+u" = "exec thunar";
+            "${mod}+Shift+u" = "exec kitty -e yazi";
+            "${mod}+m" = "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'";
+
 
             # For changing the workspace left and right
             "${mod}+p" = "workspace next";
@@ -221,7 +225,7 @@ in
       enable = true;
       package = pkgs.swaylock-effects;
       settings = {
-        image = "${./../Wallpapers/mandelbrot_full_blue.png}";
+        image = "${./../Wallpapers/tropic_island_night.jpg}";
         font = "Iosevka Nerd Font";
         font-size = 30;
         scaling = "fill";
@@ -272,11 +276,6 @@ in
       enable = true;
       package = pkgs.swayidle;
       timeouts = [
-        { 
-          timeout = 180;
-          command = "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
-        }
-
         {
           timeout = 185;
           command = "${pkgs.swaylock-effects}/bin/swaylock";
