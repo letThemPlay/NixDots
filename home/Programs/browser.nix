@@ -13,7 +13,7 @@ in
         g = "https://www.google.com/search?q={}";
       };
       quickmarks = {
-        manageHome = "https://nix-community.github.io/home-manager/options.xhtml";
+        homedix = "https://nix-community.github.io/home-manager/options.xhtml";
         spty = "https://open.spotify.com/search/";
       };
       loadAutoconfig = true;
@@ -292,6 +292,5 @@ in
   };
   home.packages = with pkgs; [ 
     uget # A gtk-based download manager
-    amfora # A purely terminal browser
   ];
 }

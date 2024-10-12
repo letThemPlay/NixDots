@@ -151,11 +151,48 @@ in
         border = 3;
 
         commands = [
+          # For vlc
           {
             criteria = {
               app_id = "vlc";
             };
-            command = "inhibit_idle";
+            command = "inhibit_idle fullscreen";
+          }
+
+          {
+            criteria = {
+              app_id = "mpv";
+            };
+            command = "inhibit_idle fullscreen";
+          }
+
+          # For some featured windows
+          {
+            criteria = {
+              window_role = "pop_up";
+            };
+            command = "floating enable";
+          }
+          {
+            criteria = {
+              window_role = "bubble";
+            };
+            command = "floating enable";
+          }
+          {
+            criteria = {
+              window_role = "dialog";
+              window_type = "dialog";
+            };
+            command = "floating enable";
+          }
+
+          # For recognizing xwayland shells
+          {
+            criteria = {
+              shell = "xwayland";
+            };
+            command = "title_format \"%title [XWayland]\"";
           }
         ];
       };

@@ -53,45 +53,54 @@ in
           {
             type = "os";
             key = " ";
-            keyColor = "yellow";
+            keyColor = "magenta";
           }
           {
             type = "kernel";
             key = " ";
-            keyColor = "red";
+            keyColor = "blue";
           }
           {
             type = "host";
             key = " ";
-            keyColor = "white";
+            keyColor = "magenta";
           }
-          "bios"
+          {
+            type = "bios";
+            key = "BIOS 󰒔 ";
+            keyColor = "blue";
+          }
           "board"
           "chassis"
           "uptime"
           "processes"
-          "packages"
+          {
+            type = "packages";
+            key = " ";
+            keyColor = "blue";
+          }
+
           {
             type = "shell";
             key = " ";
-            keyColor = "blue";
+            keyColor = "magenta";
           }
           "display"
           {
             type = "wm";
             key = " ";
-            keyColor = "magenta";
+            keyColor = "blue";
           }
           {
             type = "wmtheme";
             key = "THEME ^|";
-            keyColor = "blue";
+            keyColor = "magenta";
           }
             
           {
             type = "theme";
             key = " ";
-            keyColor = "magenta";
+            keyColor = "blue";
           }
           {
             type = "icons";
@@ -254,6 +263,8 @@ in
       pwvucontrol
 
       nix-tree # to identify the paths of unwanted (and wanted) stuff thanks to Whovian9369 on reddit
+
+      gnome-clocks # The clock app
     ];
   };
 
