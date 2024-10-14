@@ -4,6 +4,7 @@
 
     # Non-directories
     ./browser.nix
+    ./btop.nix
     ./misc.nix
     ./git.nix
     ./termShell.nix

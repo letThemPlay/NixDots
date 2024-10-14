@@ -57,9 +57,9 @@ in
       }
 
       {
-        plugin = catppuccin-nvim;
+        plugin = gruvbox-material-nvim;
         type = "lua";
-        config = builtins.readFile(./nvim/plugin/catppuccin.lua);
+        config = builtins.readFile(./nvim/plugin/gruvbox.lua);
       }
 
 

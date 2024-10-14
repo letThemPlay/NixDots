@@ -16,6 +16,15 @@
 
   # The xdg settings are in ./home/xdgSettings.nix
   xdg = {
+    # for terminal opening in Thunar and other stuff
+    terminal-exec = {
+      enable = true;
+      settings = {
+        default = [
+          "kitty.desktop"
+        ];
+      };
+    };
     portal = {
       enable = true;
       wlr = {

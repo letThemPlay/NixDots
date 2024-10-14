@@ -12,8 +12,8 @@
     pointerCursor = {
       gtk.enable = true;
       # x11.enable = true;
-      package = pkgs.catppuccin-cursors.mochaDark;
-      name = "catppuccin-mocha-dark-cursors";
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Classic";
       size = 25;
     };
   };
@@ -23,26 +23,24 @@
     enable = true;
 
     theme = {
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "blue" ];
-        size = "standard";
-        tweaks = [ "black" "rimless" ];
-        variant = "mocha";
+      package = pkgs.gruvbox-gtk-theme.override {
+        colorVariants = [ "dark" ];
+        sizeVariants = [ "standard" ];
+        themeVariants = [ "default" ];
+        tweakVariants = [ "black" "outline" ];
+        iconVariants = [ "Dark" ];
       };
-      name = "catppuccin-mocha-blue-standard+black,rimless";
+      name = "Gruvbox-Dark";
     };
 
     iconTheme = {
-      package = pkgs.tela-circle-icon-theme.override {
-        circularFolder = true;
-        colorVariants = [ "ubuntu" ];
-      };
-      name = "Tela-circle-ubuntu-dark";
+      package = pkgs.gruvbox-plus-icons;
+      name = "Gruvbox-Plus-Dark";
     };
 
     font = {
       name = "FantasqueSansMono Nerd Font Mono";
-      size = 13;
+      size = 12;
     };
   };
 

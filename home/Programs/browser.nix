@@ -15,6 +15,10 @@ in
       quickmarks = {
         homedix = "https://nix-community.github.io/home-manager/options.xhtml";
         spty = "https://open.spotify.com/search/";
+        reddit = "https://www.reddit.com/";
+        whatsapp = "https://web.whatsapp.com/";
+        utube = "https://www.youtube.com/";
+        colors = "https://convertcolorcode.com/";
       };
       loadAutoconfig = true;
       enableDefaultBindings = true;
@@ -32,9 +36,15 @@ in
       # Settings go here
       settings = {
         qt.force_platformtheme = "gtk3";
+        fonts = {
+          default_family = [
+            "FantasqueSansM Nerd Font"
+          ];
+          default_size = "11pt";
+        };
         content = {
           cookies.accept = "no-3rdparty";
-          # javascript.clipboard = true;
+          javascript.clipboard = "access-paste";
           blocking = {
             enabled = true;
             method = "both";
@@ -266,12 +276,44 @@ in
       ];
       profiles.chris = {
         name = "Chris";
+        id = 0;
+        isDefault = true;
+        settings = {
+          "network.http.http3.enable" = false;
+          "browser.startup.homepage" = "https://mynixos.com/";
+        };
+        search = {
+          default = "DuckDuckGo";
+          engines = {
+            "Nix Store" = {
+              urls = [{
+                template = "https://mynixos.com/";
+                params = [
+                  { name = "type"; value = "packages";}
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              }];
+            };
+          };
+        };
 
         bookmarks = [
           {
             name = "Nix sites";
             toolbar = true;
             bookmarks = [
+              {
+                name = "Reddit";
+                url = "https://www.reddit.com/";
+              }
+              {
+                name = "NixOS Discourse";
+                url = "https://discourse.nixos.org/";
+              }
+              {
+                name = "Christian Forums";
+                url = "https://www.christianforums.com/";
+              }
               {
                 name = "store";
                 url = "https://mynixos.com/";
@@ -283,6 +325,10 @@ in
               {
                 name = "sysdix";
                 url = "https://nixos.org/manual/nixos/stable/options";
+              }
+              {
+                name = "WhatsApp";
+                url = "https://web.whatsapp.com/";
               }
             ];
           }

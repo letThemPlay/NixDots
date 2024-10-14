@@ -2,22 +2,6 @@
 { pkgs, lib, config, ... }:
 let
   themix = config.colorScheme.palette;
-
-  screenshot = pkgs.pkgs.writeShellScriptBin "screenshot" ''
-    filename="grim-$(date '+%d-%m-%Y-%H-%M-%S')"
-    ${pkgs.grim}/bin/grim - | tee /home/chris/Pictures/Screenshots/$(echo $filename).png | wl-copy
-    ${pkgs.imagemagick}/bin/magick convert /home/chris/Pictures/Screenshots/$(echo $filename).png -bordercolor '#${themix.base06}' -border 30 /tmp/screenshot-notification.png
-    notify-send -i /tmp/screenshot-notification.png "  grim" "desktop screenshot saved"
-    rm -f /tmp/screenshot-notification.png
-  '';
-
-  partialScreenshot = pkgs.pkgs.writeShellScriptBin "partialScreenshot" ''
-    filename="grim-$(date '+%Y-%m-%d-%H-%M-%S')"
-    ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -d -b "#${themix.base00}" -c "#${themix.base0C}" -s "#${themix.base03}" -w 2)" - | tee /home/chris/Pictures/Screenshots/$(echo $filename).png | wl-copy
-    ${pkgs.imagemagick}/bin/magick convert /home/chris/Pictures/Screenshots/$(echo $filename).png -bordercolor '#${themix.base0C}' -border 15 /tmp/notification-screenshot.png
-    notify-send -i /tmp/notification-screenshot.png "  grim" "screenshot of selected area saved"
-    rm -f /tmp/notification-screenshot.png
-  '';
 in 
   {
   home = {
@@ -34,7 +18,7 @@ in
     config = {
       output = {
         eDP-1 = {
-          bg = "${./../Wallpapers/Cloudsnight.jpg} fill";
+          bg = "${./../Wallpapers/platform.jpg} fill";
         };
       };
       defaultWorkspace = "workspace number 1"; # Define the default workspace as 1
@@ -95,7 +79,7 @@ in
             "${mod}+q" = "kill";
             "${mod}+u" = "exec thunar";
             "${mod}+Shift+u" = "exec kitty -e yazi";
-            "${mod}+m" = "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'";
+            "${mod}+n" = "split none"; # cancel the split in tabbed layout
 
 
             # For changing the workspace left and right
@@ -128,8 +112,10 @@ in
             #"Control+space" = "exec makoctl dismiss";
 
             # For screenshots
-            "print" = "exec ${screenshot}/bin/screenshot";
-            "Shift+print" = "exec ${partialScreenshot}/bin/partialScreenshot";
+            # "print" = "exec ${screenshot}/bin/screenshot";
+            # "Shift+print" = "exec ${partialScreenshot}/bin/partialScreenshot";
+            "print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify savecopy screen";
+            "Shift+print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify savecopy area";
         };
 
       # Decoration stuff goes here:
@@ -151,6 +137,13 @@ in
         border = 3;
 
         commands = [
+          # For Zathura
+          {
+            criteria = {
+              app_id = "zathura";
+            };
+            command = "inhibit_idle fullscreen";
+          }
           # For vlc
           {
             criteria = {
@@ -262,7 +255,7 @@ in
       enable = true;
       package = pkgs.swaylock-effects;
       settings = {
-        image = "${./../Wallpapers/tropic_island_night.jpg}";
+        image = "${./../Wallpapers/forest-mountain-cloudy-valley.png}";
         font = "Iosevka Nerd Font";
         font-size = 30;
         scaling = "fill";

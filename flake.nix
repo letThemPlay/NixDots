@@ -14,10 +14,16 @@
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     # Gruvbox GRUB theme
-    # tartarus-grub = {
-    #   url = "github:AllJavi/tartarus-grub";
-    #   flake = false;
-    # };
+    tartarus-grub = {
+      url = "github:AllJavi/tartarus-grub";
+      flake = false;
+    };
+
+    # Catppuccin-bat
+    gruvbox-bat = {
+      url = "github:molchalin/gruvbox-material-bat";
+      flake = false;
+    };
 
     # Nix colors for a good and easy rice
     nix-colors.url = "github:misterio77/nix-colors";

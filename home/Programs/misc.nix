@@ -1,9 +1,27 @@
-{ config, pkgs, ... }:
-let
+{ 
+config, 
+inputs, 
+pkgs, 
+lib, 
+... 
+}: let
   themix = config.colorScheme.palette;
-in 
-{
+in { 
   programs = {
+    # A better 'cat' clone 
+    bat = {
+      enable = true;
+      themes = {
+        gruvbox-material-bat = {
+          src = inputs.gruvbox-bat;
+          file = "gruvbox-material-dark.tmTheme";
+        };
+      };
+      config = {
+        theme = "gruvbox-material-bat";
+      };
+      extraPackages = lib.mkForce [];
+    };
     # For note taking
     # joplin-desktop = {
     #   enable = true;
@@ -96,7 +114,7 @@ in
             key = "THEME ^|";
             keyColor = "magenta";
           }
-            
+
           {
             type = "theme";
             key = " ";
@@ -147,36 +165,47 @@ in
         "[normal] k" = "feedkeys <C-Up>";
       };
       options = {
-         default-fg               = "rgba(205,214,244,1)";
-         default-bg 			        =  "rgba(30,30,46,1)";
-         completion-bg		        =  "rgba(49,50,68,1)";
-         completion-fg		        =  "rgba(205,214,244,1)";
-         completion-highlight-bg	=  "rgba(87,82,104,1)";
-         completion-highlight-fg	=  "rgba(205,214,244,1)";
-         completion-group-bg		  =  "rgba(49,50,68,1)";
-         completion-group-fg		  =  "rgba(137,180,250,1)";
-         statusbar-fg		          ="rgba(205,214,244,1)";
-         statusbar-bg		          ="rgba(49,50,68,1)";
-         notification-bg		      =  "rgba(49,50,68,1)";
-         notification-fg		      =  "rgba(205,214,244,1)";
-         notification-error-bg	  =  "rgba(49,50,68,1)";
-         notification-error-fg	  =  "rgba(243,139,168,1)";
-         notification-warning-bg	=  "rgba(49,50,68,1)";
-        notification-arning-fg	=  "rgba(250,227,176,1)";
-        inputbar-fg			        =  "rgba(205,214,244,1)";
-        inputbar-bg 		          = "rgba(49,50,68,1)";
-        recolor                  = true;
-        recolor-lightcolor		    ="rgba(30,30,46,1)";
-        recolor-darkcolor		    =  "rgba(205,214,244,1)";
-        index-fg			            ="rgba(205,214,244,1)";
-        index-bg			            ="rgba(30,30,46,1)";
-        index-active-fg		      =  "rgba(205,214,244,1)";
-        index-active-bg		      =  "rgba(49,50,68,1)";
-        render-loading-bg		    =  "rgba(30,30,46,1)";
-        render-loading-fg		    =  "rgba(205,214,244,1)";
-        highlight-color		      =  "rgba(87,82,104,0.5)";
-        highlight-fg             = "rgba(245,194,231,0.5)";
-        highlight-active-color	  ="rgba(245,194,231,0.5)";
+        notification-error-bg  =     "#32302f"; # bg0
+        notification-error-fg      = "#${themix.base08}"; # red
+        notification-warning-bg    = "#32302f"; # bg0
+        notification-warning-fg    = "#${themix.base0A}"; # yellow
+        notification-bg            = "#32302f"; # bg0
+        notification-fg            = "#${themix.base0B}"; # green
+
+        completion-bg              = "#3c3836"; # bg2
+        completion-fg              = "#d4be98"; # fg0
+        completion-group-bg        = "#3c3836"; # bg1
+        completion-group-fg        = "#928374"; # gray
+        completion-highlight-bg    = "#${themix.base0D}"; # blue
+        completion-highlight-fg    = "#3c3836"; # bg2
+        
+        # define the color in index mode
+        index-bg                   = "#3c3836"; # bg2
+        index-fg                   = "#d4be98"; # fg0
+        index-active-bg            = "#${themix.base0D}"; # blue
+        index-active-fg            = "#3c3836"; # bg2
+        
+        inputbar-bg                = "#3c3836"; # bg2
+        inputbar-fg                = "#d4be98"; # fg0
+        
+        statusbar-bg               = "#3c3836"; # bg2
+        statusbar-fg               = "#d4be98"; # fg0
+        
+        highlight-color            = "rgba(216, 166, 87, 0.5)"; # yellow
+        highlight-active-color     = "rgba(231, 138, 78, 0.69)"; # orange
+        highlight-fg = "#${themix.base00}";
+
+        default-bg                 = "#${themix.base03}"; # bg3
+        default-fg                 = "#${themix.base05}"; # fg1
+        render-loading             = true;
+        render-loading-bg          = "#32302f"; # bg0
+        render-loading-fg          = "#d4be98"; # fg0
+
+        # recolor book content's co=lor
+        recolor-lightcolor         = "#${themix.base00}"; # bg0
+        recolor-darkcolor          = "#d4be98"; # fg0
+        recolor                    = true;
+          recolor-keephue            = true;      # keep original color
       };
     };
 
@@ -197,18 +226,6 @@ in
       };
     };
 
-    # Enable btop for system monitor
-    btop = {
-      enable = true;
-      package = pkgs.btop;
-
-      settings = {
-        color_theme = "catppuccin_mocha"; # See below for xdg.configFile
-        theme_background = true;
-        vim_keys = true;
-      };
-    };
-
     # Cava audio bars
     cava = {
       enable = true;
@@ -218,7 +235,7 @@ in
           framerate = 60;
         };
         input = {
-          method = "pipewire";
+          method = "pipeire";
           source = "auto";
         };
         color = {
@@ -237,9 +254,8 @@ in
   };
 
   # Calling btop config file from here
-  xdg.configFile."btop/themes" = {
-    recursive = true;
-    source = ./Themes/Btop;
+  xdg.configFile = {
+    "xfce4/helpers.rc".source = ./thunarHelpers.rc; # See /etc/nixos/modules/thunar.nix
   };
 
   # Other packages

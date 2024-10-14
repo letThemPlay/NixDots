@@ -22,7 +22,6 @@ in
         modules-center = [ 
           "tray"
           "sway/workspaces"
-          "sway/window"
         ];
 
         modules-right = [ 
@@ -280,8 +279,12 @@ in
       #workspaces button {
         padding: 1px;
         background:none;
-        color: #${themix.base0C};
+        color: #${themix.base0A};
         border: none;
+      }
+
+      #workspaces button.empty {
+        color: #${themix.base04};
       }
 
       #workspaces button.focused {
@@ -294,7 +297,7 @@ in
       
       #workspaces button:hover{
         border-radius: 50px;
-        background: #${themix.base04};
+        background: #${themix.base02};
         color: #${themix.base07};
       }
       
@@ -303,7 +306,7 @@ in
         border: 2px solid transparent;
         border-radius: 25px;
         color: #${themix.base05};
-        margin: 10px 0 10px 5px;
+        margin: 10px 5px 10px 5px;
         padding: 5px;
       }
       
@@ -354,7 +357,7 @@ in
         color: #${themix.base08};
         border-radius: 25px;
         background: #${themix.base03};
-        padding: 1px;
+        padding-left: 15px;
       }
       '';
   };

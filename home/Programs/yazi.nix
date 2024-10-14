@@ -4,6 +4,7 @@
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
+    initLua = ./Themes/Yazi/init.lua;
 
     shellWrapperName = "yy";
     settings = {
@@ -90,17 +91,21 @@
 
     flavors = {
       catppuccin-mocha = ./Themes/Yazi/catppuccin-mocha.yazi;
+      # catppuccin-mocha = ${inputs.catppuccin-yazi}/flavors/catppuccin-mocha.yazi;
+      gruvbox-dark = ./Themes/Yazi/gruvbox-dark.yazi;
     };
 
     theme = { # It goes with the flavors section above
       flavor = {
-        use = "catppuccin-mocha";
+        use = "gruvbox-dark";
       };
     };
 
     plugins = {
       video-ffmpeg = ./Themes/Yazi/video-ffmpeg.yazi;
       epub-preview = ./Themes/Yazi/epub-preview.yazi;
+      yatline-gruvbox-material = ./Themes/Yazi/yatline-gruvbox-material.yazi;
+      yatline = ./Themes/Yazi/yatline.yazi;
     };
   };
 

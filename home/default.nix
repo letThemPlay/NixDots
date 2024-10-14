@@ -9,7 +9,7 @@
     ./xdgSettings.nix
 	];
 
-  colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
+  colorScheme = inputs.nix-colors.colorSchemes.gruvbox-material-dark-hard;
 	
 	home = {
 		username = "chris";

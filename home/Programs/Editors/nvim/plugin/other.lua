@@ -2,7 +2,7 @@
 require("lualine").setup({
 	options = {
   	  icons_enabled = true,
-  	  theme = 'catppuccin',
+  	  theme = 'gruvbox-material',
   	  component_separators = { left = '', right = ''},
   	  section_separators = { left = '', right = ''},
   	  disabled_filetypes = {
@@ -39,6 +39,7 @@ require("lualine").setup({
   	inactive_winbar = {},
   	extensions = {}
 })
+vim.g.gruvbox_material_statusline_style = 'default'
 
 -- Colorscheme
 

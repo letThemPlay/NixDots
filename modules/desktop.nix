@@ -1,5 +1,6 @@
 { 
 pkgs,
+lib, 
 ... 
 }: {
   programs = {
@@ -8,7 +9,7 @@ pkgs,
      sway = {
        enable = true;
        package = pkgs.sway;
-       extraPackages = [ ];
+       extraPackages = lib.mkForce [ ];
      };
 
     # Enable the android-debug-bridge

@@ -42,6 +42,7 @@ in
         docs = "$HOME/Documents";
         vids = "$HOME/Videos";
         dl = "$HOME/Downloads";
+        pics = "$HOME/Pictures";
       };
 
       oh-my-zsh = {
@@ -134,12 +135,13 @@ in
         confirm_os_window_close = 0;
         background_blur = 0;
         background_opacity = "1";
+        enable_audio_bell = false;
 
-        tab_bar_min_tabs = 1;
-        tab_bar_edge = "bottom";
-        tab_bar_style = "powerline";
-        tab_powerline_style = "slanted";
-        tab_title_template = "{title}{' :{}:'.format(num_windows) if num_windows > 1 else ''}";
+        # tab_bar_min_tabs = 1;
+        # tab_bar_edge = "bottom";
+        # tab_bar_style = "powerline";
+        # tab_powerline_style = "slanted";
+        # tab_title_template = "{title}{' :{}:'.format(num_windows) if num_windows > 1 else ''}";
 
         # Set the theme here by matching any theme file and then using nix-colors to style it up
         background = "#${themix.base00}";
@@ -163,11 +165,11 @@ in
         wayland_titlebar_color = "system";
 
         # Tab bar colors 
-        active_tab_foreground = "#11111b";
-        active_tab_background = "#${themix.base0E}";
-        inactive_tab_foreground = "#${themix.base05}";
-        inactive_tab_background = "#${themix.base01}";
-        tab_bar_background = "#11111b";
+        # active_tab_foreground = "#11111b";
+        # active_tab_background = "#${themix.base0E}";
+        # inactive_tab_foreground = "#${themix.base05}";
+        # inactive_tab_background = "#${themix.base01}";
+        # tab_bar_background = "#11111b";
 
         # Colors for marks 
         mark1_foreground = "#${themix.base00}";
@@ -175,7 +177,7 @@ in
         mark2_foreground = "#${themix.base00}";
         mark2_background = "#${themix.base0E}";
         mark3_foreground = "#${themix.base00}";
-        mark3_background = "#74c7ec";
+        mark3_background = "#${themix.base0D}";
 
         # black
         color0 = "#${themix.base03}";
@@ -190,7 +192,7 @@ in
         color10 = "#${themix.base0B}";
 
         # Yellow
-        color3 = "#${themix.base0A}";
+        color3 = "#${themix.base09}";
         color11 = "#${themix.base0A}";
 
         # Blue
@@ -207,7 +209,7 @@ in
 
         # White
         color7 = "#${themix.base06}";
-        color15 = "#a6adc8";
+        color15 = "#d4be98";
       };
     };
   };

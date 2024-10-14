@@ -35,6 +35,22 @@
         "type": "github"
       }
     },
+    "gruvbox-bat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1719305649,
+        "narHash": "sha256-J6UePv2qyZcvWa9IKv943i1w4bteWp2tjF9n2taYJog=",
+        "owner": "molchalin",
+        "repo": "gruvbox-material-bat",
+        "rev": "843e67f926bbc4707256f6a8d0d8b819e5006bc1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "molchalin",
+        "repo": "gruvbox-material-bat",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -42,11 +58,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728598744,
-        "narHash": "sha256-sSfvyO5xH3HObHHmh6lp/hcvo7tMjFKd/HXpxyrRnoE=",
+        "lastModified": 1728726232,
+        "narHash": "sha256-8ZWr1HpciQsrFjvPMvZl0W+b0dilZOqXPoKa2Ux36bc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "342a1d682386d3a1d74f9555cb327f2f311dda6e",
+        "rev": "d57112db877f07387ce7104b5ac346ede556d2d7",
         "type": "github"
       },
       "original": {
@@ -140,10 +156,12 @@
     "root": {
       "inputs": {
         "ags": "ags",
+        "gruvbox-bat": "gruvbox-bat",
         "home-manager": "home-manager",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs_2",
-        "plugin-terminal": "plugin-terminal"
+        "plugin-terminal": "plugin-terminal",
+        "tartarus-grub": "tartarus-grub"
       }
     },
     "systems": {
@@ -158,6 +176,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default-linux",
+        "type": "github"
+      }
+    },
+    "tartarus-grub": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1672657246,
+        "narHash": "sha256-/Pzr0R3zzOXUi2pAl8Lvg6aHTiwXTIrxQ1vscbEK/kU=",
+        "owner": "AllJavi",
+        "repo": "tartarus-grub",
+        "rev": "b116360a2a0991062a4d728cb005dfd309fbb82a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AllJavi",
+        "repo": "tartarus-grub",
         "type": "github"
       }
     }
