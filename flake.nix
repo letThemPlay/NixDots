@@ -3,17 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    stable.url = "github:nixos/nixpkgs/nixos-24.05";
 
-		# Home-manager setup
-		home-manager = {
-			url = "github:nix-community/home-manager";
-			inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # for Cliphist overlay, see ./home/Sway/miscServies.nix
-    cliphist = {
-      url = "github:sentriz/cliphist";
-      flake = false;
+    # Home-manager setup
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Gruvbox GRUB theme
@@ -38,28 +33,50 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    ...}@inputs: {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = import inputs.nixpkgs {
+        inherit system;
+
+        config = {
+          allowUnfree = true;
+          allowBroken = true;
+        };
+
+        overlays = [
+          (import ./overlays)
+        ];
+      };
+    in
+    {
       nixosConfigurations = {
         mynixos = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {inherit inputs;};
+          inherit system pkgs;
+          specialArgs = {
+            inherit inputs;
+          };
 
-					modules = [
+          modules = [
             ./host
 
-						home-manager.nixosModules.home-manager
-						{
-							home-manager = {
-								useGlobalPkgs = true;
-								useUserPackages = true;
-								extraSpecialArgs = {inherit inputs;};
-								users."chris" = import ./home;
-							};
-						}
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  inherit inputs;
+                };
+                users."chris" = import ./home;
+              };
+            }
           ];
         };
       };

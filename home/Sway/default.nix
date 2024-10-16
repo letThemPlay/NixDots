@@ -1,11 +1,11 @@
 {
-	imports = [
+  imports = [
     # ./ags.nix
     ./miscServices.nix
-		./sway.nix
+    ./sway.nix
     ./theme.nix
-    ./waybar.nix 
+    ./waybar.nix
     ./wlogout.nix
     ./wofi.nix
-	];
+  ];
 }

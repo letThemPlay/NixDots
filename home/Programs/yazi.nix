@@ -40,7 +40,8 @@
         ];
       };
 
-      plugin = { # See plugins below
+      plugin = {
+        # See plugins below
         prepend_previewers = [
           {
             mime = "video/*";
@@ -65,23 +66,32 @@
     keymap = {
       manager = {
         prepend_keymap = [
-           # For mounting phone or mtp devices
+          # For mounting phone or mtp devices
           {
-            on = [ "b" "m" ];
+            on = [
+              "b"
+              "m"
+            ];
             run = "shell --interactive \"aft-mtp-mount ~/myDevice/\"";
             desc = "Mount phone device";
           }
 
           # For unmounting phone devices
           {
-            on = [ "b" "u" ];
+            on = [
+              "b"
+              "u"
+            ];
             run = "shell --interactive \"kitty -e sudo umount -R ~/myDevice\"";
             desc = "Unmount the phone";
           }
 
           # For going into the directory of usb media (see udiskie)
           {
-            on = [ "g" "m" ];
+            on = [
+              "g"
+              "m"
+            ];
             run = "cd /run/media";
             desc = "Go into mounted USB media";
           }
@@ -95,7 +105,8 @@
       gruvbox-dark = ./Themes/Yazi/gruvbox-dark.yazi;
     };
 
-    theme = { # It goes with the flavors section above
+    theme = {
+      # It goes with the flavors section above
       flavor = {
         use = "gruvbox-dark";
       };
@@ -109,7 +120,7 @@
     };
   };
 
-  home.packages = with pkgs;[ 
+  home.packages = with pkgs; [
     android-file-transfer
     ffmpeg # For use with the video-ffmpeg.yazi plugin
     epub-thumbnailer # for viewing epub format files

@@ -1,13 +1,13 @@
-{ pkgs, config, ... }:
+{ inputs, pkgs, config, ... }:
 let
   themix = config.colorScheme.palette;
-in 
+in
 
 {
   programs = {
     qutebrowser = {
       enable = true;
-      package = pkgs.qutebrowser;
+      package = inputs.stable.legacyPackages.${pkgs.system}.qutebrowser;
       searchEngines = {
         nw = "https://mynixos.com/search?q={}";
         g = "https://www.google.com/search?q={}";
@@ -61,7 +61,7 @@ in
           # padding = "{ 'top': 5, 'bottom': 5, 'left': 5, 'right': 5 }"; # See the extraconfig section for this
           border = "1px solid #${themix.base04}";
         };
-        
+
         downloads = {
           remove_finished = 5000;
           location = {
@@ -263,9 +263,10 @@ in
           };
         };
       };
-      extraConfig = /*python*/ ''
-        c.hints.padding = { 'top': 5, 'bottom': 5, 'left': 5, 'right': 5}
-      '';
+      extraConfig = # python
+        ''
+          c.hints.padding = { 'top': 5, 'bottom': 5, 'left': 5, 'right': 5}
+        '';
     };
 
     firefox = {
@@ -286,13 +287,21 @@ in
           default = "DuckDuckGo";
           engines = {
             "Nix Store" = {
-              urls = [{
-                template = "https://mynixos.com/";
-                params = [
-                  { name = "type"; value = "packages";}
-                  { name = "query"; value = "{searchTerms}"; }
-                ];
-              }];
+              urls = [
+                {
+                  template = "https://mynixos.com/";
+                  params = [
+                    {
+                      name = "type";
+                      value = "packages";
+                    }
+                    {
+                      name = "query";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
             };
           };
         };
@@ -336,7 +345,7 @@ in
       };
     };
   };
-  home.packages = with pkgs; [ 
+  home.packages = with pkgs; [
     uget # A gtk-based download manager
   ];
 }

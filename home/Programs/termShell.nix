@@ -9,18 +9,19 @@ let
     update = "sudo nixos-rebuild switch";
     cleanall = "sudo nix-collect-garbage --delete-old && nix-collect-garbage --delete-old";
   };
-  extraRc = /*bash*/''
-    export WLR_NO_HARDWARE_CURSORS="1";
+  extraRc = # bash
+    ''
+      export WLR_NO_HARDWARE_CURSORS="1";
 
-    function yy() {
-    	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-    	yazi "$@" --cwd-file="$tmp"
-    	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-    		builtin cd -- "$cwd"
-    	fi
-    	rm -f -- "$tmp"
-    }
-  '';
+      function yy() {
+      	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+      	yazi "$@" --cwd-file="$tmp"
+      	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+      		builtin cd -- "$cwd"
+      	fi
+      	rm -f -- "$tmp"
+      }
+    '';
 in
 {
   programs = {
@@ -214,4 +215,3 @@ in
     };
   };
 }
-

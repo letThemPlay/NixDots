@@ -27,7 +27,10 @@
         colorVariants = [ "dark" ];
         sizeVariants = [ "standard" ];
         themeVariants = [ "default" ];
-        tweakVariants = [ "black" "outline" ];
+        tweakVariants = [
+          "black"
+          "outline"
+        ];
         iconVariants = [ "Dark" ];
       };
       name = "Gruvbox-Dark";

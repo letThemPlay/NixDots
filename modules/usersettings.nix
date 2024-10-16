@@ -4,7 +4,7 @@
   users.users.chris = {
     initialPassword = "123";
     isNormalUser = true;
-    extraGroups = [ 
+    extraGroups = [
       "wheel"
       "input"
       "video"

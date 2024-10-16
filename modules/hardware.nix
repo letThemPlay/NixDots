@@ -3,7 +3,7 @@
 {
   # for wayland graphics rendering
   hardware = {
-	  graphics = {
+    graphics = {
       enable = true;
       extraPackages = with pkgs; [
         intel-compute-runtime

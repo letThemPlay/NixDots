@@ -9,7 +9,10 @@
 
     # Enable experimental features
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       auto-optimise-store = true;
       cores = 8; # Decrease it for lesser heat and low RAM consumption when building a flake
       max-jobs = 1; # Keep it low for parallel jobs
@@ -24,7 +27,7 @@
   };
 
   # Allow unfree packages
-  nixpkgs = {
-    config.allowUnfree = true;
-  };
+  #nixpkgs = {
+  #  config.allowUnfree = true;
+  #};
 }

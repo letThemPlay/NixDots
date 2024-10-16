@@ -16,9 +16,9 @@
     #     hplipWithPlugin
     #   ];
     # };
-    
+
     # Enable pipewire audio services
-	  pipewire = {
+    pipewire = {
       enable = true;
       package = pkgs.pipewire;
       audio.enable = true;
@@ -27,15 +27,15 @@
         enable = true;
         package = pkgs.wireplumber;
       };
-     	alsa = {
-			  enable = true;
-			  support32Bit = true;
-		  };
-		  jack.enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      jack.enable = true;
     };
 
     # Enable touchpad services 
-	  libinput.enable = true;
+    libinput.enable = true;
 
     # Enable gvfs for virtual filesystem
     gvfs.enable = true;

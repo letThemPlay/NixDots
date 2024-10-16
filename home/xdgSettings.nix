@@ -1,12 +1,12 @@
-{ 
+{
   pkgs,
-  config, 
-  ... 
+  config,
+  ...
 }:
-let 
+let
   myHome = config.home.homeDirectory;
 in
-  {
+{
   xdg = {
     enable = true;
 
@@ -28,7 +28,7 @@ in
     portal = {
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
-      config.common.default = ["*"];
+      config.common.default = [ "*" ];
     };
   };
 }

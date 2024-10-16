@@ -2,16 +2,21 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ inputs, pkgs, lib, ... }:
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
 
-      # Include other modules
-      ../modules
-    ];
+    # Include other modules
+    ../modules
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -19,8 +24,8 @@
       enable = true;
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ 
-      "i915.force_probe=a7a0" 
+    kernelParams = [
+      "i915.force_probe=a7a0"
     ];
     loader = {
       grub = {
@@ -47,21 +52,27 @@
     # Pick only one of the below networking options.
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
     networkmanager = {
-      enable = true; # Easiest to use and most distros use this by default. 
-      plugins = lib.mkForce [];
+      enable = true; # Easiest to use and most distros use this by default.
+      plugins = lib.mkForce [ ];
     };
 
     # Enable firewall with allowed TCP ports
     firewall = {
       enable = true;
       package = pkgs.nftables;
-      allowedTCPPortRanges = [ 
+      allowedTCPPortRanges = [
         # the dynamic ports used by KDEConnect
-        {from = 1714; to = 1764;}
+        {
+          from = 1714;
+          to = 1764;
+        }
       ];
       allowedUDPPortRanges = [
         # the dynamic ports used by KDEConnect
-        {from = 1714; to = 1764;}
+        {
+          from = 1714;
+          to = 1764;
+        }
       ];
     };
 
@@ -84,10 +95,10 @@
       "/share/xdg-desktop-portal"
       "/share/applications"
     ];
-    
+
     sessionVariables = {
-      WLR_NO_HARDWARE_CURSORS="1";
-      NIXOS_OZONE_WL="1";
+      WLR_NO_HARDWARE_CURSORS = "1";
+      NIXOS_OZONE_WL = "1";
       MOZ_ENABLE_WAYLAND = "1";
     };
 
@@ -126,17 +137,17 @@
 
   # Security
   security = {
-  	rtkit.enable = true;
-	  polkit.enable = true;
+    rtkit.enable = true;
+    polkit.enable = true;
     sudo = {
       enable = true;
-      package = pkgs.sudo.override{ withInsults = true; };
+      package = pkgs.sudo.override { withInsults = true; };
       extraConfig = ''
         Defaults insults
       '';
     };
     pam.services = {
-      swaylock = {};
+      swaylock = { };
     };
   };
 
@@ -144,7 +155,10 @@
   systemd = {
     user.services.mpris-proxy = {
       description = "Mpris proxy";
-      after = [ "network.target" "sound.target" ];
+      after = [
+        "network.target"
+        "sound.target"
+      ];
       wantedBy = [ "default.target" ];
       serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
     };

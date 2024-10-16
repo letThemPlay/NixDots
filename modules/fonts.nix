@@ -3,18 +3,23 @@
 {
   # fonts
   fonts = {
-	  packages = with pkgs; [
-		  # Normal Fonts
-		  noto-fonts
-		  noto-fonts-emoji
+    packages = with pkgs; [
+      # Normal Fonts
+      noto-fonts
+      noto-fonts-emoji
       noto-fonts-cjk
 
-		  # nerdfonts
-		  (nerdfonts.override {fonts = [ "Iosevka" "FantasqueSansMono" ]; })
-	  ];
+      # nerdfonts
+      (nerdfonts.override {
+        fonts = [
+          "Iosevka"
+          "FantasqueSansMono"
+        ];
+      })
+    ];
 
     # To disable the system from using default packages
-	  enableDefaultPackages = false;
+    enableDefaultPackages = false;
 
     # Settings default user fonts
     fontconfig = {

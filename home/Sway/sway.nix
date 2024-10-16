@@ -1,9 +1,14 @@
 # Many programs related to wlr based stuff will be in ../Programs/misc.nix
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   themix = config.colorScheme.palette;
-in 
-  {
+in
+{
   home = {
     packages = with pkgs; [
       wev # wayland event viewer
@@ -27,7 +32,7 @@ in
       modifier = "Mod4";
 
       # Here are the fonts
-      fonts = { 
+      fonts = {
         names = [ "Iosevka Nerd Font" ];
         size = 11.0;
       };
@@ -40,7 +45,7 @@ in
       startup = [
         { command = "swaync"; }
         { command = "wl-paste --watch cliphist store"; }
-        { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &"; }    
+        { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &"; }
       ];
 
       bars = [
@@ -75,51 +80,52 @@ in
 
       # The keybinds. The NixOS manual recommends using lib.mkOptionDefault
       # to avoid starting from scratch and rather use the keybinds here with the default ones
-      keybindings = 
-        let mod = config.wayland.windowManager.sway.config.modifier;
-        in lib.mkOptionDefault {
-            "${mod}+i" = "exec firefox";
-            "${mod}+Shift+i" = "exec qutebrowser";
-            "${mod}+q" = "kill";
-            "${mod}+u" = "exec thunar";
-            "${mod}+Shift+u" = "exec kitty -e yazi";
-            "${mod}+n" = "split none"; # cancel the split in tabbed layout
+      keybindings =
+        let
+          mod = config.wayland.windowManager.sway.config.modifier;
+        in
+        lib.mkOptionDefault {
+          "${mod}+i" = "exec firefox";
+          "${mod}+Shift+i" = "exec qutebrowser";
+          "${mod}+q" = "kill";
+          "${mod}+u" = "exec thunar";
+          "${mod}+Shift+u" = "exec kitty -e yazi";
+          "${mod}+n" = "split none"; # cancel the split in tabbed layout
 
+          # For changing the workspace left and right
+          "${mod}+p" = "workspace next";
+          "${mod}+o" = "workspace prev";
 
-            # For changing the workspace left and right
-            "${mod}+p" = "workspace next";
-            "${mod}+o" = "workspace prev";
+          # For opening the clipboard
+          "${mod}+c" = "exec cliphist list | wofi -S dmenu | cliphist decode | wl-copy";
 
-            # For opening the clipboard
-            "${mod}+c" = "exec cliphist list | wofi -S dmenu | cliphist decode | wl-copy";
+          # For opening the swaync panel
+          "${mod}+Shift+n" = "exec swaync-client -t -sw";
+          # "${mod}+d" = "exec sh -c \"notify-send -i ${./makoIcons/dnd.png} '  Do Not Disturb' 'Turning on Do not Distrub Mode' && sleep 2 && makoctl set-mode do-not-disturb\"";
+          # "${mod}+Shift+d" = "exec sh -c \"makoctl set-mode default && notify-send -i ${./makoIcons/dnd.png} '  Do Not Disturb' 'Do Not Disturb Mode disabled'\"";
+          "${mod}+x" = "exec sh -c \"systemctl suspend && swaylock\"";
 
-            # For opening the swaync panel
-            "${mod}+Shift+n" = "exec swaync-client -t -sw";
-            # "${mod}+d" = "exec sh -c \"notify-send -i ${./makoIcons/dnd.png} '  Do Not Disturb' 'Turning on Do not Distrub Mode' && sleep 2 && makoctl set-mode do-not-disturb\"";
-            # "${mod}+Shift+d" = "exec sh -c \"makoctl set-mode default && notify-send -i ${./makoIcons/dnd.png} '  Do Not Disturb' 'Do Not Disturb Mode disabled'\"";
-            "${mod}+x" = "exec sh -c \"systemctl suspend && swaylock\"";
+          # Volume control keys
+          "--locked XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1";
+          "--locked XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+          "--locked XF86AudioMute" = "exec wpctl set-mute @DEFAULT_SINK@ toggle";
 
-            # Volume control keys
-            "--locked XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1";
-            "--locked XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
-            "--locked XF86AudioMute" = "exec wpctl set-mute @DEFAULT_SINK@ toggle";
+          # Brightness conntrols
+          "--locked XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
+          "--locked XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
 
-            # Brightness conntrols
-            "--locked XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
-            "--locked XF86MonBrightnessDown" = "exec brightnessctl set 5%-"; 
+          # Player buttons
+          "--locked XF86AudioPlay" = "exec playerctl play-pause";
+          "--locked XF86AudioNext" = "exec playerctl next";
+          "--locked XF86AudioPrev" = "exec playerctl previous";
 
-            # Player buttons
-            "--locked XF86AudioPlay" = "exec playerctl play-pause";
-            "--locked XF86AudioNext" = "exec playerctl next";
-            "--locked XF86AudioPrev" = "exec playerctl previous";
+          #"Control+space" = "exec makoctl dismiss";
 
-            #"Control+space" = "exec makoctl dismiss";
-
-            # For screenshots
-            # "print" = "exec ${screenshot}/bin/screenshot";
-            # "Shift+print" = "exec ${partialScreenshot}/bin/partialScreenshot";
-            "print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify savecopy screen";
-            "Shift+print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify savecopy area";
+          # For screenshots
+          # "print" = "exec ${screenshot}/bin/screenshot";
+          # "Shift+print" = "exec ${partialScreenshot}/bin/partialScreenshot";
+          "print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify savecopy screen";
+          "Shift+print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot --notify savecopy area";
         };
 
       # Decoration stuff goes here:
@@ -131,8 +137,8 @@ in
       };
 
       seat = {
-      "*" = {
-        hide_cursor = "when-typing enable";
+        "*" = {
+          hide_cursor = "when-typing enable";
         };
       };
 
@@ -235,13 +241,14 @@ in
       };
     };
 
-    extraConfig = /*jsonc*/''
-      bindswitch lid:off exec swaylock
-      bindswitch --locked lid:on exec swaymsg 'output * dpms on'
+    extraConfig = # jsonc
+      ''
+        bindswitch lid:off exec swaylock
+        bindswitch --locked lid:on exec swaymsg 'output * dpms on'
 
-      bindgesture swipe:right workspace prev
-      bindgesture swipe:left workspace next
-    '';
+        bindgesture swipe:right workspace prev
+        bindgesture swipe:left workspace next
+      '';
     swaynag = {
       enable = true;
     };
@@ -341,5 +348,5 @@ in
       ];
       systemdTarget = "sway-session.target";
     };
-  };      
+  };
 }

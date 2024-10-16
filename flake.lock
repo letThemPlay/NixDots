@@ -16,22 +16,6 @@
         "type": "github"
       }
     },
-    "cliphist": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1729035841,
-        "narHash": "sha256-tImRbWjYCdIY8wVMibc5g5/qYZGwgT9pl4pWvY7BDlI=",
-        "owner": "sentriz",
-        "repo": "cliphist",
-        "rev": "8c48df70bb3d9d04ae8691513e81293ed296231a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "sentriz",
-        "repo": "cliphist",
-        "type": "github"
-      }
-    },
     "gruvbox-bat": {
       "flake": false,
       "locked": {
@@ -136,13 +120,29 @@
     },
     "root": {
       "inputs": {
-        "cliphist": "cliphist",
         "gruvbox-bat": "gruvbox-bat",
         "home-manager": "home-manager",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs",
         "plugin-terminal": "plugin-terminal",
+        "stable": "stable",
         "tartarus-grub": "tartarus-grub"
+      }
+    },
+    "stable": {
+      "locked": {
+        "lastModified": 1728909085,
+        "narHash": "sha256-WLxED18lodtQiayIPDE5zwAfkPJSjHJ35UhZ8h3cJUg=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c0b1da36f7c34a7146501f684e9ebdf15d2bebf8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-24.05",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "tartarus-grub": {

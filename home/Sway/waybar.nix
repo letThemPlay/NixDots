@@ -1,34 +1,34 @@
-{config, ... }:
+{ config, ... }:
 let
   themix = config.colorScheme.palette;
-in 
-  {
+in
+{
   programs.waybar = {
     enable = true;
 
-		# settings of the main bar
-		settings = {
-			mainBar = {
-				layer = "top";
-				position = "bottom";
+    # settings of the main bar
+    settings = {
+      mainBar = {
+        layer = "top";
+        position = "bottom";
 
-        modules-left = [ 
+        modules-left = [
           "custom/notifications"
           "clock"
           "idle_inhibitor"
           "keyboard-state"
         ];
 
-        modules-center = [ 
+        modules-center = [
           "tray"
           "sway/workspaces"
         ];
 
-        modules-right = [ 
+        modules-right = [
           "group/hardware"
           #"battery" 
-          "backlight" 
-          "network" 
+          "backlight"
+          "network"
           "wireplumber"
           #"cpu" 
           #"memory" 
@@ -49,9 +49,9 @@ in
           ];
         };
 
-				"sway/workspaces" = {
+        "sway/workspaces" = {
           window-rewrite = "{}";
-					disable-scroll = true;
+          disable-scroll = true;
           format = "{icon}";
           persistent-workspaces = {
             "1" = "[]";
@@ -70,8 +70,8 @@ in
             empty = " ";
             focused = " ";
           };
-					on-click = "activate";
-				};
+          on-click = "activate";
+        };
 
         "sway/window" = {
           format = "{title}";
@@ -87,10 +87,10 @@ in
         wireplumber = {
           format = "{icon}{volume}%";
           tooltip = false;
-          format-icons = { 
+          format-icons = {
             default = [
-              "<span foreground='#${themix.base0A}'></span>" 
-              "<span foreground='#${themix.base0B}'> </span>" 
+              "<span foreground='#${themix.base0A}'></span>"
+              "<span foreground='#${themix.base0B}'> </span>"
               "<span foreground='#${themix.base0E}'> </span>"
             ];
             headphone = " ";
@@ -113,29 +113,29 @@ in
           capslock = true;
         };
 
-				battery = {
+        battery = {
           interval = 1;
-					full-at = 100;
-					states = {
-						good = 80;
-						warning = 30;
-						critical = 20;
-					};
-					format = "{icon}{capacity}%";
-					format-charging = " {capacity}%";
-					format-plugged = " {capacity}%";
-					format-full = "{icon} <span foreground='#${themix.base0A}'> </span>";
-					format-alt = "{icon} {time}";
+          full-at = 100;
+          states = {
+            good = 80;
+            warning = 30;
+            critical = 20;
+          };
+          format = "{icon}{capacity}%";
+          format-charging = " {capacity}%";
+          format-plugged = " {capacity}%";
+          format-full = "{icon} <span foreground='#${themix.base0A}'> </span>";
+          format-alt = "{icon} {time}";
           format-icons = [
-            "<span foreground='#${themix.base07}'> </span>" 
-            "<span foreground='#${themix.base08}'> </span>" 
-            "<span foreground='#${themix.base0A}'> </span>" 
-            "<span foreground='#${themix.base0B}'> </span>" 
-            "<span foreground='#${themix.base0B}'> </span>" 
+            "<span foreground='#${themix.base07}'> </span>"
+            "<span foreground='#${themix.base08}'> </span>"
+            "<span foreground='#${themix.base0A}'> </span>"
+            "<span foreground='#${themix.base0B}'> </span>"
+            "<span foreground='#${themix.base0B}'> </span>"
           ];
-					format-time = "{H}h {M}min";
-					tooltip = true;
-				};
+          format-time = "{H}h {M}min";
+          tooltip = true;
+        };
 
         idle_inhibitor = {
           format = "{icon}";
@@ -145,14 +145,14 @@ in
           };
         };
 
-				clock = {
-					interval = 60;
-					align = 0;
-					rotate = 0;
-					tooltip-format = "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>";
-					format = "<span foreground='#${themix.base06}'> </span>{:%I:%M%p}";
-					format-alt = "<span foreground='#${themix.base06}'> </span>{:%a %b %d, %G}";
-				};
+        clock = {
+          interval = 60;
+          align = 0;
+          rotate = 0;
+          tooltip-format = "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>";
+          format = "<span foreground='#${themix.base06}'> </span>{:%I:%M%p}";
+          format-alt = "<span foreground='#${themix.base06}'> </span>{:%a %b %d, %G}";
+        };
 
         cpu = {
           interval = 1;
@@ -164,14 +164,14 @@ in
           };
           on-click = "kitty -e btop";
           format-icons = [
-            "<span color='#69ff94'>▁</span>" #green
-            "<span color='#2aa9ff'>▂</span>" #blue
-            "<span color='#f8f8f2'>▃</span>" #white
-            "<span color='#f8f8f2'>▄</span>" #white
-            "<span color='#ffffa5'>▅</span>" #yellow
-            "<span color='#ffffa5'>▆</span>" #yellow
-            "<span color='#ff9977'>▇</span>" #orange
-            "<span color='#dd532e'>█</span>" #red
+            "<span color='#69ff94'>▁</span>" # green
+            "<span color='#2aa9ff'>▂</span>" # blue
+            "<span color='#f8f8f2'>▃</span>" # white
+            "<span color='#f8f8f2'>▄</span>" # white
+            "<span color='#ffffa5'>▅</span>" # yellow
+            "<span color='#ffffa5'>▆</span>" # yellow
+            "<span color='#ff9977'>▇</span>" # orange
+            "<span color='#dd532e'>█</span>" # red
           ];
         };
         memory = {
@@ -179,10 +179,10 @@ in
           format = "<span foreground='#${themix.base0F}'> </span>{used:0.1f}G";
         };
 
-				tray = {
-					icon-size = 16;
-					spacing = 10;
-				};
+        tray = {
+          icon-size = 16;
+          spacing = 10;
+        };
 
         network = {
           interval = 5;
@@ -200,14 +200,14 @@ in
           tooltip = false;
           format = "{icon}{percent}%";
           format-icons = [
-            "<span color='#${themix.base0B}'> </span>" #green
-            "<span color='#${themix.base0D}'> </span>" #blue
-            "<span color='#${themix.base06}'> </span>" #white
-            "<span color='#${themix.base0F}'> </span>" #white
-            "<span color='#${themix.base0E}'> </span>" #yellow
-            "<span color='#${themix.base0A}'> </span>" #yellow
-            "<span color='#${themix.base09}'> </span>" #orange
-            "<span color='#${themix.base08}'> </span>" #red
+            "<span color='#${themix.base0B}'> </span>" # green
+            "<span color='#${themix.base0D}'> </span>" # blue
+            "<span color='#${themix.base06}'> </span>" # white
+            "<span color='#${themix.base0F}'> </span>" # white
+            "<span color='#${themix.base0E}'> </span>" # yellow
+            "<span color='#${themix.base0A}'> </span>" # yellow
+            "<span color='#${themix.base09}'> </span>" # orange
+            "<span color='#${themix.base08}'> </span>" # red
           ];
         };
 
@@ -215,14 +215,14 @@ in
           tooltip = false;
           format = "{icon}";
           format-icons = {
-            notification= "<span foreground='#${themix.base08}'> <sup></sup></span>";
-            none= "<span foreground='#${themix.base0A}'> </span>";
-            dnd-notification= " <span foreground='#${themix.base08}'><sup></sup></span>";
-            dnd-none= " ";
-            inhibited-notification= " <span foreground='#${themix.base08}'><sup></sup></span>";
-            inhibited-none= " ";
-            dnd-inhibited-notification= " <span foreground='#${themix.base08}'><sup></sup></span>";
-            dnd-inhibited-none= " ";
+            notification = "<span foreground='#${themix.base08}'> <sup></sup></span>";
+            none = "<span foreground='#${themix.base0A}'> </span>";
+            dnd-notification = " <span foreground='#${themix.base08}'><sup></sup></span>";
+            dnd-none = " ";
+            inhibited-notification = " <span foreground='#${themix.base08}'><sup></sup></span>";
+            inhibited-none = " ";
+            dnd-inhibited-notification = " <span foreground='#${themix.base08}'><sup></sup></span>";
+            dnd-inhibited-none = " ";
           };
           return-type = "json";
           exec-if = "which swaync-client";
@@ -240,125 +240,126 @@ in
       };
     };
 
-    style = /*css*/''
-      *{
-        font-family: 'Iosevka Nerd Font Propo';
-        font-size: 12pt;
-        min-height: 0;
-        border-radius: 0;
-      }
-      
-      tooltip {
-        background: #${themix.base00};
-        border-radius: 15px;
-        border: 2px solid #${themix.base0C};
-      }
-      
-      #window {
-        border-radius: 20px;
-        color: #${themix.base05};
-        margin-left: 10px;
-        margin-right: 10px;
-      }
-      window#waybar {
-        background-color: transparent;
-        color: #${themix.base05};
-        border-radius: 20px;
-      }
-      
-      /*#workspaces {
-        padding: 1px 1px 1px 1px;
-        border-radius: 25px;
-        margin-right: 10px;
-        margin-left: 10px;
-        margin-top: 2px;
-        margin-bottom: 2px;
-      }*/
+    style = # css
+      ''
+        *{
+          font-family: 'Iosevka Nerd Font Propo';
+          font-size: 12pt;
+          min-height: 0;
+          border-radius: 0;
+        }
 
-      
-      #workspaces button {
-        padding: 1px;
-        background:none;
-        color: #${themix.base0A};
-        border: none;
-      }
+        tooltip {
+          background: #${themix.base00};
+          border-radius: 15px;
+          border: 2px solid #${themix.base0C};
+        }
 
-      #workspaces button.empty {
-        color: #${themix.base04};
-      }
+        #window {
+          border-radius: 20px;
+          color: #${themix.base05};
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+        window#waybar {
+          background-color: transparent;
+          color: #${themix.base05};
+          border-radius: 20px;
+        }
 
-      #workspaces button.focused {
-        color: #${themix.base09};
-      }
+        /*#workspaces {
+          padding: 1px 1px 1px 1px;
+          border-radius: 25px;
+          margin-right: 10px;
+          margin-left: 10px;
+          margin-top: 2px;
+          margin-bottom: 2px;
+        }*/
 
-      #workspaces button.urgent {
-        color: #${themix.base08};
-      }
-      
-      #workspaces button:hover{
-        border-radius: 50px;
-        background: #${themix.base02};
-        color: #${themix.base07};
-      }
-      
-      .modules-left {
-        background: linear-gradient(45deg, #${themix.base00}, #${themix.base00}) padding-box, linear-gradient(45deg, #${themix.base0D}, #${themix.base0E}) border-box;
-        border: 2px solid transparent;
-        border-radius: 25px;
-        color: #${themix.base05};
-        margin: 10px 5px 10px 5px;
-        padding: 5px;
-      }
-      
-      .modules-center {
-        background: linear-gradient(180deg, #${themix.base00}, #${themix.base00}) padding-box, linear-gradient(180deg, #${themix.base0D}, #${themix.base0E}) border-box;
-        border: 2px solid transparent;
-        border-radius: 25px;
-        color: inherit;
-        margin: 10px 0 10px 0;
-        padding: 5px;
-      }
-      
-      .modules-right {
-        background: linear-gradient(135deg, #${themix.base00}, #${themix.base00}) padding-box, linear-gradient(135deg, #${themix.base0E}, #${themix.base0D}) border-box;
-        border: 2px solid transparent; 
-        border-radius: 25px;
-        color: inherit;
-        margin: 10px 5px 10px 0;
-        padding: 5px;
-      }
 
-      #custom-notifications,
-      #clock,
-      #idle_inhibitor,
-      #keyboard-state,
-      #battery,
-      #backlight,
-      #network,
-      #wireplumber,
-      #cpu,
-      #memory,
-      #custom-power {
-        margin-right: 10px;
-        margin-left: 10px;
-      }
-      
-      #idle_inhibitor.activated {
-        color: #${themix.base08};
-      }
-      #idle_inhibitor.deactivated {
-        color: #${themix.base07};
-      }
+        #workspaces button {
+          padding: 1px;
+          background:none;
+          color: #${themix.base0A};
+          border: none;
+        }
 
-      #custom-notifications {
-        font-family: "Iosevka Nerd Font Propo";
-      }
-      #custom-power {
-        color: #${themix.base08};
-        border-radius: 25px;
-        background: #${themix.base03};
-        padding-left: 15px;
-      }
+        #workspaces button.empty {
+          color: #${themix.base04};
+        }
+
+        #workspaces button.focused {
+          color: #${themix.base09};
+        }
+
+        #workspaces button.urgent {
+          color: #${themix.base08};
+        }
+
+        #workspaces button:hover{
+          border-radius: 50px;
+          background: #${themix.base02};
+          color: #${themix.base07};
+        }
+
+        .modules-left {
+          background: linear-gradient(45deg, #${themix.base00}, #${themix.base00}) padding-box, linear-gradient(45deg, #${themix.base0D}, #${themix.base0E}) border-box;
+          border: 2px solid transparent;
+          border-radius: 25px;
+          color: #${themix.base05};
+          margin: 10px 5px 10px 5px;
+          padding: 5px;
+        }
+
+        .modules-center {
+          background: linear-gradient(180deg, #${themix.base00}, #${themix.base00}) padding-box, linear-gradient(180deg, #${themix.base0D}, #${themix.base0E}) border-box;
+          border: 2px solid transparent;
+          border-radius: 25px;
+          color: inherit;
+          margin: 10px 0 10px 0;
+          padding: 5px;
+        }
+
+        .modules-right {
+          background: linear-gradient(135deg, #${themix.base00}, #${themix.base00}) padding-box, linear-gradient(135deg, #${themix.base0E}, #${themix.base0D}) border-box;
+          border: 2px solid transparent; 
+          border-radius: 25px;
+          color: inherit;
+          margin: 10px 5px 10px 0;
+          padding: 5px;
+        }
+
+        #custom-notifications,
+        #clock,
+        #idle_inhibitor,
+        #keyboard-state,
+        #battery,
+        #backlight,
+        #network,
+        #wireplumber,
+        #cpu,
+        #memory,
+        #custom-power {
+          margin-right: 10px;
+          margin-left: 10px;
+        }
+
+        #idle_inhibitor.activated {
+          color: #${themix.base08};
+        }
+        #idle_inhibitor.deactivated {
+          color: #${themix.base07};
+        }
+
+        #custom-notifications {
+          font-family: "Iosevka Nerd Font Propo";
+        }
+        #custom-power {
+          color: #${themix.base08};
+          border-radius: 25px;
+          background: #${themix.base03};
+          padding-left: 15px;
+        }
       '';
   };
 }

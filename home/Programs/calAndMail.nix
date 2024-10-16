@@ -1,5 +1,5 @@
 { pkgs, config, ... }:
-let 
+let
   myHome = config.home.homeDirectory;
 in
 {
@@ -32,7 +32,7 @@ in
           address = "rachitverma1122@gmail.com";
           imap = {
             host = "imap.exmaple.org";
-            tls = {};
+            tls = { };
           };
           neomutt = {
             enable = true;
