@@ -9,13 +9,13 @@
     };
     # Enable CUPS to print documents
     # hardware.printing in the hardware.nix
-    printing = {
-      enable = true;
-      drivers = with pkgs; [
-        hplip
-        hplipWithPlugin
-      ];
-    };
+    # printing = {
+    #   enable = true;
+    #   drivers = with pkgs; [
+    #     hplip
+    #     hplipWithPlugin
+    #   ];
+    # };
     
     # Enable pipewire audio services
 	  pipewire = {

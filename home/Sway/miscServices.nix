@@ -1,11 +1,31 @@
-{ pkgs, config, ... }:
-let
+{ 
+pkgs, 
+config, 
+... 
+}: let
   themix = config.colorScheme.palette;
-in 
-{
+in {
+  # The overlay for cliphist
+  nixpkgs.overlays = [
+    (final: prev: 
+      {
+        cliphist = prev.cliphist.overrideAttrs (old: {
+          src = final.fetchFromGithub {
+            owner = "sentriz";
+            repo = "cliphist";
+            rev = "v0.6.1";
+          };
+          hash = "";
+          vendorHash = "";
+        });
+        cliphist-custom = final.cliphist;
+      }
+    )
+  ];
   home ={
     packages = with pkgs; [
       libnotify # for notification sending
+      # cliphist-custom
     ];
   };
   # Services for wayland compositors in case I decide to move over to swayWM
@@ -55,10 +75,11 @@ in
     # };
 
     # Clipboard service
-    cliphist = {
-      enable = true;
-      allowImages = true;
-    };
+    # cliphist = {
+    #   enable = true;
+    #   allowImages = true;
+    #   package = pkgs.cliphist-custom;
+    # };
 
     # Swayosd for cool popups
     # swayosd = {

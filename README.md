@@ -20,6 +20,7 @@ After installing the system
 - Learn to make btrfs using disko, enable impermanence
 - Set user.js for mozilla
 - Set search.engines for Mozilla firefox
+*** Must learn how to use nixpkgs overlays ***
 
 ### Not needed after ags setup ###
 - Waybar

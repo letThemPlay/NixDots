@@ -1,6 +1,7 @@
+{ options, ... }:
 {
   nix = {
-
+    nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/overlays-compat/" ];
     optimise = {
       automatic = true;
       dates = [ "10:45" ];
@@ -23,5 +24,7 @@
   };
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+  };
 }
